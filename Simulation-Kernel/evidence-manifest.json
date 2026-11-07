@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Simulation-Kernel",
-  "created_at": "2026-11-07T12:39:50Z",
+  "created_at": "2026-11-07T12:41:27Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "main",
-    "commit": "8e195b8a2c7e9dee6b2434e83f7cc3f67791fbf0"
+    "commit": "848c0710ccc553047ad20a2528a45a42e2a2f458"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,33 +23,33 @@
   "evidence": [
     {
       "path": "Simulation-Kernel/REPORT.md",
-      "sha256": "8d22738485f617f8140c640469869e26be0a77510c2563e0fbf9312673349f23",
+      "sha256": "078f3127fa440b40737689c0878572c5602f4f4cc67762870607a589812ab3a3",
       "kind": "report"
     },
     {
       "path": "Simulation-Kernel/HANDOFF.md",
-      "sha256": "05918ce4a1cd43c7c9aff7698f5301b17c470cea66636869de2a3f420b08d28a",
+      "sha256": "5c0648000a35b8e5dd013588290532d9053b87810cb357f32b0d02fab5497dfa",
       "kind": "handoff"
     },
     {
       "path": "Simulation-Kernel/evidence/matlab-test-run.txt",
-      "sha256": "5780880cdf33f9f751bdcaa5bb2bd6a1380c3b4b4ab5184aadfae4ec2127d1f4",
+      "sha256": "f292d28566d9bc270bde1d56fe3c9b769a21d46fd0048b4ac91568439e1d2eb3",
       "kind": "other"
     },
     {
       "path": "Simulation-Kernel/evidence/demo-run.txt",
-      "sha256": "56e283315d9f9e22417e92da8acf1d328439d7d0be54561aacb49a0ad497d4cf",
+      "sha256": "0f580b9ff061e47b185cab89e7f1287f8f920df3361272fc9c16dee0cc2cd504",
       "kind": "other"
     }
   ],
   "verification": {
     "commands": [
-      "matlab -batch run('tests/run_tests.m')"
+      "fresh clone of DEV 848c071; matlab -batch run('tests/run_tests.m')"
     ],
     "result": "passed"
   },
   "limitations": [
-    "Capacity thresholds verified with scaled policies, not by writing 8 GB; link checks tested for Windows junctions only."
+    "Capacity thresholds verified with scaled policies, not by writing 8 GB; link checks tested for Windows junctions only; test evidence was produced from a fresh clone."
   ],
-  "next_action": "NEXUS re-review of Simulation-Kernel finalization at DEV 8e195b8; see HANDOFF.md"
+  "next_action": "NEXUS re-review of Simulation-Kernel finalization at DEV 848c071; see HANDOFF.md"
 }

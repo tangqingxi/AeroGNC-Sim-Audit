@@ -5,7 +5,7 @@
 | 阶段名称 | `Simulation-Kernel` |
 | 状态 | `ready-for-review`（NEXUS 上轮判定 CONDITIONAL，本轮完成整改，等待复审） |
 | DEV | <https://github.com/tangqingxi/AeroGNC-Sim> |
-| DEV 分支 / HEAD | `main` / `8e195b8a2c7e9dee6b2434e83f7cc3f67791fbf0`（已推送） |
+| DEV 分支 / HEAD | `main` / `848c0710ccc553047ad20a2528a45a42e2a2f458`（已推送，全新 clone 复验通过） |
 | 上轮 DEV | `2d9b9bffad6051fe6ceb66cf489ad85f175fe7fc` |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 环境 | MATLAB R2025b `25.2.0.2998904`，PCWIN64；无额外工具箱 |
@@ -45,14 +45,22 @@
 - 事件计数改为显式计数器（原实现存在 O(E²) 的重复统计写法）。
 - 中文注释覆盖 `src/` 全部内核与 Results 文件、`aero_setup`、测试入口与新增测试；物理模型注明单位、状态顺序与解析解。未修改的旧测试文件保持原注释，避免无意义的历史差异。
 
+### 1.4 验证过程中发现并修复的构建缺陷
+
+目录整理后首次推送时，`.gitignore` 中的 `results/` 规则在大小写不敏感的 Windows 工作区里同时匹配了
+`src/Simulation/Results/`，导致新文件 `aero_results_path.m` 未被 Git 跟踪；本地测试仍能通过，但全新
+clone 会因缺少该函数而失败。修复：把忽略规则锚定为仓库根目录 `/results/`，并补交该文件（`848c071`）。
+此后所有验证均改为**从 GitHub 全新 clone** 执行，以证明远端内容自洽。
+
 ## 2. 验证记录
 
 ### 2.1 回归测试
 
-`matlab -batch "run('tests/run_tests.m')"`（干净检出，退出码 0）：
+从 `https://github.com/tangqingxi/AeroGNC-Sim` 全新 clone（HEAD `848c071`）后执行
+`matlab -batch "run('tests/run_tests.m')"`，退出码 0：
 
 ```text
-14/14 tests passed in 5.07s
+14/14 tests passed in 5.51s
 ```
 
 13 项原有测试全部保留且阈值未变，新增 `test_results_safety`（覆盖保护、哈希不变、路径穿越、绝对越界、同前缀、Junction、临时文件残留）。`run_tests` 支持 `SKIP` 计数：Junction 无法创建时该测试标记为跳过而非通过（本机实际执行并通过）。
@@ -91,7 +99,7 @@
 
 ### 2.5 示例
 
-`matlab -batch "run('examples/demo_first_order.m')"`：x(2)=1.425319，解析误差 1.36e-10（证据 `evidence/demo-run.txt`）。
+在全新 clone 中执行 `matlab -batch "run('examples/demo_first_order.m')"`：x(2)=1.425319，解析误差 1.36e-10（证据 `evidence/demo-run.txt`）。
 
 ## 3. 验收对照
 
@@ -102,7 +110,7 @@
 | 拒绝越界与链接路径 | PASS | §2.4（Junction 实测） |
 | Results 边界回归 | PASS | `test_results_policy`、`test_results_safety` |
 | 目录职责清楚、无空目录 | PASS | §1.2，`git ls-tree` |
-| 移动后入口/测试/示例正常 | PASS | §2.1、§2.5 |
+| 移动后入口/测试/示例正常 | PASS | §2.1、§2.5，全新 clone 14/14 |
 | 主要流程可读、中文注释 | PASS | §1.3；`src/` 无英文说明注释（仅 API 名称保留原文） |
 | 冻结架构未改 | PASS | `ARCHITECTURE.md` SHA256 `7A17A41B…5949` 不变 |
 | 数值与时序未退化 | PASS | §2.2、§2.3 |
@@ -122,7 +130,7 @@
 
 | 仓库 | 提交 |
 |---|---|
-| DEV | `346b86e` Results 修复 + 目录整理 + 中文注释；`9d5f8ed` README/AGENTS；`d19381d` 持久化端到端测试；`8e195b8` 解析模型中文头（HEAD） |
+| DEV | `346b86e` Results 修复 + 目录整理 + 中文注释；`9d5f8ed` README/AGENTS；`d19381d` 持久化端到端测试；`8e195b8` 解析模型中文头；`848c071` 补交 `aero_results_path.m` 并锚定 `results` 忽略规则（HEAD） |
 | DEV 文件 | `src/Simulation/*`、`src/Simulation/Results/*`、`tests/*`、`tests/fixtures/*`、`aero_setup.m`、`README.md`、`AGENTS.md` |
 | AUDIT | 本报告 + `HANDOFF.md` + 测试/示例日志 + 证据清单 |
 
