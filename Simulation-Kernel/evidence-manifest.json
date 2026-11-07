@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Simulation-Kernel",
-  "created_at": "2026-11-07T12:41:27Z",
+  "created_at": "2026-11-07T13:16:00Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -14,21 +14,20 @@
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
-  "status": "in-progress",
+  "status": "accepted",
   "environment": {
     "os": "Windows",
-    "matlab": "R2025b 25.2.0.2998904",
-    "python": "3.13.14"
+    "matlab": "R2025b 25.2.0.2998904"
   },
   "evidence": [
     {
       "path": "Simulation-Kernel/REPORT.md",
-      "sha256": "078f3127fa440b40737689c0878572c5602f4f4cc67762870607a589812ab3a3",
+      "sha256": "c8a5695ae312f26821f7554fb6a50c3b00b8d8c64c65879d5d5f361bd7b62ced",
       "kind": "report"
     },
     {
       "path": "Simulation-Kernel/HANDOFF.md",
-      "sha256": "5c0648000a35b8e5dd013588290532d9053b87810cb357f32b0d02fab5497dfa",
+      "sha256": "14c6228b7f9722bea713ea962fea60529694fa4c81eea6aa7457b415ec2e1f46",
       "kind": "handoff"
     },
     {
@@ -49,7 +48,7 @@
     "result": "passed"
   },
   "limitations": [
-    "Capacity thresholds verified with scaled policies, not by writing 8 GB; link checks tested for Windows junctions only; test evidence was produced from a fresh clone."
+    "NEXUS accepted on 2026-11-07; only the acceptance status note was added to the handoff."
   ],
-  "next_action": "NEXUS re-review of Simulation-Kernel finalization at DEV 848c071; see HANDOFF.md"
+  "next_action": "Next phase SHC09-Aircraft is blocked at Gate A; see SHC09-Aircraft/REPORT.md"
 }

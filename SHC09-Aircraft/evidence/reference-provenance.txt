@@ -1,0 +1,26 @@
+# SHC09 reference provenance (read-only audit)
+reference_repo: https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab
+reference_commit: 43b6c7aef1912f8118e54d3decac1ac55465d5b1
+audited_at: 2026-11-07 (Asia/Shanghai)
+
+file_sha256_recorded_by_old_repo_and_recomputed:
+ICGNC_matlab2.0/Initialized_SHC09.m  models\shc09\reference\Initialized_SHC09.m  recorded=8323e4a786a52ad53b76748431a78fba30f0cfae22f1481bdaad309468733d35  actual=8323e4a786a52ad53b76748431a78fba30f0cfae22f1481bdaad309468733d35  MATCH
+ICGNC_matlab2.0/SHC09_Sys.m  models\shc09\reference\SHC09_Sys.m  recorded=e02d937fe113860cff2872a8d9de2d225b7b5d3de22716d75b59239fafbd5c50  actual=e02d937fe113860cff2872a8d9de2d225b7b5d3de22716d75b59239fafbd5c50  MATCH
+ICGNC_matlab2.0/Ducted_Fan_FnM.m  models\shc09\reference\Ducted_Fan_FnM.m  recorded=e06b7c43214ca39cccadc0f6a3277454dec92ff805dbf2769da83f772d405e39  actual=e06b7c43214ca39cccadc0f6a3277454dec92ff805dbf2769da83f772d405e39  MATCH
+ICGNC_matlab2.0/Wing_FnM.m  models\shc09\reference\Wing_FnM.m  recorded=a4b7b498866550d6f6307fc65e2f22406795c51914c91dc13bce2d76a650248d  actual=a4b7b498866550d6f6307fc65e2f22406795c51914c91dc13bce2d76a650248d  MATCH
+ICGNC_matlab2.0/Rn2bf.m  models\shc09\reference\Rn2bf.m  recorded=fc02f233c4ec17542cf876a143921a478de0f7b3495e0ce2a465021b68ceb793  actual=fc02f233c4ec17542cf876a143921a478de0f7b3495e0ce2a465021b68ceb793  MATCH
+ICGNC_matlab2.0/Constrain.m  models\shc09\reference\Constrain.m  recorded=81c3f29a43c2671503af4916efb5473f79cdb6182893a4fe871a34fdc4f12e03  actual=81c3f29a43c2671503af4916efb5473f79cdb6182893a4fe871a34fdc4f12e03  MATCH
+ICGNC_matlab2.0/duct_raw.mat  models\shc09\reference\duct_raw.mat  recorded=a5140eea72b98021433af2b1cb3b94b3660700eb84834751c102f07cf1831d2a  actual=a5140eea72b98021433af2b1cb3b94b3660700eb84834751c102f07cf1831d2a  MATCH
+ICGNC_matlab2.0/wing_raw.mat  models\shc09\reference\wing_raw.mat  recorded=299bbd2b6b6e0a60bc463bce89ddd240bb933c498d0bab2b331a8f54e98d15b2  actual=299bbd2b6b6e0a60bc463bce89ddd240bb933c498d0bab2b331a8f54e98d15b2  MATCH
+
+aero_table_shape_and_domain:
+  duct_raw.mat: 20x4, angle 0 .. 2.2689 rad (0 .. 130 deg)
+  wing_raw.mat: 22x4, angle -0.3491 .. 2.2689 rad (-20 .. 130 deg)
+
+license_files_present_in_reference_repo:
+  LICENSE (BSD-3-Clause, project own code)
+  THIRD_PARTY_NOTICES.md (states ICGNC-derived reference files keep their own rights)
+  third_party/PX4-ECL/LICENSE, third_party/PX4-Matrix/LICENSE, apps/windtrace/LICENSE
+  no license file for ICGNC_matlab2.0 reference models or aero tables
+
+sdf_or_cad_files_in_reference_repo: none (glob **/*.sdf returned 0 files)

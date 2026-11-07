@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "phase": "SHC09-Aircraft",
+  "created_at": "2026-11-07T13:15:50Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "main",
+    "commit": "848c0710ccc553047ad20a2528a45a42e2a2f458"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "blocked",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "reference_commit": "43b6c7aef1912f8118e54d3decac1ac55465d5b1"
+  },
+  "evidence": [
+    {
+      "path": "SHC09-Aircraft/REPORT.md",
+      "sha256": "fff8015b3055b0a2f4567864fce87eeca7876040b22a62137940330b976d5ebc",
+      "kind": "report"
+    },
+    {
+      "path": "SHC09-Aircraft/HANDOFF.md",
+      "sha256": "e1bd334f9633885fa9390b5d63da96d210a90d24cfb16e40c08fac7eb37f2b37",
+      "kind": "handoff"
+    },
+    {
+      "path": "SHC09-Aircraft/evidence/reference-provenance.txt",
+      "sha256": "52085a1adcda9c7e46db8a41c842be30bef7b37b24e408fd23abf6c3691d46c9",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "read-only audit: SHA256 recomputation and source review; no MATLAB code executed"
+    ],
+    "result": "not-run"
+  },
+  "limitations": [
+    "Gate A stopped on inertia frame conflict, aero-table redistribution rights and vane channel mapping; Gates B-F not started."
+  ],
+  "next_action": "NEXUS decision on D1 (inertia), D2 (aero data rights), D3 (vane mapping); see SHC09-Aircraft/REPORT.md section 8"
+}

@@ -3,7 +3,7 @@
 | 项 | 值 |
 |---|---|
 | 阶段名称 | `Simulation-Kernel` |
-| 状态 | `ready-for-review`（NEXUS 上轮判定 CONDITIONAL，本轮完成整改，等待复审） |
+| 状态 | `accepted`（NEXUS 于 2026-11-07 判定 ACCEPT；AUDIT 状态由 NEXUS 决定更新，技术内容未改） |
 | DEV | <https://github.com/tangqingxi/AeroGNC-Sim> |
 | DEV 分支 / HEAD | `main` / `848c0710ccc553047ad20a2528a45a42e2a2f458`（已推送，全新 clone 复验通过） |
 | 上轮 DEV | `2d9b9bffad6051fe6ceb66cf489ad85f175fe7fc` |
