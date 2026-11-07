@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "phase": "Simulation-Kernel",
+  "created_at": "2026-11-07T12:19:36Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "main",
+    "commit": "2d9b9bffad6051fe6ceb66cf489ad85f175fe7fc"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "python": "3.13.14"
+  },
+  "evidence": [
+    {
+      "path": "Simulation-Kernel/REPORT.md",
+      "sha256": "56c4492d4332ef6c4bd74b854d058479f78318edd34397f2cac34fd3e411c8b6",
+      "kind": "report"
+    },
+    {
+      "path": "Simulation-Kernel/HANDOFF.md",
+      "sha256": "729f08a49c16ab4db3b892e53d20b3d336be70fa43ece207c7ee6ed746bb1686",
+      "kind": "handoff"
+    },
+    {
+      "path": "Simulation-Kernel/evidence/matlab-test-run.txt",
+      "sha256": "93470cb6ef3c762d1d536721a846a1ff07e85f673a4b342470ebf4abaeafb2ca",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "matlab -batch run('tests/run_tests.m')"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "13/13 tests pass from clean checkout; results thresholds verified with scaled policies, not by writing 8 GB."
+  ],
+  "next_action": "NEXUS review of Simulation-Kernel against DEV 2d9b9bf; see HANDOFF.md"
+}
