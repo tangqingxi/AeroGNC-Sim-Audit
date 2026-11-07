@@ -3,7 +3,7 @@
 | 项 | 值 |
 |---|---|
 | 阶段名称 | `Architecture-Baseline` |
-| 状态 | `in-progress`（仓库初始化完成；阶段验收待用户确认） |
+| 状态 | `accepted`（NEXUS 于 2026-11-07 判定 ACCEPT；本轮仅做状态收尾，技术内容未改） |
 | 报告时间 | 2026-11-07 20:05 +08:00 |
 | DEV 仓库 | <https://github.com/tangqingxi/AeroGNC-Sim> |
 | DEV 分支 / HEAD | `main` / `29f9951c3c98b4dc21b9271e4bf63db3e02f18e8`（已推送） |
@@ -78,7 +78,7 @@ python C:\Users\32450\.dsh\skills\dual-repo-agent-handoff\scripts\check_handoff.
 
 ## 3. 未解决问题与风险
 
-1. **阶段未验收**：状态为 `in-progress`；`Architecture-Baseline` 需用户确认后方可进入实现阶段。
+1. **阶段验收已由 NEXUS 完成（2026-11-07）**：原状态 `in-progress` 由 NEXUS 的 ACCEPT 决定取代；该验收不来自本报告自评，依据为本报告 §2 的记录与 DEV 提交。本轮仅更新状态与证据清单，未修改任何技术内容。
 2. **提交身份**：提交使用本机全局配置 `32450 <3245074266@qq.com>`，在 GitHub 上未必归属 `tangqingxi` 账户的贡献记录；若需更正，只能通过后续提交处理，不改写既有历史。
 3. **仓库可见性**：两仓均为 Public，架构文档与审计记录对所有人可见（本轮用户明确选择）。
 4. **缺少 `LICENSE` 与 `.gitignore`**：进入首个 MATLAB 源码提交前需要决定，本轮未创建以免引入未经授权的许可条款。

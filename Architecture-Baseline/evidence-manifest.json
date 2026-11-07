@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Architecture-Baseline",
-  "created_at": "2026-11-07T12:02:59Z",
+  "created_at": "2026-11-07T12:10:42Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -14,7 +14,7 @@
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
-  "status": "in-progress",
+  "status": "accepted",
   "environment": {
     "os": "Windows",
     "python": "3.13.14",
@@ -23,23 +23,23 @@
   "evidence": [
     {
       "path": "Architecture-Baseline/REPORT.md",
-      "sha256": "1fc917e8340bdd2494a0a5fd6a32540c5d91fcbaeff8b52c0ce2ec1fb6bcf0b4",
+      "sha256": "3c06a045fb9405629a5104215228f47dcd6a6e58e854b61da0bb3824e10e589e",
       "kind": "report"
     },
     {
       "path": "Architecture-Baseline/HANDOFF.md",
-      "sha256": "ca21ef1d705112086de411944bf11c6fed7e5fdb230527cdcf946f394f1be441",
+      "sha256": "d7004131bed371d2acbf687b83a8e8ebf6284862c86860797320323ecbe86b82",
       "kind": "handoff"
     }
   ],
   "verification": {
     "commands": [
-      "matlab -batch disp(version) (exit 0; 25.2.0.2998904)"
+      "NEXUS acceptance 2026-11-07 (task brief); report self-check in Architecture-Baseline/REPORT.md section 2"
     ],
     "result": "passed"
   },
   "limitations": [
-    "No simulation run in this phase; evidence covers repository initialization only."
+    "Acceptance decided by NEXUS; this manifest only records it."
   ],
-  "next_action": "Simulation-Kernel: minimal piecewise-ode45 + zero-order-hold validation slice (documented in HANDOFF.md)"
+  "next_action": "Simulation-Kernel: minimal kernel implemented in the next phase (see HANDOFF.md)"
 }
