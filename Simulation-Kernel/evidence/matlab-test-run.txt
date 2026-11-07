@@ -2,32 +2,39 @@ AeroGNC-Sim Simulation-Kernel tests
 MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
 Project root: E:\AeroGNC-Sim
 
-[ 1/13] test_scalar_integrator
-        PASS  RelTol=1e-09 AbsTol=1e-11 max|y-y_analytic|=2.22e-16 (analytic y(1)=-0.5)  (0.48s)
-[ 2/13] test_first_order
+[ 1/14] test_scalar_integrator
+        PASS  RelTol=1e-09 AbsTol=1e-11 max|y-y_analytic|=2.22e-16 (analytic y(1)=-0.5)  (0.52s)
+[ 2/14] test_first_order
         PASS  RelTol=1e-09 AbsTol=1e-11 max|x-x_analytic|=1.38e-11 (analytic x(1)=1.197155)  (0.05s)
-[ 3/13] test_state_dimension
+[ 3/14] test_state_dimension
         PASS  3-state max error=1.50e-11, 1-state run ok (state widths 3 and 1)  (0.08s)
-[ 4/13] test_segment_boundaries
+[ 4/14] test_segment_boundaries
         PASS  153 segments, all events on boundaries, chain continuous  (0.09s)
-[ 5/13] test_multirate
-        PASS  800/200/125 Hz counts 800/200/125 drift=0.0e+00; 73/127 Hz drift=8.9e-16  (0.54s)
-[ 6/13] test_simultaneous_events
+[ 5/14] test_multirate
+        PASS  800/200/125 Hz counts 800/200/125 drift=0.0e+00; 73/127 Hz drift=8.9e-16  (0.70s)
+[ 6/14] test_simultaneous_events
         PASS  sample->publish->nav->guidance->control->latch at every 0.1 s tick; held=3.4560 at t=0.3  (0.06s)
-[ 7/13] test_measurement_delay
+[ 7/14] test_measurement_delay
         PASS  delay=0.050 s, 8 measurements, control never used a future sample  (0.03s)
-[ 8/13] test_command_latch
+[ 8/14] test_command_latch
         PASS  10 control steps, 4 latches, 3 held-command changes, last latch takes t=0.07  (0.02s)
-[ 9/13] test_solver_tolerance
+[ 9/14] test_solver_tolerance
         PASS  identical event times; max state difference between RelTol 1e-6/1e-10 = 1.20e-11  (0.02s)
-[10/13] test_reproducibility
-        PASS  identical state/time/events/measurements; git=2d9b9bffad60 dirty=0; seed=42  (0.07s)
-[11/13] test_results_policy
-        PASS  defaults 10e9/8e9/5000/4000; warning, limit refusal, outside-root rejection and file budget verified  (0.17s)
-[12/13] test_invalid_input
+[10/14] test_reproducibility
+        PASS  identical state/time/events/measurements; git=8e195b8a2c7e dirty=0; seed=42  (0.08s)
+[11/14] test_results_policy
+[警告: 写入后活跃 Results 约 0.000 GB，已达到 0.000 GB 预警线] 
+[> 位置：aero_save_result (第 73 行)
+位置: test_results_policy (第 49 行)
+位置: run_tests (第 57 行)
+位置: run (第 112 行)] 
+        PASS  默认 10e9/8e9/5000/4000；单次计数、缩放预警、超限拒绝、内存与持久化模式均验证（结果 214 B）  (3.07s)
+[12/14] test_results_safety
+        PASS  覆盖保护/哈希不变、路径穿越、绝对越界、同前缀、Junction 拒绝、失败无残留均通过  (0.28s)
+[13/14] test_invalid_input
         PASS  14 invalid inputs rejected with aero:* identifiers, no silent repair  (0.03s)
-[13/13] test_adaptive_integration
+[14/14] test_adaptive_integration
         PASS  197 internal points (tight: 813), variable steps, max|error|=7.35e-06  (0.04s)
 
-13/13 tests passed in 1.67s
+14/14 tests passed in 5.07s
 

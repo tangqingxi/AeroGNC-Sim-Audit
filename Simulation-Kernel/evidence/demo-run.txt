@@ -1,0 +1,18 @@
+aero_sim: model=first-order(a=2,b=3) groups=5 events=4 segments=4 internal_points=264 wall=0.167s
+
+model            : first-order(a=2,b=3)
+events           : 4
+segments         : 4
+internal points  : 264 (ode45 chooses them, they are not samples)
+MATLAB           : 25.2.0.2998904 (R2025b) (2025b)
+git commit       : 8e195b8a2c7e9dee6b2434e83f7cc3f67791fbf0 (dirty=0)
+
+     t [s]      x(t)      held u
+     0.000    0.00000    0.000
+     0.500    0.00000    1.000
+     1.000    0.94818    1.000
+     1.500    1.29700    1.000
+     2.000    1.42532    1.000
+
+analytic x(2) = 1.425319, simulated = 1.425319, error = 1.36e-10
+

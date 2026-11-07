@@ -2,7 +2,7 @@
 
 审计与交接仓库，对应开发仓库 [tangqingxi/AeroGNC-Sim](https://github.com/tangqingxi/AeroGNC-Sim)。
 
-- 当前阶段：`Simulation-Kernel`（`ready-for-review`，等待 NEXUS）→ [Simulation-Kernel/REPORT.md](Simulation-Kernel/REPORT.md)
+- 当前阶段：`Simulation-Kernel`（`ready-for-review`，等待 NEXUS 复审）→ [Simulation-Kernel/REPORT.md](Simulation-Kernel/REPORT.md)
 - 已验收：`Architecture-Baseline`（ACCEPT，2026-11-07）→ [Architecture-Baseline/REPORT.md](Architecture-Baseline/REPORT.md)
 - 交接单：[Simulation-Kernel/HANDOFF.md](Simulation-Kernel/HANDOFF.md)
 - 证据清单：[Simulation-Kernel/evidence-manifest.json](Simulation-Kernel/evidence-manifest.json)

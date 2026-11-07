@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Simulation-Kernel",
-  "created_at": "2026-11-07T12:19:36Z",
+  "created_at": "2026-11-07T12:39:50Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "main",
-    "commit": "2d9b9bffad6051fe6ceb66cf489ad85f175fe7fc"
+    "commit": "8e195b8a2c7e9dee6b2434e83f7cc3f67791fbf0"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,17 +23,22 @@
   "evidence": [
     {
       "path": "Simulation-Kernel/REPORT.md",
-      "sha256": "56c4492d4332ef6c4bd74b854d058479f78318edd34397f2cac34fd3e411c8b6",
+      "sha256": "8d22738485f617f8140c640469869e26be0a77510c2563e0fbf9312673349f23",
       "kind": "report"
     },
     {
       "path": "Simulation-Kernel/HANDOFF.md",
-      "sha256": "729f08a49c16ab4db3b892e53d20b3d336be70fa43ece207c7ee6ed746bb1686",
+      "sha256": "05918ce4a1cd43c7c9aff7698f5301b17c470cea66636869de2a3f420b08d28a",
       "kind": "handoff"
     },
     {
       "path": "Simulation-Kernel/evidence/matlab-test-run.txt",
-      "sha256": "93470cb6ef3c762d1d536721a846a1ff07e85f673a4b342470ebf4abaeafb2ca",
+      "sha256": "5780880cdf33f9f751bdcaa5bb2bd6a1380c3b4b4ab5184aadfae4ec2127d1f4",
+      "kind": "other"
+    },
+    {
+      "path": "Simulation-Kernel/evidence/demo-run.txt",
+      "sha256": "56e283315d9f9e22417e92da8acf1d328439d7d0be54561aacb49a0ad497d4cf",
       "kind": "other"
     }
   ],
@@ -44,7 +49,7 @@
     "result": "passed"
   },
   "limitations": [
-    "13/13 tests pass from clean checkout; results thresholds verified with scaled policies, not by writing 8 GB."
+    "Capacity thresholds verified with scaled policies, not by writing 8 GB; link checks tested for Windows junctions only."
   ],
-  "next_action": "NEXUS review of Simulation-Kernel against DEV 2d9b9bf; see HANDOFF.md"
+  "next_action": "NEXUS re-review of Simulation-Kernel finalization at DEV 8e195b8; see HANDOFF.md"
 }
