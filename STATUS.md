@@ -23,8 +23,7 @@
 
 ## 当前任务状态
 
-`项目状态入口`：创建本文件；AUDIT 临时分支 `chore/project-status-entry`，待 NEXUS 验收。
-不修改 DEV，不合并 AUDIT main。
+- 当前无正在执行的 GNC 开发任务；Foundation 已结案；GNC 技术设计讨论中，尚未授权实施。
 
 ## 已批准且仍有效的决策
 
@@ -46,8 +45,9 @@
 
 ## 下一步授权状态
 
-- GNC 设计讨论进行中，**尚未授权实施**；没有已批准的 GNC 接口或算法设计。
-- 未授权：启动 GNC / Rate-Control 实现、发布 `v1.0.0`、合并本任务 AUDIT 分支。
+- ARCHITECTURE §5/§8 已批准基础 GNC 的接口语义、职责边界与交付范围。
+- 具体 Topic 名称、载荷字段及控制器实现方案尚未确定，不得视为已冻结。
+- 未授权：启动 GNC / Rate-Control 实现、发布 `v1.0.0`。
 - PROPOSED：无正式提交待批设计；讨论意见不得记为已批准决策。
 - HOLD：无（V1.0 Foundation 的 HOLD 已由返工解除）。
 
