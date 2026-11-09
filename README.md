@@ -10,7 +10,7 @@
 - 已结案：`SHC09-Aircraft`（ACCEPT 限制性）→ [SHC09-Aircraft/REPORT.md](SHC09-Aircraft/REPORT.md)
 - 已验收：`Simulation-Kernel`、`Architecture-Baseline`
 
-DEV main 仍为 `c8aae91`；清理分支 `chore/v1-foundation-cleanup` @ `d23e2ff` 待验收。
-下一阶段 `Rate-Control-Baseline` 尚未开始。
+DEV main 仍为 `c8aae91`；清理分支 `chore/v1-foundation-cleanup` @ `57bbe68` 待最终验收。
+下一阶段为基础 GNC（`GNC-Baseline`），尚未开始；V1.0 尚未发布。
 
 本仓库不存放可执行源码、原始数据集或凭据；一切结论以 DEV 的完整 commit SHA 为准。

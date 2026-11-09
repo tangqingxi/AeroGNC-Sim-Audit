@@ -2,9 +2,9 @@
 
 | 项 | 值 |
 |---|---|
-| 阶段 | `V1.0-Foundation-Cleanup`（临时分支，不长期维护） |
-| 状态 | `ready-for-review`（未合并 main，未删除任何分支） |
-| DEV 分支 | `chore/v1-foundation-cleanup` @ `d23e2ff2e423f25aaeae7e5045700f598007e1aa` |
+| 阶段 | `V1.0-Foundation-Cleanup`（临时分支，不长期维护；NEXUS HOLD 定点返工见 §8） |
+| 状态 | `ready-for-review`（返工完成，等待最终验收；未合并 main，未删除任何分支） |
+| DEV 分支 | `chore/v1-foundation-cleanup` @ `57bbe6893d83808e3b46aa79864701b32b31c775` |
 | DEV main | `c8aae919281741a0e0554e78f4a8f085cb0f09e7`（未变） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 
@@ -105,3 +105,50 @@ Topic 日志与 MAT 保存、唯一 Bus 与冲突拒绝。
 
 **建议合并 main**（fast-forward），随后删除两个已合并 `feat/*` 分支与临时 `chore/*` 分支；
 首次 V1.0 发布时再建立 `v1.0.0` Tag。未启动 Rate-Control-Baseline。
+
+## 8. NEXUS HOLD 定点返工（2026-11-09）
+
+NEXUS 复审裁定 HOLD：清理本身通过，但 §13 范围漂移、README 版本状态、`bus.truth=[]` 占位需修正。
+返工提交 `57bbe6893d83808e3b46aa79864701b32b31c775`（基于 `d23e2ff`）。
+
+### 8.1 ARCHITECTURE §13 恢复 V1.0 范围
+
+- §13 改为“Foundation 已完成”与“V1.0 尚待完成”两部分；
+- 明确 V1.0 仍须交付 §8 已批准的基础 GNC：悬停/角速度参考 Guidance、`IdealState` 测试 Navigation、
+  基础 PID、独立伪逆（PINV）控制分配，以及悬停位置保持与角速度阶跃场景；
+- §2 冻结决策、§8 交付目标、§9 阶段门槛继续有效，§13 仅补充状态，不覆盖或缩小已批准范围；
+- 明确在基础 GNC 与场景通过验收前不得发布 `v1.0.0`；
+- 排除项仅限 ECL/INDI/MPC/Gazebo/ROS 2 等原 §8 已列的非必需内容，不再排除基础 GNC。
+
+### 8.2 README 版本状态
+
+- 改为“面向 V1.0 开发中；Foundation 已完成，基础 GNC 与场景尚未完成；尚未发布 `v1.0.0`”，
+  不再暗示正式发布。
+
+### 8.3 删除 `bus.truth=[]` 占位
+
+- 确认生产代码无业务依赖（仅测试断言它为空）；已从 `aero_sim` 删除该字段与相关注释。
+- 测试迁移为“周期组件输入不含真实状态字段”：检查 `bus` 字段名中不存在
+  `truth/x/state/true_state/x_true`，不再依赖空占位。
+- 未引入权限系统；Sensor 通过 `sample(t,x)` 读取真值的边界不变。
+
+### 8.4 测量与日志职责
+
+- DESIGN 明确：`result.measurements` 是唯一权威记录，**随仿真时间增长，不设上限**；
+  只有 Topic 日志受 `max_records` 限制，是有界分析副本，不称为有界测量记录。
+
+### 8.5 验证
+
+从 GitHub **全新 clone** 分支 @ `57bbe68`：
+
+```text
+matlab -batch "run('tests/run_tests.m')"  →  27/27 通过，8.66 s，退出码 0
+```
+
+旧测量接口删除成果保持；SHC09 动力学、调度、积分、命令锁存与数值阈值未改。
+静态检查继续禁止 `bus.measurements`、`aero_measurement`、`is_physical`、`bus.truth` 回到 `src/`。
+
+### 8.6 遗留
+
+V1.0 的基础 GNC、场景与闭环验证尚未开始；真实气动许可与物理有效性仍未确认。
+未合并 main、未删除分支，等待 NEXUS 最终合并验收。

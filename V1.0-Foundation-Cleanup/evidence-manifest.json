@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "V1.0-Foundation-Cleanup",
-  "created_at": "2026-11-09T12:28:11Z",
+  "created_at": "2026-11-09T12:37:56Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "chore/v1-foundation-cleanup",
-    "commit": "d23e2ff2e423f25aaeae7e5045700f598007e1aa"
+    "commit": "57bbe6893d83808e3b46aa79864701b32b31c775"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,22 +23,27 @@
   "evidence": [
     {
       "path": "V1.0-Foundation-Cleanup/REPORT.md",
-      "sha256": "20b9cc0cb3341e2385706e900d6e84052ae61d429259791d921a857f4a01b45c",
+      "sha256": "30b039179c93892071a781527a78d5f257d2bb3d975703387ca4323918535429",
       "kind": "report"
     },
     {
       "path": "V1.0-Foundation-Cleanup/HANDOFF.md",
-      "sha256": "de6eb30bc6a3fe20435251e1db705d3e5c3748e7ecab9c3c2d76687c69a0a29e",
+      "sha256": "301b654fca12994972a1035f6ce4bca3c8ad5037ef0bd890c5cf98347b22c21f",
       "kind": "handoff"
     },
     {
       "path": "V1.0-Foundation-Cleanup/evidence/test-run.txt",
-      "sha256": "36ecf4f387e9db43283319b8893d07cdb4bfeec4b8d033bdb6bd922dde967d5c",
+      "sha256": "1102a6e3fd5005a23e56e70b30daf9ce6dd8d9e1273cb9fdcb39ad57c690d694",
       "kind": "other"
     },
     {
       "path": "V1.0-Foundation-Cleanup/evidence/cleanup-diff.txt",
       "sha256": "08e051ab9076692def925ad1340d47b0f8706d3e4171455213b96146717567b1",
+      "kind": "other"
+    },
+    {
+      "path": "V1.0-Foundation-Cleanup/evidence/fixup-diff.txt",
+      "sha256": "9acd8b0ecbf44d2b8bd69ed69b848040bb9de61cf95fc3fc58ece09be254d71c",
       "kind": "other"
     },
     {
@@ -54,7 +59,7 @@
     "result": "passed"
   },
   "limitations": [
-    "Breaking config change (communication.enabled removed, sensor topic required); topic log is bounded analysis aid; physical aero validation still blocked."
+    "Foundation only: basic GNC, PID/PINV and scenarios remain for V1.0; topic log is bounded analysis aid while result.measurements grows; physical aero validation blocked."
   ],
-  "next_action": "NEXUS acceptance, fast-forward merge to main, delete merged branches, tag v1.0.0 at first V1.0 release"
+  "next_action": "NEXUS final merge acceptance; then merge, delete merged branches, continue GNC-Baseline; v1.0.0 only after full V1.0 scope passes"
 }
