@@ -1,39 +1,39 @@
 {
   "schema_version": 2,
   "phase": "V1.0-Foundation-Cleanup",
-  "created_at": "2026-11-09T12:37:56Z",
+  "created_at": "2026-11-09T12:42:19Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
   },
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
-    "branch": "chore/v1-foundation-cleanup",
+    "branch": "main",
     "commit": "57bbe6893d83808e3b46aa79864701b32b31c775"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
-  "status": "in-progress",
+  "status": "accepted",
   "environment": {
     "os": "Windows",
     "matlab": "R2025b 25.2.0.2998904",
-    "dev_branch": "chore/v1-foundation-cleanup"
+    "dev_branch": "main"
   },
   "evidence": [
     {
       "path": "V1.0-Foundation-Cleanup/REPORT.md",
-      "sha256": "30b039179c93892071a781527a78d5f257d2bb3d975703387ca4323918535429",
+      "sha256": "4a2ddb20d7140788cbf46006de6f54f1fae3765ea4197eb7a78ddfe15af2bd08",
       "kind": "report"
     },
     {
       "path": "V1.0-Foundation-Cleanup/HANDOFF.md",
-      "sha256": "301b654fca12994972a1035f6ce4bca3c8ad5037ef0bd890c5cf98347b22c21f",
+      "sha256": "1ccc7195c6d493ca1d22aa8de356eff4364e1efe1fd5198e28c0d284e067a693",
       "kind": "handoff"
     },
     {
       "path": "V1.0-Foundation-Cleanup/evidence/test-run.txt",
-      "sha256": "1102a6e3fd5005a23e56e70b30daf9ce6dd8d9e1273cb9fdcb39ad57c690d694",
+      "sha256": "59e6fb39aeea88f59d2b49938f880b4cd5d41b17cd6727e9ebf5cc7fda43531d",
       "kind": "other"
     },
     {
@@ -48,18 +48,18 @@
     },
     {
       "path": "V1.0-Foundation-Cleanup/evidence/branch-audit.txt",
-      "sha256": "3e3c3006493fff0657f2699a5866820a88fccb5024f4f26d5b7a48904b44c7fb",
+      "sha256": "f381f2ef4f36acf19889bd13bcd94ff2a1ce890ed271382cbc28593dc1fa350c",
       "kind": "other"
     }
   ],
   "verification": {
     "commands": [
-      "fresh clone of branch; matlab -batch run('tests/run_tests.m')"
+      "fresh clone of main; matlab -batch run('tests/run_tests.m')"
     ],
     "result": "passed"
   },
   "limitations": [
-    "Foundation only: basic GNC, PID/PINV and scenarios remain for V1.0; topic log is bounded analysis aid while result.measurements grows; physical aero validation blocked."
+    "Foundation only: basic GNC, PID/PINV and scenarios remain for V1.0 (no v1.0.0 tag); result.measurements grows; physical aero validation blocked."
   ],
-  "next_action": "NEXUS final merge acceptance; then merge, delete merged branches, continue GNC-Baseline; v1.0.0 only after full V1.0 scope passes"
+  "next_action": "GNC-Baseline (not started); start from DEV main 57bbe68"
 }

@@ -2,9 +2,10 @@
 
 | 项 | 值 |
 |---|---|
-| 阶段 | `V1.0-Foundation-Cleanup`（临时分支，不长期维护；NEXUS HOLD 定点返工见 §8） |
-| 状态 | `ready-for-review`（返工完成，等待最终验收；未合并 main，未删除任何分支） |
-| DEV 分支 | `chore/v1-foundation-cleanup` @ `57bbe6893d83808e3b46aa79864701b32b31c775` |
+| 阶段 | `V1.0-Foundation-Cleanup`（已完成并合并；§9 为结案记录） |
+| 状态 | `ACCEPTED`（NEXUS 2026-11-09 最终裁定） |
+| DEV main（最终） | `57bbe6893d83808e3b46aa79864701b32b31c775` |
+| DEV 临时分支 | 已删除（本地与远端）；仅保留 `main` |
 | DEV main | `c8aae919281741a0e0554e78f4a8f085cb0f09e7`（未变） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 
@@ -152,3 +153,38 @@ matlab -batch "run('tests/run_tests.m')"  →  27/27 通过，8.66 s，退出码
 
 V1.0 的基础 GNC、场景与闭环验证尚未开始；真实气动许可与物理有效性仍未确认。
 未合并 main、未删除分支，等待 NEXUS 最终合并验收。
+
+## 9. 最终合并与分支清理（2026-11-09）
+
+**NEXUS 裁定：ACCEPT。** 已 fast-forward 合并并清理临时分支。
+
+### 9.1 合并
+
+- 合并前远端 main：`c8aae919281741a0e0554e78f4a8f085cb0f09e7`（已核对，未变化）。
+- 合并：`git merge --ff-only chore/v1-foundation-cleanup` → **Fast-forward `c8aae91..57bbe68`**，
+  无 merge commit、无 squash/rebase/force。
+- 合并后远端 main：`57bbe6893d83808e3b46aa79864701b32b31c775`，与已验收目标一致。
+
+### 9.2 验证
+
+- 合并前本地：27/27 通过，9.41 s。
+- 合并后从 GitHub **全新 clone main** @ `57bbe68`：**27/27 通过，8.35 s，退出码 0**。
+- 覆盖能力与阈值未变；SHC09 动力学、调度、积分、锁存与数值判据未改动。
+
+### 9.3 分支清理
+
+| 分支 | 包含关系 | 处置 |
+|---|---|---|
+| `feat/communication-baseline` | `contained_in_main=True`（0 独有提交） | 本地与远端已删除 |
+| `feat/shc09-aircraft` | `contained_in_main=True`（0 独有提交） | 本地与远端已删除 |
+| `chore/v1-foundation-cleanup` | `contained_in_main=True`（已合并） | 本地与远端已删除 |
+
+- 清理前核对：单一 worktree、工作区干净、无未推送提交、三者在合并后均为 main 祖先。
+- 清理后远端仅保留 `refs/heads/main`；本地仅保留 `main`。
+- 未删除 AUDIT 历史、数据或 Tag；**未创建 `v1.0.0` Tag**（基础 GNC 与场景未完成）。
+
+### 9.4 当前状态
+
+V1.0 Foundation 已完成并合并；V1.0 尚待基础 GNC（悬停/角速度 Guidance、IdealState Navigation、
+PID、PINV 分配）与悬停保持、角速度阶跃场景。真实气动许可与物理有效性仍未确认。
+下一阶段为基础 GNC，尚未开始。

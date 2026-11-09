@@ -1,22 +1,40 @@
-# Branch audit before cleanup acceptance
+# Branch audit before V1.0 cleanup merge
 
-## Local branches
-  chore/v1-foundation-cleanup d23e2ff -> origin/chore/v1-foundation-cleanup
-  feat/communication-baseline c8aae91 -> origin/feat/communication-baseline
-  feat/shc09-aircraft         c860972 -> origin/feat/shc09-aircraft
-  main                        c8aae91 -> origin/main
-
-## Worktrees
-E:/AeroGNC-Sim  d23e2ff [chore/v1-foundation-cleanup]
+## Pre-merge refs (remote)
+main                        c8aae919281741a0e0554e78f4a8f085cb0f09e7
+chore/v1-foundation-cleanup 57bbe6893d83808e3b46aa79864701b32b31c775
+feat/communication-baseline c8aae919281741a0e0554e78f4a8f085cb0f09e7
+feat/shc09-aircraft         c860972cdc223d2e0cf14bb6799bf290561bd50e
 
 ## Unique commits vs origin/main
-origin/main..origin/feat/communication-baseline = 0
-origin/main..origin/feat/shc09-aircraft = 0
-origin/main..origin/chore/v1-foundation-cleanup = 1 (this cleanup, pending acceptance)
+origin/main..origin/chore/v1-foundation-cleanup = 2
+  d23e2ff refactor(sim): V1.0 single-bus cleanup
+  57bbe68 fix(v1): restore V1.0 GNC scope and drop the truth placeholder
+origin/main..origin/feat/communication-baseline = 0 (identical to main)
+origin/main..origin/feat/shc09-aircraft = 0 (ancestor of main)
 
-## Deletion list after acceptance
-1. feat/communication-baseline (0 unique commits; identical to main)
-2. feat/shc09-aircraft (0 unique commits; ancestor of main)
-3. chore/v1-foundation-cleanup (delete after its squash/ff merge and remote verification)
+## Worktrees and local state
+E:/AeroGNC-Sim  57bbe68 [chore/v1-foundation-cleanup] (single worktree)
+clean worktree; branch pushed; no unpushed local commits
 
-Not deleted: main, AUDIT history, any tag, unmerged work.
+## Planned deletions after merge
+feat/communication-baseline, feat/shc09-aircraft, chore/v1-foundation-cleanup
+Kept: main, AUDIT history, tags (none created).
+
+## Merge result
+remote main after merge: 57bbe6893d83808e3b46aa79864701b32b31c775
+merge: git merge --ff-only chore/v1-foundation-cleanup -> Fast-forward c8aae91..57bbe68
+no merge commit, no squash/rebase/force push
+
+## Post-merge verification
+fresh clone of main @ 57bbe68 -> 27/27 tests, 8.35 s, exit 0
+
+## Branch deletion (after containment checks)
+origin/feat/communication-baseline contained_in_main=True   -> deleted (local + remote)
+origin/feat/shc09-aircraft         contained_in_main=True   -> deleted (local + remote)
+origin/chore/v1-foundation-cleanup contained_in_main=True   -> deleted (local + remote)
+remaining remote heads: refs/heads/main only
+remaining worktrees: E:/AeroGNC-Sim [main]
+
+## Tags
+No tag created; v1.0.0 remains pending until basic GNC and scenarios pass.
