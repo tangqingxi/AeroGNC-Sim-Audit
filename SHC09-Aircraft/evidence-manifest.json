@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "SHC09-Aircraft",
-  "created_at": "2026-11-09T10:28:07Z",
+  "created_at": "2026-11-09T10:48:13Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/shc09-aircraft",
-    "commit": "0f5b0dd57247d1dc56bb9ccf05bcbe4b37b659db"
+    "commit": "0bbaa3e882172ce4b3b5566015eca06f0c4202d1"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,12 +23,12 @@
   "evidence": [
     {
       "path": "SHC09-Aircraft/REPORT.md",
-      "sha256": "dd9e96e802c8da8b832a546b547cb2d35ebadece870bba8378091384ea86955b",
+      "sha256": "36e78732a76f47f140f8cc29346d68e6174a388e731e481321c136827f28285c",
       "kind": "report"
     },
     {
       "path": "SHC09-Aircraft/HANDOFF.md",
-      "sha256": "2001e98f560a2480e11401073ca11ae63cf3f0e85cc053ce5dbbe00e18f30cb6",
+      "sha256": "00a963a7f1eed802b90e0a085f9badf588bd166683119323e6be93b35aeabcfe",
       "kind": "handoff"
     },
     {
@@ -38,7 +38,7 @@
     },
     {
       "path": "SHC09-Aircraft/evidence/shc09-test-run.txt",
-      "sha256": "57b71f8e9ae7036324d31335ef4de5d02ef5e52818ec7a8f051560a67242ca09",
+      "sha256": "ab1077d6b868facfc05d18bec49ff9f56e241ad54c067e032b15d528f5b28e55",
       "kind": "other"
     },
     {
@@ -50,6 +50,11 @@
       "path": "SHC09-Aircraft/evidence/rework-diff.txt",
       "sha256": "957faadc9dddef0a86a2dae5197e8151edeef98971c8b4b40bdc4eb5db4f8be0",
       "kind": "other"
+    },
+    {
+      "path": "SHC09-Aircraft/evidence/layout-migration.txt",
+      "sha256": "695a39a9549921d6f201d683abd270ce90be61cd7b41f68bdec856e55d501dab",
+      "kind": "other"
     }
   ],
   "verification": {
@@ -59,7 +64,7 @@
     "result": "passed"
   },
   "limitations": [
-    "Rework of six NEXUS findings; physical aero validation still blocked on data licensing."
+    "Project-wide layout governance plus three acceptance fixes; physical aero validation still blocked on data licensing."
   ],
-  "next_action": "NEXUS re-review of feat/shc09-aircraft at 0f5b0dd"
+  "next_action": "NEXUS review of feat/shc09-aircraft at 0bbaa3e (23 tests, layout migration, three fixes)"
 }

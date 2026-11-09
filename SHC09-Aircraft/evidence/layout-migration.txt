@@ -1,0 +1,56 @@
+# Layout migration 0f5b0dd -> 0bbaa3e (git -M rename detection)
+
+R075	src/Aircraft/SHC09/shc09_aero_data.m	src/Aircraft/SHC09/Aerodynamics/shc09_aero_data.m
+R100	src/Aircraft/SHC09/shc09_control_surface_geometry.m	src/Aircraft/SHC09/Aerodynamics/shc09_control_surface_geometry.m
+R100	src/Aircraft/SHC09/shc09_control_surfaces.m	src/Aircraft/SHC09/Aerodynamics/shc09_control_surfaces.m
+R100	src/Aircraft/SHC09/shc09_duct.m	src/Aircraft/SHC09/Aerodynamics/shc09_duct.m
+R100	src/Aircraft/SHC09/shc09_eval_table.m	src/Aircraft/SHC09/Aerodynamics/shc09_eval_table.m
+R090	src/Aircraft/SHC09/shc09_aero_force.m	src/Aircraft/SHC09/Aerodynamics/shc09_forces_and_moments.m
+R100	src/Aircraft/SHC09/shc09_wing.m	src/Aircraft/SHC09/Aerodynamics/shc09_wing.m
+R053	src/Aircraft/SHC09/shc09_metadata.m	src/Aircraft/SHC09/Internal/shc09_metadata.m
+R100	src/Aircraft/SHC09/shc09_project.m	src/Aircraft/SHC09/Internal/shc09_project.m
+R100	src/Aircraft/SHC09/shc09_quat_kinematics.m	src/Aircraft/SHC09/Internal/shc09_quat_kinematics.m
+R100	src/Aircraft/SHC09/shc09_quat_to_dcm.m	src/Aircraft/SHC09/Internal/shc09_quat_to_dcm.m
+R100	src/Aircraft/SHC09/shc09_state_layout.m	src/Aircraft/SHC09/Internal/shc09_state_layout.m
+R100	src/Aircraft/SHC09/shc09_unpack_command.m	src/Aircraft/SHC09/Internal/shc09_unpack_command.m
+R083	src/Aircraft/SHC09/shc09_trim.m	src/Aircraft/SHC09/shc09_hover_equilibrium.m
+R100	src/Simulation/aero_default_config.m	src/Simulation/Configuration/aero_default_config.m
+R100	src/Simulation/aero_fill_defaults.m	src/Simulation/Configuration/aero_fill_defaults.m
+R100	src/Simulation/aero_is_valid_command.m	src/Simulation/Configuration/aero_is_valid_command.m
+R100	src/Simulation/aero_validate_command.m	src/Simulation/Configuration/aero_validate_command.m
+R100	src/Simulation/aero_validate_config.m	src/Simulation/Configuration/aero_validate_config.m
+R100	src/Simulation/aero_empty_component.m	src/Simulation/Events/aero_empty_component.m
+R100	src/Simulation/aero_measurement.m	src/Simulation/Events/aero_measurement.m
+R100	src/Simulation/aero_schedule.m	src/Simulation/Events/aero_schedule.m
+R100	src/Simulation/aero_env_info.m	src/Simulation/Internal/aero_env_info.m
+R100	src/Simulation/aero_project_root.m	src/Simulation/Internal/aero_project_root.m
+R064	tests/test_model_metadata.m	tests/Aircraft/SHC09/test_model_metadata.m
+R100	tests/test_shc09_actuators.m	tests/Aircraft/SHC09/test_shc09_actuators.m
+R070	tests/test_shc09_dynamics.m	tests/Aircraft/SHC09/test_shc09_dynamics.m
+R100	tests/test_shc09_geometry.m	tests/Aircraft/SHC09/test_shc09_geometry.m
+R100	tests/test_shc09_integration.m	tests/Aircraft/SHC09/test_shc09_integration.m
+R100	tests/test_shc09_operating_states.m	tests/Aircraft/SHC09/test_shc09_operating_states.m
+R100	tests/test_shc09_outputs.m	tests/Aircraft/SHC09/test_shc09_outputs.m
+R100	tests/test_adaptive_integration.m	tests/Simulation/Core/test_adaptive_integration.m
+R100	tests/test_first_order.m	tests/Simulation/Core/test_first_order.m
+R100	tests/test_invalid_input.m	tests/Simulation/Core/test_invalid_input.m
+R100	tests/test_reproducibility.m	tests/Simulation/Core/test_reproducibility.m
+R100	tests/test_scalar_integrator.m	tests/Simulation/Core/test_scalar_integrator.m
+R100	tests/test_segment_boundaries.m	tests/Simulation/Core/test_segment_boundaries.m
+R100	tests/test_solver_tolerance.m	tests/Simulation/Core/test_solver_tolerance.m
+R100	tests/test_state_dimension.m	tests/Simulation/Core/test_state_dimension.m
+R100	tests/test_command_container.m	tests/Simulation/Events/test_command_container.m
+R100	tests/test_command_latch.m	tests/Simulation/Events/test_command_latch.m
+R100	tests/test_measurement_delay.m	tests/Simulation/Events/test_measurement_delay.m
+R100	tests/test_multirate.m	tests/Simulation/Events/test_multirate.m
+R100	tests/test_simultaneous_events.m	tests/Simulation/Events/test_simultaneous_events.m
+R100	tests/test_results_policy.m	tests/Simulation/Results/test_results_policy.m
+R100	tests/test_results_safety.m	tests/Simulation/Results/test_results_safety.m
+R100	tests/check_error.m	tests/helpers/check_error.m
+R100	tests/check_that.m	tests/helpers/check_that.m
+R100	tests/event_times.m	tests/helpers/event_times.m
+
+# Commits
+e61812a refactor: organize sources and tests by module responsibility
+4b3a09f fix(shc09): data trust, mass provenance and asymmetric trim bounds
+0bbaa3e docs: project-wide directory governance and current layout

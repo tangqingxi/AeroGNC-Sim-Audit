@@ -6,7 +6,7 @@
 | 状态 | `ready-for-review`（2026-11-09 解冻并完成实现；Gate A 曾因 D1–D3 blocked，历史记录见 §1–§10） |
 | DEV | <https://github.com/tangqingxi/AeroGNC-Sim> |
 | DEV HEAD | `848c0710ccc553047ad20a2528a45a42e2a2f458`（审计时的 main） |
-| DEV 开发分支 | `feat/shc09-aircraft` @ `0f5b0dd57247d1dc56bb9ccf05bcbe4b37b659db`（整改后；原 `c53d560` 见 §11） |
+| DEV 开发分支 | `feat/shc09-aircraft` @ `0bbaa3e882172ce4b3b5566015eca06f0c4202d1`（架构治理后；历史见 §11–§12） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 参考工程 | <https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab> @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
 | 审计日期 | 2026-11-07 |
@@ -252,3 +252,57 @@ NEXUS 对 `c53d560` 的审核结论为 REJECT（架构、目录、`B_M`、独立
 ### 12.6 下一步
 
 NEXUS 复核 `0f5b0dd`；不再自行宣称 ACCEPT。若通过，由维护者决定合并 main 与 D2 气动数据许可。
+
+## 13. 2026-11-09 全项目架构可读性治理（区别于 §12 的 SHC09 功能整改）
+
+本轮**不改动物理模型与冻结定义**，只整理全项目目录、命名、路径与文档，并关闭三项遗留验收问题。
+
+### 13.1 迁移映射（49 个 git 可追踪重命名，完整清单见 `evidence/layout-migration.txt`）
+
+| 模块 | 之前 | 之后 |
+|---|---|---|
+| Simulation | 12 个文件平铺在 `src/Simulation/` | 根目录保留 `aero_sim`、`aero_integrate`；调度/测量/组件 schema → `Events/`；配置与命令校验 → `Configuration/`；环境/根目录 → `Internal/`；`Results/` 不变 |
+| Aircraft/SHC09 | 19 个文件平铺 | 根目录保留 `model`、`parameters`、`dynamics`、`outputs`、`hover_equilibrium`；气动 → `Aerodynamics/`；状态布局/投影/四元数/元数据/命令解析 → `Internal/` |
+| 命名 | `shc09_trim`、`shc09_aero_force` | `shc09_hover_equilibrium`、`shc09_forces_and_moments`（名称与实际计算范围一致） |
+| tests | 22 个测试平铺 | `Simulation/{Core,Events,Results}`、`Aircraft/SHC09`；`helpers/`、`fixtures/` 与测试分离；新增 `test_project_layout` |
+| 路径 | `aero_setup` 加载 tests/fixtures | 只登记生产目录；测试自行登记；`demo_first_order` 内联模型，不再依赖 fixtures |
+
+### 13.2 规则固化
+
+- `ARCHITECTURE.md` §12：入口/内部分离、按领域组织、禁止轮次目录、单一权威、显式路径、迁移复验、测试入口唯一。
+- `DESIGN.md` §13：实际目录树、新文件放置表、依赖方向、移动后自检；§10 更新非对称行程与数据可信语义。
+- `AGENTS.md` §5.3/§7：创建前确认归属、修改后审查层级、迁移检查与提交前核对。
+- `README.md` 保持用户视角，仅更新测试数量与入口说明。
+
+### 13.3 三项遗留验收问题
+
+| 问题 | 修复 |
+|---|---|
+| 外部气动文件被自动视为可信物理数据 | 引入 `trust`：外部默认 `unverified`，显式 `verified` 才允许物理验证，fixture 固定 `synthetic`；metadata 分别记录 `source_file`、`file_sha256`、`trust`、`physical_validation_allowed` |
+| 2.1 kg 质量来源与生效参数不完整 | 质量来源改为“实机确认（任务规格）”；元数据补齐重力/大气密度、几何、涵道系数、阻尼、锁存频率、非对称行程 |
+| 悬停配平只查上界 | 生效行程支持 `[lower upper]`（标量表示 ±|limit|），配平同时检查上下界；测试覆盖上界拒绝、下界拒绝与合法非对称区间 |
+
+### 13.4 验证（全新 clone）
+
+- `git clone -b feat/shc09-aircraft` @ `0bbaa3e` → `matlab -batch "run('tests/run_tests.m')"`
+  → **23/23 通过，6.01 s，退出码 0**；14 项内核测试全部保留，阈值未放宽。
+- `test_project_layout`：7 个入口位置正确；旧名称 `shc09_trim`/`shc09_aero_force` 不可解析；
+  9 个关键函数 `which -all` 均唯一；无重复基名（MATLAB 包除外）；无轮次/临时目录；
+  `aero_setup` 不加载 tests/fixtures；23 个测试文件全部被 `run_tests` 覆盖。
+- 物理行为未变：几何/`B_M`、动力学 Jacobian、配平（7.310°）、停机/启动、指令独立性、集成测试全部通过。
+- 示例 `demo_first_order` 在生产路径下独立运行，误差 1.36e-10。
+
+### 13.5 仍未解决
+
+1. **气动数据许可（高）**：真实表仍外置；`trust='verified'` 是调用方声明，不是来源证明；物理气动验证仍待授权数据。
+2. **实机参数（中）**：惯量为参考值；舵机/电机动态参数为名义值。
+3. **分支未合并（流程）**：成果在 `feat/shc09-aircraft`，等待 NEXUS 复核后由维护者合并 main。
+
+### 13.6 提交与下一步
+
+| 仓库 | 内容 |
+|---|---|
+| DEV | `e61812a` 目录迁移与引用修复；`4b3a09f` 三项验收收尾与目录治理测试；`0bbaa3e` 架构文档（HEAD） |
+| AUDIT | 本节 + 更新后的 `HANDOFF.md` / 测试证据 / 迁移清单 / 证据清单 |
+
+**下一步**：NEXUS 复核 `0bbaa3e`（复跑 23 项、核对迁移映射与三项修复）。不自行宣称 ACCEPT，不合并 main。
