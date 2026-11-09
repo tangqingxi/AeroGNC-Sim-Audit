@@ -1,50 +1,60 @@
 {
   "schema_version": 2,
   "phase": "SHC09-Aircraft",
-  "created_at": "2026-11-07T13:15:50Z",
+  "created_at": "2026-11-09T10:13:28Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
   },
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
-    "branch": "main",
-    "commit": "848c0710ccc553047ad20a2528a45a42e2a2f458"
+    "branch": "feat/shc09-aircraft",
+    "commit": "c53d5601c1a51319a8733526419fedb34ce2c045"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
-  "status": "blocked",
+  "status": "in-progress",
   "environment": {
     "os": "Windows",
     "matlab": "R2025b 25.2.0.2998904",
-    "reference_commit": "43b6c7aef1912f8118e54d3decac1ac55465d5b1"
+    "dev_branch": "feat/shc09-aircraft"
   },
   "evidence": [
     {
       "path": "SHC09-Aircraft/REPORT.md",
-      "sha256": "fff8015b3055b0a2f4567864fce87eeca7876040b22a62137940330b976d5ebc",
+      "sha256": "afe945352520935e68bf98c7764e1612cc8e23ee6fcb7fc08e8a64e4a9ed758d",
       "kind": "report"
     },
     {
       "path": "SHC09-Aircraft/HANDOFF.md",
-      "sha256": "e1bd334f9633885fa9390b5d63da96d210a90d24cfb16e40c08fac7eb37f2b37",
+      "sha256": "61602952b117d3c96a25faaa7b654dbc868285155a5b26d1ffcae76f5ef586ff",
       "kind": "handoff"
     },
     {
       "path": "SHC09-Aircraft/evidence/reference-provenance.txt",
       "sha256": "52085a1adcda9c7e46db8a41c842be30bef7b37b24e408fd23abf6c3691d46c9",
       "kind": "other"
+    },
+    {
+      "path": "SHC09-Aircraft/evidence/shc09-test-run.txt",
+      "sha256": "812610f2776f7ecc0791323514df58e081ba6a00a82ef7dfe68e43c85b85473d",
+      "kind": "other"
+    },
+    {
+      "path": "SHC09-Aircraft/evidence/physics-crosscheck.txt",
+      "sha256": "de44513b642594452e52223a542ec1ea1272f7caf2e4cf33cdc6a0ddff3b14b0",
+      "kind": "other"
     }
   ],
   "verification": {
     "commands": [
-      "read-only audit: SHA256 recomputation and source review; no MATLAB code executed"
+      "fresh clone of branch; matlab -batch run('tests/run_tests.m'); one-off cross-check against reference equations"
     ],
-    "result": "not-run"
+    "result": "passed"
   },
   "limitations": [
-    "Gate A stopped on inertia frame conflict, aero-table redistribution rights and vane channel mapping; Gates B-F not started."
+    "Aerodynamic tables are external and not redistributed; physical aero validation (wing lift/drag, trim with real tables) is blocked on licensing."
   ],
-  "next_action": "NEXUS decision on D1 (inertia), D2 (aero data rights), D3 (vane mapping); see SHC09-Aircraft/REPORT.md section 8"
+  "next_action": "NEXUS review of feat/shc09-aircraft at c53d560; then decide merge and D2 (aero data rights)"
 }

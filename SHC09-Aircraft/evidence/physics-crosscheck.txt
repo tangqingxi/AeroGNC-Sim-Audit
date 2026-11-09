@@ -1,0 +1,13 @@
+# SHC09 物理对照（一次性验证，参考工程不进入仓库）
+reference_repo: https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab
+reference_commit: 43b6c7aef1912f8118e54d3decac1ac55465d5b1
+
+method: 30 random states matched between old Euler 12-state model and new 20-state quaternion model;
+        old inertia set to C' * J_frd * C (frozen FRD inertia), vane deflection zero, wind zero;
+        forces compared in NED, angular acceleration transformed by C.
+result: max|a_n diff| = 3.553e-15 m/s^2
+        max|alpha diff| = 2.109e-15 rad/s^2
+        max|Ve diff|    = 3.553e-15 m/s
+note: vane moment matrix is intentionally NOT compared to old P_cs: frozen B_M uses the confirmed
+      real channel order/signs and differs from the legacy matrix; it is validated from geometry instead.
+data: reference aero tables used read-only from the temporary clone and deleted afterwards.

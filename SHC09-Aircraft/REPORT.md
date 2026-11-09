@@ -3,9 +3,10 @@
 | 项 | 值 |
 |---|---|
 | 阶段名称 | `SHC09-Aircraft` |
-| 状态 | **blocked**（Gate A 未通过：三个 Stop Condition 触发，等待 NEXUS 决策） |
+| 状态 | `ready-for-review`（2026-11-09 解冻并完成实现；Gate A 曾因 D1–D3 blocked，历史记录见 §1–§10） |
 | DEV | <https://github.com/tangqingxi/AeroGNC-Sim> |
-| DEV HEAD | `848c0710ccc553047ad20a2528a45a42e2a2f458`（本轮未修改 DEV，无新提交） |
+| DEV HEAD | `848c0710ccc553047ad20a2528a45a42e2a2f458`（审计时的 main） |
+| DEV 开发分支 | `feat/shc09-aircraft` @ `c53d5601c1a51319a8733526419fedb34ce2c045`（已推送，未合并 main） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 参考工程 | <https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab> @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
 | 审计日期 | 2026-11-07 |
@@ -140,3 +141,63 @@ Gate B–F 全部未开始：未创建 `src/Aircraft/SHC09`、`src/Components/Ac
 | DEV | 无新提交，HEAD `848c0710ccc553047ad20a2528a45a42e2a2f458` |
 | AUDIT | 本报告 + `HANDOFF.md` + `evidence/reference-provenance.txt` + 证据清单 |
 | 参考（只读） | `43b6c7aef1912f8118e54d3decac1ac55465d5b1`，审计后临时克隆已删除 |
+
+## 11. 2026-11-09 更新：决策落地与 SHC09 实现
+
+### 11.1 三项阻断的处置
+
+| 编号 | 处置 |
+|---|---|
+| D1 惯量 | NEXUS 冻结 `J_frd = diag([0.0438, 0.0436, 0.005006]) kg·m²`，标记为 Gazebo/PX4 FRD 参考值，未实机辨识；不再并行比较 Gate A 的两个候选 |
+| D3 舵面通道 | 冻结 CS1–CS6 方位角 0–300°、`r_i`、`a_i` 与 `B_M`；实机接线编号与之一致 |
+| D2 气动数据 | 许可仍未闭合：真实表不入库，改为外部数据接口 `shc09_aero_data`；缺失时显式失败；物理气动验证列为外部依赖条件 |
+
+### 11.2 实现内容
+
+- 内核（最小通用扩展）：`initial_command` 支持“字段均为有限实数的结构体”，内核只做通用校验、锁存与日志，
+  不识别 `servos` / `motor` 字段名；新增可选 `model.project(x)`，用于四元数归一化与执行器限幅。
+- Components：`aero_servo_dynamics` / `aero_motor_dynamics` 通用一阶动力学（限幅、速率/行程、转速范围），
+  设备型号 `ServoDevices.KST_X08H`、`MotorDevices.MAD_M6C06_320KV_V2` 仅含设备参数与可信等级。
+- SHC09：20 状态（位置、速度、四元数、角速度、六舵偏角、旋翼转速）；涵道/机翼/六舵面/陀螺/反扭矩/风扰；
+  悬停配平；标准输出；FRD/NED 边界；气动表越界默认报错、可选显式钳位。
+- 指令：`command.servos`（6×1）与 `command.motor`（标量）两条独立信号，可不同频率锁存；更新一条不覆盖另一条。
+- 文档：根目录 `DESIGN.md`（长期设计）；README 精简为使用者文档；AGENTS 增加 DESIGN 阅读要求与目录职责。
+
+### 11.3 验证结果
+
+- **回归**：从 GitHub 全新 clone `feat/shc09-aircraft` 后 `matlab -batch "run('tests/run_tests.m')"`
+  → **19/19 通过，5.05 s，退出码 0**（14 项内核测试全部保留）。
+- **悬停配平**：Ω = 842.42 rad/s，Ve = 24.230 m/s，δ = 7.310°（与参考 7.3102° 一致）；
+  配平平动/角加速度 < 1e-9。
+- **与旧方程数值对照**（一次性、参考工程只读、30 组随机状态，修正惯量、零舵偏）：
+  平动加速度最大差 `3.553e-15 m/s²`、角加速度 `2.109e-15 rad/s²`、出口流速 `3.553e-15 m/s`。
+- **几何**：`B_M` 由 `r_i × f_i` 导出并与冻结矩阵一致；`rank(B_M)=3`；`B_M B_Mᵀ` 非对角为 0；
+  单舵正偏角方向正确；力矩随 `Ve²` 缩放。
+- **执行器**：一阶解析误差 4.4e-12（舵机）/ 3.2e-9（电机）；速率、行程、转速限幅有效；换参数不改通用动力学。
+- **指令独立性**：0.2 s 只更新 a 路、b 路保持不变；0.5 s 只更新 b 路、a 路保持；数值命令接口回归通过。
+- **集成**：SHC09 由现有 `aero_sim` 积分 200 段；配平段位置漂移 < 1e-6 m；四元数范数保持；
+  周期组件始终读不到真值（`bus.truth` 为空）。
+
+### 11.4 仍未解决 / 外部依赖
+
+1. **气动原始表许可（高）**：真实 `duct_raw` / `wing_raw` 仍不能入库；因此机翼升阻力、带真实表的配平与气动性能
+   **尚未做物理验证**，不能报告为 PASS。结构测试使用明确标注的全零合成系数，只验证通路与符号。
+2. **实机参数辨识（中）**：惯量为参考值；舵机 τ/速率、电机 τ/转速范围为名义值。
+3. **舵面侧向力未计入总平动力（低）**：与参考模型一致，本阶段未新增该物理项。
+4. **分支未合并**：成果位于 `feat/shc09-aircraft`，需 NEXUS 审核后再合并 main。
+
+### 11.5 提交
+
+| 仓库 | 内容 |
+|---|---|
+| DEV | 分支 `feat/shc09-aircraft`：`77c5a94` 内核命令容器与投影；`7e9c832` Components；`e6eae94` SHC09 模型；`4c43399` 测试与示例；`c53d560` 文档（HEAD） |
+| AUDIT | 本节 + `HANDOFF.md` + `evidence/shc09-test-run.txt` + `evidence/physics-crosscheck.txt` + 证据清单 |
+
+目录审查：无重复职责目录、无平行 Simulation、无空目录、无 `.mat` 或缓存入库、未递归 `addpath`；
+SHC09 专属参数只出现在 `src/Aircraft/SHC09/`，通用 Components 中无品牌判断。
+
+### 11.6 下一步建议
+
+1. NEXUS 审核 `feat/shc09-aircraft`（19 项测试 + 物理对照），决定 ACCEPT / REJECT。
+2. 若 ACCEPT：合并 main，并单独决定 D2——取得气动表再分发授权（或保持外部数据），再补“带真实表的气动/配平验证”。
+3. 在此之前不进入 `GNC-Baseline`。
