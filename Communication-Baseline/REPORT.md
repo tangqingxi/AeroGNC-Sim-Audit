@@ -2,9 +2,9 @@
 
 | 项 | 值 |
 |---|---|
-| 阶段名称 | `Communication-Baseline`（`Communication-Core` 已完成；`Communication-Integration` 已追加，见 §7） |
-| 状态 | `ready-for-review`（Core 已限制性验收；Integration 待 NEXUS 复核；Validation 未开始） |
-| DEV 分支 | `feat/communication-baseline` @ `381e58b78ed02e20ba02511910c453b3f35a41e6` |
+| 阶段名称 | `Communication-Baseline`（Core 已限制性验收；Integration 限制性验收；Validation 已完成，见 §8） |
+| 状态 | `ready-for-review`（等待 NEXUS 决定是否合并 main；未自行合并） |
+| DEV 分支 | `feat/communication-baseline` @ `dd401b10e780876bb78e93e59f446c970feba740` |
 | DEV main | `c860972cdc223d2e0cf14bb6799bf290561bd50e`（未合并） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 前身参考 | `E:\Ducted-Fan-SHC09-matlab` @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
@@ -150,3 +150,71 @@ matlab -batch "run('tests/run_tests.m')"  →  24/24 通过，7.19 s，退出码
 
 `Communication-Validation`（未开始）：跨更多模块的全量回归、错误路径与性能/容量验证；
 通过后再由 NEXUS 决定合并 main。
+
+## 8. Communication-Validation（2026-11-09 追加）
+
+**结论：Validation PASS**（软件阶段）。DEV 分支 `feat/communication-baseline` @
+`dd401b10e780876bb78e93e59f446c970feba740`；未合并 main。
+
+### 8.1 P0：结果持久化改为普通值快照
+
+- 运行时仍由 `aero_sim` 持有唯一 `aero_topic_bus`；结果中改为
+  `aero_communication_snapshot` 生成的值结构（schema `aero-comm-snapshot/1`）：
+  `topic_names`、`publish_count`、每个 Topic 最后一条消息、日志快照。
+- **不再保存 Bus 句柄**；`result.communication` 可直接 `save/load`。
+- 验证：短仿真结果 `save` → `clear` → `load`，Topic 列表、发布计数、采样/可用时间与载荷
+  逐项一致；`isfield(...,'bus')` 为 false。
+- 仅验证 MATLAB R2025b，不承诺跨版本兼容；Results 的容量/安全规则未改动。
+
+### 8.2 P0：最小 Topic 发布日志
+
+- `cfg.communication.log = struct('enabled',false,'topics',{{}},'max_records',10000)`，
+  默认关闭；只记录显式选择的 Topic 的**实际发布**。
+- 每条记录含 `name/data/sample_time_s/available_time_s/sequence/topic_sequence`。
+- 容量由 `max_records` 限制，超出部分只累加 `dropped`，不增长；真值 Topic 拒绝记录。
+- 验证：日志条数与 `result.events` 中实际 publish 事件数一致；同一 Topic 序号递增；
+  开启/关闭日志的 `state`、`time`、`computed` 完全一致（`isequaln`）。
+
+### 8.3 P1：接口边界
+
+1. 周期组件执行后校验 `bus.topics` 仍是 Simulation 创建的唯一实例；删除或替换立即报
+   `aero:comm:busReplaced`。
+2. `command_topic == held_command_topic` 在仿真开始前报 `aero:comm:duplicateCommandTopic`。
+3. 传感器 Topic 重复、或与命令/锁存命令 Topic 冲突时报 `aero:comm:topicConflict`。
+4. 文档与注释明确 `bus.measurements` 是旧仿真兼容接口，新 GNC 模块统一使用 `bus.topics`。
+5. `latest(...,'diagnostic')` 仅诊断；正式消费者使用 `read/tryRead`。
+6. `truth/` 前缀被明确为命名约定而非访问控制；真值隔离仍由 Simulation 数据边界保证。
+
+### 8.4 测试结果（全新 clone @ `dd401b1`）
+
+```text
+matlab -batch "run('tests/run_tests.m')"  →  27/27 通过，8.60 s，退出码 0
+```
+
+新增：
+
+- `test_communication_validation`：快照字段与 save/load、日志一致性/容量/真值拒绝、
+  命令 Topic 冲突、重复传感器 Topic、运行时替换总线、旧 `measurements` 兼容。
+- `test_communication_performance`：400/200/250/100 Hz 多 Topic、2 s 仿真共 2899 个事件、
+  0.78 s；日志上限 500 条、丢弃 897 条；开启日志轨迹与关闭一致。
+
+原有 25 项测试全部保留并通过。
+
+### 8.5 兼容性
+
+默认关闭通信时：不创建 Bus、结果无 `communication` 字段、数值与时间序列与 `381e58b` 前一致。
+未修改事件调度、`ode45` 分段、Aircraft 动力学或执行器锁存语义。
+
+### 8.6 遗留限制
+
+1. 日志是分析/离线核查用途，不是历史消息队列，不支持回放或逐样本订阅。
+2. 日志容量需按实验设置；超出上限的发布只计数不保存。
+3. `truth/` 前缀不是权限系统；真实隔离依赖数据边界与模块纪律。
+4. 快照持久化仅在 MATLAB R2025b 验证。
+5. 未涉及 PID/INDI/MPC、PX4 ECL、GNSS 或真实 GNC 算法。
+
+### 8.7 建议
+
+**建议合并 main**：Validation PASS，27 项测试在全新 clone 中通过，默认行为与旧版一致，
+未修改冻结接口；遗留限制已记录且不影响后续 Rate PID + PINV 开发。
+最终合并决定由 NEXUS 做出；本 Agent 不自行合并。

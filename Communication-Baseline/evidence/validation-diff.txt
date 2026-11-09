@@ -1,0 +1,14 @@
+# Communication-Validation diff: 381e58b -> dd401b1
+
+ DESIGN.md                                          |  21 ++-
+ .../Communication/aero_communication_setup.m       |  24 +++
+ .../Communication/aero_communication_snapshot.m    |  38 ++++
+ src/Simulation/Communication/aero_topic_bus.m      |  83 +++++++++
+ src/Simulation/Configuration/aero_default_config.m |   3 +-
+ .../Configuration/aero_validate_config.m           |  32 ++++
+ src/Simulation/aero_sim.m                          |  31 +++-
+ .../Communication/test_communication_integration.m |  19 +-
+ .../Communication/test_communication_performance.m |  94 ++++++++++
+ .../Communication/test_communication_validation.m  | 200 +++++++++++++++++++++
+ tests/run_tests.m                                  |   2 +
+ 11 files changed, 529 insertions(+), 18 deletions(-)

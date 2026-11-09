@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Communication-Baseline",
-  "created_at": "2026-11-09T11:49:20Z",
+  "created_at": "2026-11-09T11:58:12Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/communication-baseline",
-    "commit": "381e58b78ed02e20ba02511910c453b3f35a41e6"
+    "commit": "dd401b10e780876bb78e93e59f446c970feba740"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,22 +23,27 @@
   "evidence": [
     {
       "path": "Communication-Baseline/REPORT.md",
-      "sha256": "b0497f5487266d55e6712a6c8cf9b9feda01c24b4d53eff2af1ca88ca609545d",
+      "sha256": "69a22f32fd56d8560063a5b37d38dac8fffb932a4963c07bf423049371f2f872",
       "kind": "report"
     },
     {
       "path": "Communication-Baseline/HANDOFF.md",
-      "sha256": "8cdc71228eba9b308f32fec6acef7e6de9e20ff0ccaf3af18b4fa3c3d2581707",
+      "sha256": "c87c67cc86c52d99cb3dbe85028f386de1942f1b826c881539c1d4c0d88a4cb7",
       "kind": "handoff"
     },
     {
       "path": "Communication-Baseline/evidence/topic-bus-test.txt",
-      "sha256": "4487f18d71bbddc171919828c92ec4f9b51d420f209b1ebcac926291552a0c98",
+      "sha256": "5b826345c9a0f79a33561daeabae632696863808535e870f495291ad14f9e8ab",
       "kind": "other"
     },
     {
       "path": "Communication-Baseline/evidence/integration-diff.txt",
       "sha256": "31e6a9720b207a0515e2d93f73087d703fc51b014d36d1db518b70e67fc5b0ea",
+      "kind": "other"
+    },
+    {
+      "path": "Communication-Baseline/evidence/validation-diff.txt",
+      "sha256": "9c6b7f131c65672182d051866d197bafd1229a8caa7c1f838cda7e9871ee1ac1",
       "kind": "other"
     }
   ],
@@ -49,7 +54,7 @@
     "result": "passed"
   },
   "limitations": [
-    "Latest-Value only; communication default off; truth/ prefix is naming not access control; bus handle in result not evaluated for cross-version .mat loading."
+    "Snapshot persistence verified on R2025b only; topic log is bounded analysis aid, not a history queue; truth/ prefix is naming not access control."
   ],
-  "next_action": "Communication-Validation: cross-module regression and error-path coverage; then NEXUS review and merge decision"
+  "next_action": "NEXUS merge decision for feat/communication-baseline; Rate-Control-Baseline not started"
 }
