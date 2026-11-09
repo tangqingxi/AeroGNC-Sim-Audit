@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Communication-Baseline",
-  "created_at": "2026-11-09T11:34:45Z",
+  "created_at": "2026-11-09T11:49:20Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/communication-baseline",
-    "commit": "cce1b328e6a414500d8bf0fb9e70e66645650025"
+    "commit": "381e58b78ed02e20ba02511910c453b3f35a41e6"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,17 +23,22 @@
   "evidence": [
     {
       "path": "Communication-Baseline/REPORT.md",
-      "sha256": "bbc75412cd06c1a5a3b22dbf28ea8d0412460a7285bea13a5754850e2081f235",
+      "sha256": "b0497f5487266d55e6712a6c8cf9b9feda01c24b4d53eff2af1ca88ca609545d",
       "kind": "report"
     },
     {
       "path": "Communication-Baseline/HANDOFF.md",
-      "sha256": "cc1c6811496b8ee47ff148828ded040ad09737944ffc2622be6358b052de3fde",
+      "sha256": "8cdc71228eba9b308f32fec6acef7e6de9e20ff0ccaf3af18b4fa3c3d2581707",
       "kind": "handoff"
     },
     {
       "path": "Communication-Baseline/evidence/topic-bus-test.txt",
-      "sha256": "ce0402a1ff8fbc1d3124369fc61d1549093762c77f1dbcebf918e478ebe0c616",
+      "sha256": "4487f18d71bbddc171919828c92ec4f9b51d420f209b1ebcac926291552a0c98",
+      "kind": "other"
+    },
+    {
+      "path": "Communication-Baseline/evidence/integration-diff.txt",
+      "sha256": "31e6a9720b207a0515e2d93f73087d703fc51b014d36d1db518b70e67fc5b0ea",
       "kind": "other"
     }
   ],
@@ -44,7 +49,7 @@
     "result": "passed"
   },
   "limitations": [
-    "Communication core only; not yet wired into aero_sim. Latest-Value, no history queue."
+    "Latest-Value only; communication default off; truth/ prefix is naming not access control; bus handle in result not evaluated for cross-version .mat loading."
   ],
-  "next_action": "Communication-Integration: single bus instance owned by aero_sim; publish measurements and latched commands without changing timing semantics"
+  "next_action": "Communication-Validation: cross-module regression and error-path coverage; then NEXUS review and merge decision"
 }

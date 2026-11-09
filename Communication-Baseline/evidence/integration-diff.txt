@@ -1,0 +1,14 @@
+# Communication-Integration diff: cce1b32 -> 381e58b
+
+ DESIGN.md                                          |  28 +++-
+ .../Communication/aero_command_payload.m           |  20 +++
+ .../Communication/aero_communication_setup.m       |  67 ++++++++
+ src/Simulation/Communication/aero_topic_bus.m      |  53 ++++--
+ src/Simulation/Configuration/aero_default_config.m |   3 +
+ .../Configuration/aero_validate_config.m           |  47 +++++-
+ src/Simulation/Events/aero_empty_component.m       |   2 +
+ src/Simulation/aero_sim.m                          |  65 ++++++++
+ .../Communication/test_communication_integration.m | 179 +++++++++++++++++++++
+ tests/Simulation/Communication/test_topic_bus.m    |  91 ++++++++---
+ tests/run_tests.m                                  |   1 +
+ 11 files changed, 518 insertions(+), 38 deletions(-)

@@ -1,10 +1,10 @@
-# Communication-Baseline — Communication-Core 阶段报告
+# Communication-Baseline — 阶段报告（Core + Integration）
 
 | 项 | 值 |
 |---|---|
-| 阶段名称 | `Communication-Core`（Communication-Baseline 第一阶段） |
-| 状态 | `ready-for-review`（仅核心与单元测试；未接入 `aero_sim`） |
-| DEV 分支 | `feat/communication-baseline` @ `cce1b328e6a414500d8bf0fb9e70e66645650025` |
+| 阶段名称 | `Communication-Baseline`（`Communication-Core` 已完成；`Communication-Integration` 已追加，见 §7） |
+| 状态 | `ready-for-review`（Core 已限制性验收；Integration 待 NEXUS 复核；Validation 未开始） |
+| DEV 分支 | `feat/communication-baseline` @ `381e58b78ed02e20ba02511910c453b3f35a41e6` |
 | DEV main | `c860972cdc223d2e0cf14bb6799bf290561bd50e`（未合并） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 前身参考 | `E:\Ducted-Fan-SHC09-matlab` @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
@@ -92,3 +92,61 @@ matlab -batch "run('tests/run_tests.m')"  →  24/24 通过，7.19 s，退出码
 1. 由 `aero_sim` 创建并持有唯一 `aero_topic_bus` 实例（可通过 `cfg.communication` 注入，保持默认关闭）。
 2. 将测量发布、command/held_command 锁存与事件调度接入总线，不改变时序语义。
 3. 增加集成测试：测量在可用时刻之后才可读、锁存通道互不覆盖、无第二套 Bus。
+
+## 7. Communication-Integration（2026-11-09 追加）
+
+在 `cce1b32`（Core）基础上完成 `aero_sim` 集成，提交 `381e58b78ed02e20ba02511910c453b3f35a41e6`。
+
+### 7.1 实际接口与改动
+
+| 内容 | 实现 |
+|---|---|
+| 唯一总线 | `aero_sim` 在 `cfg.communication.enabled=true` 时创建并持有唯一 `aero_topic_bus`，作为 `bus.topics` 交给组件；默认关闭，不创建 Bus |
+| 配置 | `cfg.communication = struct('enabled',false,'topics',{{}},'command_topic','','held_command_topic','')`；Topic 由 `topics`（name+spec）显式注册 |
+| Sensor → Topic | 组件新增可选 `topic` 字段；内核在**发布事件**（真正可用时）发布 `struct('value', v(:), 'sample_time_s', sampleTime)`，`available_time` 为当前事件时刻 |
+| 命令 → Topic | `bus.command` / `bus.held_command` 变化时分别发布到 `command_topic` / `held_command_topic`；数值命令打包为 `struct('value', cmd(:))`，结构体命令原样发布 |
+| 通用性 | 内核不识别 SHC09/PID 字段名；`aero_communication_setup` / `aero_command_payload` 只做注册与形状整理 |
+| 结果 | 启用时 `result.communication` 含 `enabled/topic_names/publish_count/bus`；关闭时结果结构不变 |
+
+### 7.2 三项 Core 边界问题
+
+1. **register 契约校验**：手工 spec 也强制经 `aero_topic_spec` 规范化校验；未知字段、重复字段、
+   非法尺寸/单位/年龄均报 `aero:bus:invalidSpec`。
+2. **latest 仅诊断**：必须显式传 `'diagnostic'`，否则报 `aero:bus:diagnosticRequired`；
+   正式消费者使用 `read`/`tryRead`。
+3. **真值访问**：文档与注释明确 `truth/` 前缀只是命名约定，不是访问控制；真实状态仍只由
+   Sensor 回调与授权测试适配器读取；普通 Topic 发布真值标志会报 `aero:bus:groundTruthForbidden`。
+4. **Latest-Value 安全**：`publish` 必须携带 `now` 且 `now >= available_time_s`，提前发布未来
+   消息会报 `aero:bus:notYetAvailable`，避免覆盖仍有效的旧样本。
+
+### 7.3 集成验证（全新 clone @ `381e58b`）
+
+`matlab -batch "run('tests/run_tests.m')"` → **25/25 通过，6.73 s，退出码 0**。
+
+新增 `test_communication_integration` 覆盖：
+
+- Sensor 200 Hz / Navigation 100 Hz / Control 125 Hz / Latch 50 Hz 的事件计数（40/20/25/10）；
+- t=0.04 同刻顺序 `baro sample → baro publish → nav → control → latch → guard`；
+- 测量在可用事件才发布（`available = sample + delay`），可用前读取报错，过期读取报错；
+- Navigation 只在 `tryRead` 成功时更新，从不读取未可用数据；
+- 计算命令与锁存命令发布到不同 Topic，序号 18 vs 10，且结果中存在 computed ≠ held；
+- 未注册的测量/命令 Topic 与非法契约在启动时失败；
+- 默认关闭通信时数值结果与旧版完全一致（`isequaln`），空通信配置不产生发布。
+
+### 7.4 兼容性
+
+- 未启用通信时：`result` 无 `communication` 字段、无 Bus 创建、数值行为与 `cce1b32` 前一致。
+- 未修改事件时序、`ode45` 分段、执行器锁存与 Aircraft 动力学；原有 24 项测试全部保留并通过。
+
+### 7.5 未解决风险
+
+1. **结果内含 Bus 句柄**：启用通信时 `result.communication.bus` 是 handle 对象，持久化 `.mat`
+   的跨版本兼容性未验证（默认关闭，不影响旧流程）。
+2. **Latest-Value 限制**：只保留最后一条；历史回放/逐样本消费不在本轮。
+3. **契约只校验结构**：不校验物理量程与单位换算。
+4. **命名非权限**：`truth/` 前缀不能阻止恶意模块注册；真实隔离依靠模块纪律与后续权限设计。
+
+### 7.6 下一阶段
+
+`Communication-Validation`（未开始）：跨更多模块的全量回归、错误路径与性能/容量验证；
+通过后再由 NEXUS 决定合并 main。
