@@ -1,0 +1,23 @@
+# V1.0 cleanup diff: c8aae91 -> d23e2ff
+
+ AGENTS.md                                          |  16 ++-
+ ARCHITECTURE.md                                    |  43 ++++++-
+ DESIGN.md                                          |  29 ++---
+ README.md                                          |  10 +-
+ src/Aircraft/SHC09/Aerodynamics/shc09_aero_data.m  |  17 +--
+ .../Communication/aero_communication_setup.m       |  30 ++---
+ .../Communication/aero_communication_snapshot.m    |   2 -
+ src/Simulation/Configuration/aero_default_config.m |   4 +-
+ .../Configuration/aero_validate_config.m           |  19 ++--
+ src/Simulation/Events/aero_measurement.m           |  27 -----
+ src/Simulation/aero_sim.m                          | 123 ++++++++++-----------
+ .../Communication/test_communication_integration.m |  28 +++--
+ .../Communication/test_communication_performance.m |   1 -
+ .../Communication/test_communication_validation.m  |   8 +-
+ tests/Simulation/Core/test_invalid_input.m         |  15 ++-
+ tests/Simulation/Core/test_reproducibility.m       |  11 +-
+ tests/Simulation/Events/test_measurement_delay.m   |  11 +-
+ tests/Simulation/Events/test_simultaneous_events.m |  35 +++---
+ tests/fixtures/shc09_aero_fixture.m                |   1 -
+ tests/test_project_layout.m                        |  23 +++-
+ 20 files changed, 245 insertions(+), 208 deletions(-)

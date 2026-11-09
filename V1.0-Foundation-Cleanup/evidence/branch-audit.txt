@@ -1,0 +1,22 @@
+# Branch audit before cleanup acceptance
+
+## Local branches
+  chore/v1-foundation-cleanup d23e2ff -> origin/chore/v1-foundation-cleanup
+  feat/communication-baseline c8aae91 -> origin/feat/communication-baseline
+  feat/shc09-aircraft         c860972 -> origin/feat/shc09-aircraft
+  main                        c8aae91 -> origin/main
+
+## Worktrees
+E:/AeroGNC-Sim  d23e2ff [chore/v1-foundation-cleanup]
+
+## Unique commits vs origin/main
+origin/main..origin/feat/communication-baseline = 0
+origin/main..origin/feat/shc09-aircraft = 0
+origin/main..origin/chore/v1-foundation-cleanup = 1 (this cleanup, pending acceptance)
+
+## Deletion list after acceptance
+1. feat/communication-baseline (0 unique commits; identical to main)
+2. feat/shc09-aircraft (0 unique commits; ancestor of main)
+3. chore/v1-foundation-cleanup (delete after its squash/ff merge and remote verification)
+
+Not deleted: main, AUDIT history, any tag, unmerged work.
