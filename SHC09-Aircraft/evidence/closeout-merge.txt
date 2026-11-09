@@ -1,0 +1,20 @@
+# SHC09-Aircraft closeout (0bbaa3e -> c860972)
+
+## Non-blocking fixes (3 files)
+
+ DESIGN.md                                    |  2 +-
+ src/Aircraft/SHC09/Internal/shc09_metadata.m |  3 +++
+ tests/Aircraft/SHC09/test_model_metadata.m   | 16 ++++++++++++++++
+ 3 files changed, 20 insertions(+), 1 deletion(-)
+
+## Merge to main
+command: git checkout main && git pull --ff-only origin main && git merge --ff-only feat/shc09-aircraft && git push origin main
+result: Fast-forward 848c071..c860972 (no merge commit, no force push)
+
+## Remote identity
+git ls-remote origin refs/heads/main              -> c860972cdc223d2e0cf14bb6799bf290561bd50e
+git ls-remote origin refs/heads/feat/shc09-aircraft -> c860972cdc223d2e0cf14bb6799bf290561bd50e
+git rev-parse main                              -> c860972cdc223d2e0cf14bb6799bf290561bd50e
+
+## Final regression
+fresh clone of main @ c860972 -> matlab -batch "run('tests/run_tests.m')" -> 23/23 passed, 6.09 s, exit 0

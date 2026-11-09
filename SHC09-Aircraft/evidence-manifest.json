@@ -1,34 +1,34 @@
 {
   "schema_version": 2,
   "phase": "SHC09-Aircraft",
-  "created_at": "2026-11-09T10:48:13Z",
+  "created_at": "2026-11-09T11:03:42Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
   },
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
-    "branch": "feat/shc09-aircraft",
-    "commit": "0bbaa3e882172ce4b3b5566015eca06f0c4202d1"
+    "branch": "main",
+    "commit": "c860972cdc223d2e0cf14bb6799bf290561bd50e"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
-  "status": "in-progress",
+  "status": "accepted",
   "environment": {
     "os": "Windows",
     "matlab": "R2025b 25.2.0.2998904",
-    "dev_branch": "feat/shc09-aircraft"
+    "dev_branch": "main"
   },
   "evidence": [
     {
       "path": "SHC09-Aircraft/REPORT.md",
-      "sha256": "36e78732a76f47f140f8cc29346d68e6174a388e731e481321c136827f28285c",
+      "sha256": "1e001768af680db22b4a6ee3208bb6845fffaf5b5f29f0dba111866c7ed38ab2",
       "kind": "report"
     },
     {
       "path": "SHC09-Aircraft/HANDOFF.md",
-      "sha256": "00a963a7f1eed802b90e0a085f9badf588bd166683119323e6be93b35aeabcfe",
+      "sha256": "a1108efdd78aadb279c49b9e2134957b85657d161f98d0e1095e1df31ade93ca",
       "kind": "handoff"
     },
     {
@@ -38,7 +38,7 @@
     },
     {
       "path": "SHC09-Aircraft/evidence/shc09-test-run.txt",
-      "sha256": "ab1077d6b868facfc05d18bec49ff9f56e241ad54c067e032b15d528f5b28e55",
+      "sha256": "12d35248a4079134602b3112559848e6d16048bf6159d2d00d0e0d519c65b66a",
       "kind": "other"
     },
     {
@@ -55,16 +55,21 @@
       "path": "SHC09-Aircraft/evidence/layout-migration.txt",
       "sha256": "695a39a9549921d6f201d683abd270ce90be61cd7b41f68bdec856e55d501dab",
       "kind": "other"
+    },
+    {
+      "path": "SHC09-Aircraft/evidence/closeout-merge.txt",
+      "sha256": "fbe4695f3fe4347e18ecf0714fcf20f5165974ee6e6a5516bd8cd2634d8c6087",
+      "kind": "other"
     }
   ],
   "verification": {
     "commands": [
-      "fresh clone of branch; matlab -batch run('tests/run_tests.m')"
+      "fresh clone of main; matlab -batch run('tests/run_tests.m')"
     ],
     "result": "passed"
   },
   "limitations": [
-    "Project-wide layout governance plus three acceptance fixes; physical aero validation still blocked on data licensing."
+    "Restricted ACCEPT: software stage and nominal dynamics accepted; aero data licensing, physical validity and hardware parameter identification remain open."
   ],
-  "next_action": "NEXUS review of feat/shc09-aircraft at 0bbaa3e (23 tests, layout migration, three fixes)"
+  "next_action": "GNC-Baseline (not started); start from DEV main c860972 following DESIGN.md section 13"
 }

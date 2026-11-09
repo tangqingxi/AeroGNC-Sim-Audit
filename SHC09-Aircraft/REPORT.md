@@ -1,12 +1,12 @@
-# SHC09-Aircraft — 阶段报告（Gate A：物理来源审计）
+# SHC09-Aircraft — 阶段报告（最终：ACCEPT 限制性）
 
 | 项 | 值 |
 |---|---|
 | 阶段名称 | `SHC09-Aircraft` |
-| 状态 | `ready-for-review`（2026-11-09 解冻并完成实现；Gate A 曾因 D1–D3 blocked，历史记录见 §1–§10） |
+| 状态 | `ACCEPT（限制性）`（NEXUS 2026-11-09 判定；软件阶段通过，物理有效性待后续研究） |
 | DEV | <https://github.com/tangqingxi/AeroGNC-Sim> |
-| DEV HEAD | `848c0710ccc553047ad20a2528a45a42e2a2f458`（审计时的 main） |
-| DEV 开发分支 | `feat/shc09-aircraft` @ `0bbaa3e882172ce4b3b5566015eca06f0c4202d1`（架构治理后；历史见 §11–§12） |
+| DEV main（最终） | `c860972cdc223d2e0cf14bb6799bf290561bd50e`（已合并并推送，见 §14） |
+| DEV 开发分支 | `feat/shc09-aircraft` @ 同一 SHA（保留，不再开发） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 参考工程 | <https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab> @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
 | 审计日期 | 2026-11-07 |
@@ -306,3 +306,57 @@ NEXUS 复核 `0f5b0dd`；不再自行宣称 ACCEPT。若通过，由维护者决
 | AUDIT | 本节 + 更新后的 `HANDOFF.md` / 测试证据 / 迁移清单 / 证据清单 |
 
 **下一步**：NEXUS 复核 `0bbaa3e`（复跑 23 项、核对迁移映射与三项修复）。不自行宣称 ACCEPT，不合并 main。
+
+## 14. 2026-11-09 阶段正式结案：SHC09-Aircraft ACCEPT（限制性）
+
+### 14.1 结论
+
+NEXUS 对 `feat/shc09-aircraft` @ `0bbaa3e` 作出 **ACCEPT（限制性）**：
+
+- 全项目目录治理接受；
+- SHC09 名义动力学与 Components 架构接受；
+- 六维舵面与独立电机指令接受；
+- 原有 23 项回归证据接受；
+- 真实气动数据许可、物理有效性与实机参数辨识**不在本轮完成范围**。
+
+**软件阶段通过**：架构、数值实现、接口与回归符合要求。
+**物理有效性尚未完全确认**：原始气动数据许可、真实气动性能与部分实机参数仍待后续研究。
+不得将限制性 ACCEPT 表述为“SHC09 实机动力学已全面验证”。
+
+### 14.2 两项非阻断修正（0bbaa3e → c860972，3 个文件）
+
+| 修正 | 文件 | 内容 |
+|---|---|---|
+| 元数据补齐 | `src/Aircraft/SHC09/Internal/shc09_metadata.m` | 记录 `servo_torque_coefficient`、`fixed_vane_coefficient`、`aero_domain_policy`，直接读取 `shc09_parameters` 生效值 |
+| 断言加强 | `tests/Aircraft/SHC09/test_model_metadata.m` | 断言三项字段；并通过覆盖 `servo_torque_coefficient` / `aero_domain_policy` 验证元数据读取生效值（单来源） |
+| 失效名称清理 | `DESIGN.md` | `shc09_aero_force` → `shc09_forces_and_moments`；生产代码与设计文档中已无 `shc09_trim` / `shc09_aero_force` 残留（测试中的负向检查除外） |
+
+未修改任何物理方程、效能矩阵或参数默认值。
+
+### 14.3 最终验证（全新 clone main）
+
+- `git clone -b main` @ `c860972` → `matlab -batch "run('tests/run_tests.m')"`
+  → **23/23 通过，6.09 s，退出码 0**（证据 `evidence/shc09-test-run.txt`）。
+- 旧名称检查：生产源码与 DESIGN 中无失效函数名；`test_project_layout` 通过。
+- 物理行为未变：几何/`B_M`、动力学 Jacobian、配平 7.310°、停机/启动、指令独立性、集成测试全部通过。
+
+### 14.4 合并与远端一致性
+
+- `git merge --ff-only feat/shc09-aircraft` → **Fast-forward `848c071..c860972`**，无合并提交、无 force push。
+- 远端 `main`、`feat/shc09-aircraft` 与本地 `main` 均为 `c860972cdc223d2e0cf14bb6799bf290561bd50e`。
+- 合并前后代码内容一致（fast-forward），测试证据对应该 SHA。
+
+### 14.5 保留限制
+
+1. **气动数据许可（高）**：真实 `duct_raw`/`wing_raw` 未入库；`trust='verified'` 仅为调用方声明，物理气动验证仍待授权数据。
+2. **物理有效性（高）**：机翼升阻力、带真实表的配平与气动性能未做实测验证。
+3. **实机参数（中）**：惯量为 Gazebo/PX4 参考值；舵机 τ/速率、电机 τ/转速范围为名义值。
+4. **模型边界（中）**：垂直下落时迎角超出气动表域，测试显式使用 `clip` 策略；舵面侧向力未计入总平动力（与参考模型一致）。
+
+### 14.6 历史记录
+
+§1–§10（Gate A 审计与阻断）、§11（首次实现）、§12（REJECT 整改）、§13（目录治理）全部保留，未改写。
+
+### 14.7 下一步
+
+`GNC-Baseline`：尚未开始。后续 Agent 可从 main `c860972` 直接开工，并遵守 `DESIGN.md` §13 的文件归属规则。
