@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "phase": "Communication-Baseline",
+  "created_at": "2026-11-09T11:34:45Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/communication-baseline",
+    "commit": "cce1b328e6a414500d8bf0fb9e70e66645650025"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "dev_branch": "feat/communication-baseline"
+  },
+  "evidence": [
+    {
+      "path": "Communication-Baseline/REPORT.md",
+      "sha256": "bbc75412cd06c1a5a3b22dbf28ea8d0412460a7285bea13a5754850e2081f235",
+      "kind": "report"
+    },
+    {
+      "path": "Communication-Baseline/HANDOFF.md",
+      "sha256": "cc1c6811496b8ee47ff148828ded040ad09737944ffc2622be6358b052de3fde",
+      "kind": "handoff"
+    },
+    {
+      "path": "Communication-Baseline/evidence/topic-bus-test.txt",
+      "sha256": "ce0402a1ff8fbc1d3124369fc61d1549093762c77f1dbcebf918e478ebe0c616",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "fresh clone of branch; matlab -batch run('tests/run_tests.m')"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Communication core only; not yet wired into aero_sim. Latest-Value, no history queue."
+  ],
+  "next_action": "Communication-Integration: single bus instance owned by aero_sim; publish measurements and latched commands without changing timing semantics"
+}
