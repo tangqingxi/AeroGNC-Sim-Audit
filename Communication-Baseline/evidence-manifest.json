@@ -1,39 +1,39 @@
 {
   "schema_version": 2,
   "phase": "Communication-Baseline",
-  "created_at": "2026-11-09T11:58:12Z",
+  "created_at": "2026-11-09T12:04:27Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
   },
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
-    "branch": "feat/communication-baseline",
-    "commit": "dd401b10e780876bb78e93e59f446c970feba740"
+    "branch": "main",
+    "commit": "c8aae919281741a0e0554e78f4a8f085cb0f09e7"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
-  "status": "in-progress",
+  "status": "accepted",
   "environment": {
     "os": "Windows",
     "matlab": "R2025b 25.2.0.2998904",
-    "dev_branch": "feat/communication-baseline"
+    "dev_branch": "main"
   },
   "evidence": [
     {
       "path": "Communication-Baseline/REPORT.md",
-      "sha256": "69a22f32fd56d8560063a5b37d38dac8fffb932a4963c07bf423049371f2f872",
+      "sha256": "452159c76e8167aa408ef0804194234020f651231e3551430bcc175dce14c42b",
       "kind": "report"
     },
     {
       "path": "Communication-Baseline/HANDOFF.md",
-      "sha256": "c87c67cc86c52d99cb3dbe85028f386de1942f1b826c881539c1d4c0d88a4cb7",
+      "sha256": "b6d5732694385a9dd1632d1dd6e4592c713f064ce25c6779bf182dccf037ad3d",
       "kind": "handoff"
     },
     {
       "path": "Communication-Baseline/evidence/topic-bus-test.txt",
-      "sha256": "5b826345c9a0f79a33561daeabae632696863808535e870f495291ad14f9e8ab",
+      "sha256": "ad2f06ce67d2c1c3a6e8723542084f2e84f29fa78a1fca2573d46dcb0f7371b8",
       "kind": "other"
     },
     {
@@ -45,16 +45,21 @@
       "path": "Communication-Baseline/evidence/validation-diff.txt",
       "sha256": "9c6b7f131c65672182d051866d197bafd1229a8caa7c1f838cda7e9871ee1ac1",
       "kind": "other"
+    },
+    {
+      "path": "Communication-Baseline/evidence/merge-record.txt",
+      "sha256": "b1c01039387934f5778829bdd14d81f8850753570efe4f553c72349755980920",
+      "kind": "other"
     }
   ],
   "verification": {
     "commands": [
-      "fresh clone of branch; matlab -batch run('tests/run_tests.m')"
+      "fresh clone of main; matlab -batch run('tests/run_tests.m')"
     ],
     "result": "passed"
   },
   "limitations": [
-    "Snapshot persistence verified on R2025b only; topic log is bounded analysis aid, not a history queue; truth/ prefix is naming not access control."
+    "Topic log is a bounded analysis aid; truth/ naming is not access control; snapshot persistence verified on R2025b only."
   ],
-  "next_action": "NEXUS merge decision for feat/communication-baseline; Rate-Control-Baseline not started"
+  "next_action": "Rate-Control-Baseline (not started); start from DEV main c8aae91"
 }

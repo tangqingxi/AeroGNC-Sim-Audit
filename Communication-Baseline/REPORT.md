@@ -2,9 +2,10 @@
 
 | 项 | 值 |
 |---|---|
-| 阶段名称 | `Communication-Baseline`（Core 已限制性验收；Integration 限制性验收；Validation 已完成，见 §8） |
-| 状态 | `ready-for-review`（等待 NEXUS 决定是否合并 main；未自行合并） |
-| DEV 分支 | `feat/communication-baseline` @ `dd401b10e780876bb78e93e59f446c970feba740` |
+| 阶段名称 | `Communication-Baseline`（Core、Integration、Validation 均已完成） |
+| 状态 | `ACCEPTED`（NEXUS 2026-11-09 判定；已合并 DEV main） |
+| DEV main（最终） | `c8aae919281741a0e0554e78f4a8f085cb0f09e7`（fast-forward 自 `c860972`） |
+| DEV 开发分支 | `feat/communication-baseline` @ 同一 SHA（保留，不删除） |
 | DEV main | `c860972cdc223d2e0cf14bb6799bf290561bd50e`（未合并） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 前身参考 | `E:\Ducted-Fan-SHC09-matlab` @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
@@ -218,3 +219,41 @@ matlab -batch "run('tests/run_tests.m')"  →  27/27 通过，8.60 s，退出码
 **建议合并 main**：Validation PASS，27 项测试在全新 clone 中通过，默认行为与旧版一致，
 未修改冻结接口；遗留限制已记录且不影响后续 Rate PID + PINV 开发。
 最终合并决定由 NEXUS 做出；本 Agent 不自行合并。
+
+## 9. 验收与合并收尾（2026-11-09）
+
+**NEXUS 裁定：ACCEPT。** Communication-Baseline 已合并 DEV main，开发分支保留。
+
+### 9.1 文档一致性修订（仅文档，无源码/测试判据变化）
+
+| 文件 | 修订 |
+|---|---|
+| `README.md` | 补充 Topic Bus 功能说明；测试总数更新为 27 |
+| `DESIGN.md` | 快照 schema 统一为 `aero-comm-snapshot/1`（与代码一致） |
+| `AGENTS.md` | manifest 示例改用 `<BRANCH>`，不再硬编码 main |
+
+修订提交 `c8aae919281741a0e0554e78f4a8f085cb0f09e7`；未改动通信源码、Aircraft、Simulation 时序或冻结接口。
+
+### 9.2 合并
+
+- 已验收提交：`dd401b10e780876bb78e93e59f446c970feba740`（Validation）
+- 文档修订提交：`c8aae919281741a0e0554e78f4a8f085cb0f09e7`
+- 合并方式：`git merge --ff-only` → **Fast-forward `c860972..c8aae91`**，无 merge commit、无 force/rebase。
+- 远端 `main` 与 `feat/communication-baseline` 均为 `c8aae91`；分支保留。
+
+### 9.3 最终验证
+
+在文档修订提交上复跑：27/27 通过（11.17 s）。合并后从 GitHub **全新 clone main** @ `c8aae91`：
+**27/27 通过，8.40 s，退出码 0**（证据 `evidence/topic-bus-test.txt`、`evidence/merge-record.txt`）。
+
+### 9.4 遗留限制
+
+1. 日志为有界分析工具，不是历史队列；支持有界记录，不支持回放/逐样本订阅。
+2. `truth/` 前缀不是权限系统，真实隔离依赖 Simulation 数据边界与模块纪律。
+3. 快照 `.mat` 持久化仅在 MATLAB R2025b 验证。
+4. 未涉及 PID/INDI/MPC、PX4 ECL、GNSS 或真实 GNC 算法；逐样本高频消费仍待后续设计。
+
+### 9.5 下一阶段
+
+`Rate-Control-Baseline`：**尚未开始**。后续 Agent 可从 DEV main `c8aae91` 直接开工，
+遵守 `DESIGN.md` §13 的文件归属规则并复用现有 Topic Bus。

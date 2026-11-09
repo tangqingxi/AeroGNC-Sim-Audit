@@ -1,0 +1,10 @@
+# Communication-Baseline merge record
+
+pre_merge_main: c860972cdc223d2e0cf14bb6799bf290561bd50e
+validated_commit: dd401b10e780876bb78e93e59f446c970feba740
+docs_commit: c8aae919281741a0e0554e78f4a8f085cb0f09e7
+merge: git merge --ff-only feat/communication-baseline -> Fast-forward c860972..c8aae91
+remote main: c8aae919281741a0e0554e78f4a8f085cb0f09e7
+remote feat/communication-baseline: c8aae919281741a0e0554e78f4a8f085cb0f09e7 (preserved)
+
+post_merge_verification: fresh clone of main @ c8aae91 -> 27/27 tests, 8.40 s, exit 0
