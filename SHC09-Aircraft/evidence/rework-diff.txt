@@ -1,0 +1,26 @@
+# Rework diff summary: c53d560 -> 0f5b0dd
+
+ DESIGN.md                                          | 29 ++++++---
+ README.md                                          | 10 ++--
+ src/Aircraft/SHC09/shc09_dynamics.m                |  2 +-
+ src/Aircraft/SHC09/shc09_metadata.m                | 62 +++++++++++++++++++
+ src/Aircraft/SHC09/shc09_model.m                   |  1 +
+ src/Aircraft/SHC09/shc09_outputs.m                 | 43 +++++++++++---
+ src/Aircraft/SHC09/shc09_parameters.m              | 22 ++++++-
+ src/Aircraft/SHC09/shc09_project.m                 | 15 ++---
+ src/Aircraft/SHC09/shc09_trim.m                    |  7 ++-
+ .../+MotorDevices/+MAD_M6C06_320KV_V2/parameters.m | 25 +++++---
+ .../Actuators/Motor/aero_motor_dynamics.m          | 52 +++++++++++++---
+ .../Servo/+ServoDevices/+KST_X08H/parameters.m     | 16 ++---
+ .../Actuators/Servo/aero_servo_dynamics.m          | 27 +++++++--
+ src/Simulation/aero_is_valid_command.m             | 32 ++++++++++
+ src/Simulation/aero_sim.m                          | 10 ++++
+ src/Simulation/aero_validate_command.m             | 16 +++++
+ src/Simulation/aero_validate_config.m              | 25 +-------
+ tests/run_tests.m                                  |  3 +
+ tests/test_command_container.m                     | 66 ++++++++++++++++++++-
+ tests/test_model_metadata.m                        | 69 ++++++++++++++++++++++
+ tests/test_shc09_actuators.m                       | 57 ++++++++++++++----
+ tests/test_shc09_operating_states.m                | 62 +++++++++++++++++++
+ tests/test_shc09_outputs.m                         | 48 +++++++++++++++
+ 23 files changed, 601 insertions(+), 98 deletions(-)

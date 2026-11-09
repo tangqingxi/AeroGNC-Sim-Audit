@@ -6,7 +6,7 @@
 | 状态 | `ready-for-review`（2026-11-09 解冻并完成实现；Gate A 曾因 D1–D3 blocked，历史记录见 §1–§10） |
 | DEV | <https://github.com/tangqingxi/AeroGNC-Sim> |
 | DEV HEAD | `848c0710ccc553047ad20a2528a45a42e2a2f458`（审计时的 main） |
-| DEV 开发分支 | `feat/shc09-aircraft` @ `c53d5601c1a51319a8733526419fedb34ce2c045`（已推送，未合并 main） |
+| DEV 开发分支 | `feat/shc09-aircraft` @ `0f5b0dd57247d1dc56bb9ccf05bcbe4b37b659db`（整改后；原 `c53d560` 见 §11） |
 | AUDIT | <https://github.com/tangqingxi/AeroGNC-Sim-Audit> |
 | 参考工程 | <https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab> @ `43b6c7aef1912f8118e54d3decac1ac55465d5b1`（只读） |
 | 审计日期 | 2026-11-07 |
@@ -201,3 +201,54 @@ SHC09 专属参数只出现在 `src/Aircraft/SHC09/`，通用 Components 中无�
 1. NEXUS 审核 `feat/shc09-aircraft`（19 项测试 + 物理对照），决定 ACCEPT / REJECT。
 2. 若 ACCEPT：合并 main，并单独决定 D2——取得气动表再分发授权（或保持外部数据），再补“带真实表的气动/配平验证”。
 3. 在此之前不进入 `GNC-Baseline`。
+
+## 12. 2026-11-09 整改：NEXUS REJECT 后的六项修复
+
+NEXUS 对 `c53d560` 的审核结论为 REJECT（架构、目录、`B_M`、独立指令设计保留），
+本轮只做六项局部整改，未改冻结定义、目录层级或进入 GNC-Baseline。
+
+### 12.1 整改对照
+
+| # | 问题 | 修复 | 回归测试 |
+|---|---|---|---|
+| 1 | `initial_mode='rest'` 与电机最低 200 rad/s 冲突 | 200 rad/s 明确为**运行**下限；停机指令（≤1 rad/s）目标为物理 0，投影只夹到 `[0, max]`；设备参数新增 `omega_stop_rad_s` / `stop_threshold_rad_s` | `test_shc09_operating_states`：停机保持 0、启动到 200、停止收敛到 0、2 s 自由落体与解析一致 |
+| 2 | `result.config` 未记录 Aircraft 生效参数 | 内核新增通用 `model.metadata` 透传为 `result.model_metadata`（不解释字段）；SHC09 记录版本、质量/惯量、设备型号、生效行程/频率、覆盖值、气动数据来源与 SHA256 | `test_model_metadata`（含自定义 metadata 透传与外部数据哈希） |
+| 3 | KST 行程与 SHC09 装配行程归属不清 | KST 型号文件不再声明 ±40°，`range_rad=[-Inf,Inf]`；±40° 只作为 SHC09 装配限制；生效行程 = 能力 ∩ 装配，覆盖后统一计算一次并作为唯一 `range_rad` 传给通用动力学 | `test_shc09_actuators`：型号无行程、生效 ±40°、覆盖后重算 |
+| 4 | 结构体命令缺少运行时校验 | 内核在每个周期组件更新后校验 `bus.command` / `bus.held_command`（有限数值结构），失败报 `aero:kernel:command`；保持任意字段名与数值命令兼容 | `test_command_container`：运行中 NaN、字符、嵌套结构体、SHC09 错误舵面维度 |
+| 5 | `shc09_outputs` 力/力矩语义不一致 | 拆分为气动力/外力/总力/比力/NED 加速度与气动力矩/外力矩/总力矩，明确比力不含重力 | `test_shc09_outputs`：非零外力/外力矩下逐项校验 |
+| 6 | 通用执行器未检查 `model_type` | `aero_servo_dynamics` / `aero_motor_dynamics` 要求显式 `first_order`，其他或缺失立即报 `aero:components:modelType` | `test_shc09_actuators`：`second_order`、`identified`、缺失字段 |
+
+### 12.2 整改后验证
+
+- 从 GitHub **全新 clone** `feat/shc09-aircraft` @ `0f5b0dd`，`matlab -batch "run('tests/run_tests.m')"`
+  → **22/22 通过，5.07 s，退出码 0**；14 项内核测试全部保留，阈值未放宽。
+- clone 中确认 22 个测试文件均已提交（含新增 `test_shc09_operating_states`、`test_shc09_outputs`、`test_model_metadata`）。
+- 悬停配平、几何/`B_M`、数值 Jacobian、指令独立性、真值隔离结果与 §11 一致（回归通过）。
+
+### 12.3 变更文件（22 个修改 + 6 个新增）
+
+- 内核：`aero_sim`（metadata 透传、运行期命令校验）、`aero_validate_config`（复用校验器）、
+  新增 `aero_is_valid_command` / `aero_validate_command`。
+- Components：两个通用动力学（`model_type`、停机语义）、两个设备型号参数（行程归属、停机字段）。
+- SHC09：`parameters`（生效行程/覆盖后重算）、`project`（电机 `[0,max]`）、`dynamics`（生效行程参数）、
+  `outputs`（力/力矩语义）、`trim`（生效行程报错）、`model`（metadata）、新增 `metadata`。
+- 测试：`run_tests`、`test_command_container`、`test_shc09_actuators`、新增 3 个测试。
+- 文档：`DESIGN.md`、`README.md`（§6 停机语义、行程归属、metadata、22 项测试）。
+
+### 12.4 仍未解决
+
+1. **气动原始表许可（高）**：真实表仍外置；机翼升阻力、带真实表的配平与气动性能未做物理验证，
+   不报告为 PASS。自由落体测试因迎角超出表域显式使用 `clip` 策略，仅验证停机/运动学。
+2. **实机参数（中）**：惯量为参考值；舵机 τ/速率、电机 τ/转速范围为名义值。
+3. **分支未合并（流程）**：成果在 `feat/shc09-aircraft`，等待 NEXUS 复核后由维护者合并 main。
+
+### 12.5 提交
+
+| 仓库 | 内容 |
+|---|---|
+| DEV | `feat/shc09-aircraft` @ `0f5b0dd57247d1dc56bb9ccf05bcbe4b37b659db`（相对 `c53d560`：23 个文件，+601/−98） |
+| AUDIT | 本节 + 更新后的 `HANDOFF.md` / 测试证据 / 证据清单 |
+
+### 12.6 下一步
+
+NEXUS 复核 `0f5b0dd`；不再自行宣称 ACCEPT。若通过，由维护者决定合并 main 与 D2 气动数据许可。
