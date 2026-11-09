@@ -2,6 +2,8 @@
 
 审计与交接仓库，对应开发仓库 [tangqingxi/AeroGNC-Sim](https://github.com/tangqingxi/AeroGNC-Sim)。
 
+**当前状态入口：[STATUS.md](STATUS.md)**（唯一状态索引；阶段报告见下）
+
 - 已结案：`V1.0-Foundation-Cleanup`（**ACCEPTED**，DEV main `57bbe68`；临时分支已清理）
   → [V1.0-Foundation-Cleanup/REPORT.md](V1.0-Foundation-Cleanup/REPORT.md)（§9 合并结案）
 - 交接单：[V1.0-Foundation-Cleanup/HANDOFF.md](V1.0-Foundation-Cleanup/HANDOFF.md)
