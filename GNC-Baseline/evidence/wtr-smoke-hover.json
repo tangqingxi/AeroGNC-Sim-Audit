@@ -1,0 +1,15 @@
+[
+  {
+    "run_id": "gnc_hover_hold_c78170b40263",
+    "topics": 14,
+    "parameters": 18,
+    "duration_s": 3,
+    "execution": {
+      "status": "completed",
+      "expected_duration_s": 3
+    },
+    "audit": {
+      "status": "unknown"
+    }
+  }
+]

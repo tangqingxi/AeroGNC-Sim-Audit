@@ -1,0 +1,15 @@
+[
+  {
+    "run_id": "gnc_body_rate_step_8c2817d46fc3",
+    "topics": 14,
+    "parameters": 18,
+    "duration_s": 0.8,
+    "execution": {
+      "status": "completed",
+      "expected_duration_s": 0.8
+    },
+    "audit": {
+      "status": "unknown"
+    }
+  }
+]

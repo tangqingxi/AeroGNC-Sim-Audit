@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "phase": "GNC-Baseline",
+  "created_at": "2026-11-09T17:58:56Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/gnc-baseline",
+    "commit": "ade4b6938522a760eef61aad4b8f68c7c19bc6f3"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "windtrace": "bcdb6a8",
+    "dev_branch": "feat/gnc-baseline"
+  },
+  "evidence": [
+    {
+      "path": "GNC-Baseline/REPORT.md",
+      "sha256": "9443455b59e2a288f24cbdc8f95b2bee43d57483abcd57176d213e79a7485df4",
+      "kind": "report"
+    },
+    {
+      "path": "GNC-Baseline/HANDOFF.md",
+      "sha256": "46c3795e90b02781839eba64612358e8eb076938c3fb7229e28b1a7a7c94f7e1",
+      "kind": "handoff"
+    },
+    {
+      "path": "GNC-Baseline/SOURCE-REVIEW.md",
+      "sha256": "ad1c10c4bee6755dc7dd7d8c418aba85842ce81296530de5f6229f270ac210d5",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Baseline/evidence/test-run.txt",
+      "sha256": "57b22ded1f1b75740882fb68f5036fc04b7958fa235717b31ace8e04d221f711",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Baseline/evidence/scenario-metrics.txt",
+      "sha256": "6f8ff7e12a9c0c9b8677c99c459f05e8cc188096fefeb0ca67b6da8fcafd9855",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Baseline/evidence/wtr-smoke.json",
+      "sha256": "e31a3a933d28cc516b01d65458587413857d6f1a8dd0377b676c6d2f23d8eae6",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Baseline/evidence/wtr-smoke-hover.json",
+      "sha256": "d481e4287c1609b4dc731eb39ad23f9968d7a3f1ef5c8b1f9e72f5b8e45cec9d",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Baseline/evidence/windtrace-rate.png",
+      "sha256": "5c816d408397538e6169e38bda30156f653c3e962da02c775e62277b56040ca2",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Baseline/evidence/windtrace-hover.png",
+      "sha256": "72e913f6aabf5102153bbc6edcbe782432c1ca1d5b610f30449f49ab0274a37f",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "fresh clone of branch; matlab -batch run('tests/run_tests.m')"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Physical validation BLOCKED: synthetic aero fixture only. Gains nominal, no INDI/CA16, IdealState navigation."
+  ],
+  "next_action": "NEXUS review of feat/gnc-baseline; merge decision after acceptance; v1.0.0 not released"
+}

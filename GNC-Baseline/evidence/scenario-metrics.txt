@@ -1,0 +1,16 @@
+GNC-Baseline scenario metrics (MATLAB R2025b, synthetic aero fixture)
+
+Rate step (axis=roll, amplitude=0.5 rad/s, 0.5-1.5 s, tspan 1.2 s test / 2.0 s audit):
+  window 0.8-1.4 s: mean roll rate 0.507 rad/s, std 0.008 rad/s, max |yaw| 0.021 rad/s
+  command/held differ (servo 200 Hz, motor 50 Hz)
+
+Hover hold (initial offset [0.2,0,0.1] m, tspan 3 s in fresh clone):
+  final position error 0.00850 m
+  max position error after t=2 s: 0.04760 m
+  max tilt 0.78 deg (4 s regression run)
+
+WTR files (fresh clone):
+  rate  SHA256=700db96e48512db77f78f08ed7cfb3654d3482f5841e8525eb73248568ac77f7  bytes=130723
+  hover SHA256=836604d565298cfac33cb64ef3830835bc7e96cc0b1c703bbc9a85d947d0afbb  bytes=603726
+
+WindTrace smoke: topics=14, parameters=18, execution=completed (both files)
