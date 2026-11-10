@@ -1,0 +1,28 @@
+Normalized-Control-Interface-Study — source versions
+
+PX4 reference (primary):
+  repo: https://github.com/mengchaoheng/DuctedFanUAV-Autopilot
+  branch: df-main
+  commit: 2eb33667575619b02a2d9b52032df2fac7fb5291
+
+Old MATLAB reference:
+  repo: https://github.com/tangqingxi/Ducted-Fan-SHC09-matlab
+  commit: 43b6c7aef1912f8118e54d3decac1ac55465d5b1
+
+DEV (read-only):
+  repo: https://github.com/tangqingxi/AeroGNC-Sim
+  branch: feat/gnc-baseline
+  commit: 59cf917c5f87bfbf767bc9e9de9ead559bd4929b
+  main: 57bbe6893d83808e3b46aa79864701b32b31c775
+
+AUDIT base:
+  main: 7c8e1becc85c5feaf949a189a2bd0fb2bffe1b88
+
+Commands used for reading PX4:
+  git -C <clone> show 2eb3366757:src/lib/rate_control/rate_control.cpp
+  git -C <clone> show 2eb3366757:src/lib/control_allocation/...
+  git -C <clone> show 2eb3366757:src/modules/control_allocator/...
+  git -C <clone> show 2eb3366757:ROMFS/px4fmu_common/init.d/airframes/22002_ductedfan4
+
+Not run: PX4 build/flight, WindTrace rendering, real aerodynamic validation.
+Numerical probe uses synthetic SHC09 fixture only.

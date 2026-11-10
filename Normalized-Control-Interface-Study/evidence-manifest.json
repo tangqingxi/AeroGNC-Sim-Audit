@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "phase": "Normalized-Control-Interface-Study",
+  "created_at": "2026-11-10T12:27:29Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/gnc-baseline",
+    "commit": "59cf917c5f87bfbf767bc9e9de9ead559bd4929b"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "px4": "2eb3366757",
+    "old_matlab": "43b6c7ae"
+  },
+  "evidence": [
+    {
+      "path": "Normalized-Control-Interface-Study/REPORT.md",
+      "sha256": "3e5ebfb2b2799c82d65fd5f9a2c3e44e1ceb85565fcb67db0cad33f7d4d9f376",
+      "kind": "report"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/HANDOFF.md",
+      "sha256": "76ea1701aa80f0f06322fe9e64ecb6a064e187709a7189528fa08c12dfdda7b4",
+      "kind": "handoff"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/PX4-SOURCE-MAP.md",
+      "sha256": "39e763cfd1c05fc95f3258b4a67fba2af325d070669476b4bb9c097e77fcf4c4",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/MATHEMATICAL-DERIVATION.md",
+      "sha256": "f7b29ce3b5ae4f78a059d62c8979aaaea452babacb21932384bad904bdc93a09",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/SHC09-NORMALIZATION.md",
+      "sha256": "ba9697ff472f6a568f207aee0250e19fb0b28dad2e061cacfe126352abce6afc",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/ARCHITECTURE-OPTIONS.md",
+      "sha256": "3eaf9ca1716acbb437c71acdec1e045a4b69a5581043bb2f2eaefebf177af2e9",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/RECOMMENDATION.md",
+      "sha256": "6660e7b60a32c180911ab8c254a91331cd9eadbcc0a5043ad6727a41ddfa0028",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/evidence/normalization-probe.txt",
+      "sha256": "68fba49fbb9f094a1c318538f9b6fb96f0edc30f44e0e5615e0f7a1ce9dd575e",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/evidence/source-versions.txt",
+      "sha256": "41c59c0fafbbb92a5b17d9b07250711d4e6085cc74dc27ad5bf1d6aa4afdde19",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "git show 2eb3366757:src/lib/...; independent MATLAB probe for SHC09 allocation"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Research only; no production changes. PX4 not built/flown. SHC09 uses synthetic aero fixture; physical validation BLOCKED. Dynamic-S stability not simulated."
+  ],
+  "next_action": "NEXUS review of the normalized-control-interface study; no implementation before acceptance"
+}
