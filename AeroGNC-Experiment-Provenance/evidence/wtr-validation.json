@@ -2,26 +2,54 @@
   "schema": "wtr-validation/1",
   "files": [
     {
-      "file": "rate_step_0019db1c17c4",
-      "sha256": "b668234d6c46c08466a5a43ff7c9e2d8ae49a4d2ca104420e3b2b10edff76262",
-      "bytes": 260637,
-      "reader_run_id": "rate_step_0019db1c17c4",
+      "run_id": "rate_step_2b2fcd1f515e",
+      "sha256": "46deb179774d35fe9b8c6053b5d52e2690ca22cbf6e1f849ea5f1caa144d0fb2",
+      "bytes": 260863,
       "topics": 15,
-      "parameters": 81,
+      "parameters": 86,
       "duration_s": 1.5,
       "execution_status": "completed",
-      "matlab_validator": "passed"
+      "input_signature": "2b2fcd1f515e2156d3d558342e36ea89b0931a9eb5120b1c0cbfa7f03b2ebcaa",
+      "software": {
+        "matlab_version": "25.2.0.2998904 (R2025b)",
+        "matlab_release": "2025b",
+        "computer": "PCWIN64",
+        "git_commit": "d2ddff4a944bd454f9cd1f4523965d0f989d44cf",
+        "git_dirty": false
+      },
+      "software_project_root_present": false,
+      "parameter_paths_software": [
+        "software.computer",
+        "software.git_commit",
+        "software.git_dirty",
+        "software.matlab_release",
+        "software.matlab_version"
+      ]
     },
     {
-      "file": "hover_hold_51236eee79ca",
-      "sha256": "3ebd9cb44755cfd5ae4ec96d03e013e95ec066b28aa99bc89113f12f1455f35b",
-      "bytes": 597962,
-      "reader_run_id": "hover_hold_51236eee79ca",
+      "run_id": "hover_hold_5ae2d1f2dba5",
+      "sha256": "b3875dd892db0297939c6df66c7fec15cd005fab5793d6617e527a48ca2297c9",
+      "bytes": 598187,
       "topics": 15,
-      "parameters": 101,
+      "parameters": 106,
       "duration_s": 3,
       "execution_status": "completed",
-      "matlab_validator": "passed"
+      "input_signature": "5ae2d1f2dba5b195607672db3f95579de55c8483f3a89fbe6de3ce61c8a3d4c7",
+      "software": {
+        "matlab_version": "25.2.0.2998904 (R2025b)",
+        "matlab_release": "2025b",
+        "computer": "PCWIN64",
+        "git_commit": "d2ddff4a944bd454f9cd1f4523965d0f989d44cf",
+        "git_dirty": false
+      },
+      "software_project_root_present": false,
+      "parameter_paths_software": [
+        "software.computer",
+        "software.git_commit",
+        "software.git_dirty",
+        "software.matlab_release",
+        "software.matlab_version"
+      ]
     }
   ]
 }

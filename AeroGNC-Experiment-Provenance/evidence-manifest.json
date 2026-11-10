@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "AeroGNC-Experiment-Provenance",
-  "created_at": "2026-11-10T16:13:55Z",
+  "created_at": "2026-11-10T16:40:20Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/px4-control-fidelity",
-    "commit": "4f6f7546e597dce7f22edb213e48b42dd102561f"
+    "commit": "d2ddff4a944bd454f9cd1f4523965d0f989d44cf"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -24,7 +24,7 @@
   "evidence": [
     {
       "path": "AeroGNC-Experiment-Provenance/REPORT.md",
-      "sha256": "000770a13141eb0c1ed071af7d7c6581bdf700553edaf3aeec4161a9936bb1e0",
+      "sha256": "84683f15004636309162f39f929de64e7a633121182c828487dada570dbf75eb",
       "kind": "report"
     },
     {
@@ -34,22 +34,22 @@
     },
     {
       "path": "AeroGNC-Experiment-Provenance/DATA-LINEAGE.md",
-      "sha256": "5c80105577d4d945381c432b9b04ff9bc5d539738a43a35b7dd0eb0ef6643b3c",
+      "sha256": "2805d4dc0f0e395e32fe58195f4a5306b30db3c3b9d0d517457304976de535f6",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/WTR-EXPORT-REVIEW.md",
-      "sha256": "af27fd4536f595a721fe94712098bacdcf805018fd4b90af7c693d38cd36d2e6",
+      "sha256": "8401d768fc2ed3727872bf9d900179faff6aed179dc540ff27608c8e8c6c6700",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/HANDOFF.md",
-      "sha256": "19d21567e2fe9362572ad21ede3d93f0896d7f310ef76ca2152a207dd775d2a2",
+      "sha256": "94ad268e5f80b0dfdae16fed3cb5afc6d17afa1d1c637f70b3b0bf58f5df663d",
       "kind": "handoff"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/evidence/experiment-definition-validation.txt",
-      "sha256": "c7f6c13e6223e4dd43b27a57fd521bbb3412ea923f762526e31d05d0e28d49cc",
+      "sha256": "6159abff303fbc29fe2a4cdd6e1d3c82249f020a26720327d57f6967df11d3fa",
       "kind": "other"
     },
     {
@@ -59,7 +59,7 @@
     },
     {
       "path": "AeroGNC-Experiment-Provenance/evidence/model-metadata-validation.txt",
-      "sha256": "1a04fca37e94505fe68311a3912f2767718811758a9a2f13524335eedae7cf37",
+      "sha256": "e8cb479b4e01dc38582c794a8b73fb52aab4bae33d2c787f43f44e30c749b6a0",
       "kind": "other"
     },
     {
@@ -69,22 +69,47 @@
     },
     {
       "path": "AeroGNC-Experiment-Provenance/evidence/mat-roundtrip.txt",
-      "sha256": "043f9dbdf99d17804f41afb568cdc111929f8ec752f7f523119d8ca449a26f47",
+      "sha256": "90b6433de541f61dbd28a6b769afc2a4bf9141e39eb4b58c1a46a388ae1bc49b",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/evidence/wtr-validation.json",
-      "sha256": "356163582e2881bdaa211856932a5d9b7626ffe5b561699bcd333d9222291907",
+      "sha256": "125930d66ce86297b456991a7f114eb76242a710d34d58a73a6e65f36050897e",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/evidence/regression-test.txt",
-      "sha256": "8a9a6cd3b361f61607c8171fe4dc7aa02e5ada8680c1c431ef3103b40a939645",
+      "sha256": "f333fb9ffda01c6a70743a9ab343c5ddf92e76671c14084606d16627a11a25e6",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/evidence/windtrace-smoke.txt",
-      "sha256": "462d17d80196fac883c6f1f240d6fe053093d223567034ec7fc8505e860aca77",
+      "sha256": "d07de133bdd3de4a88286d912a69c90f7be7a044441bf105c36e27c64ed83992",
+      "kind": "other"
+    },
+    {
+      "path": "AeroGNC-Experiment-Provenance/evidence/cross-path-identity.txt",
+      "sha256": "031081529f5595de2c2583a15328fe0b9a5708b783b78592df3f6555e21dfb91",
+      "kind": "other"
+    },
+    {
+      "path": "AeroGNC-Experiment-Provenance/evidence/fixture-content-identity.txt",
+      "sha256": "b9f062466ecff10a8228a04d70a868a26425505b754eb3eb6ec8d18de41e24c3",
+      "kind": "other"
+    },
+    {
+      "path": "AeroGNC-Experiment-Provenance/evidence/state-layout-validation.txt",
+      "sha256": "f9536f40854d50c648e9da6faa6209f845b05583b5d665d8473ab0f5413f6855",
+      "kind": "other"
+    },
+    {
+      "path": "AeroGNC-Experiment-Provenance/evidence/canonical-json.txt",
+      "sha256": "0ffb7e62a2aa96943064ade97b346a3993722dfc7fa16ad8237dbf77d17675e0",
+      "kind": "other"
+    },
+    {
+      "path": "AeroGNC-Experiment-Provenance/evidence/software-provenance.txt",
+      "sha256": "b9946770d6783b91823689dbfa8c6a292c306b94cfc81679df2962e003ccb583",
       "kind": "other"
     },
     {
@@ -100,7 +125,7 @@
     "result": "passed"
   },
   "limitations": [
-    "Physical validation BLOCKED (synthetic aero fixture). PX4 not built/flown. IdealState has no sensor noise/bias. No WTR v1 change or WindTrace modification."
+    "Physical validation BLOCKED (synthetic aero fixture). PX4 not built/flown. IdealState has no sensor noise/bias. No WTR v1 change or WindTrace modification. Git dirty is recorded as non-reproducible; final evidence clone is clean."
   ],
-  "next_action": "NEXUS review of experiment definition, identity hashes, MAT roundtrip and result-only WTR"
+  "next_action": "NEXUS review of cross-machine identity, full state layout, canonical serialization and software provenance; then main merge decision"
 }

@@ -1,0 +1,8 @@
+State layout
+
+state nx=20 position=[1 2 3] velocity=[4 5 6] quaternion=[7 8 9 10] omega=[11 12 13] servo=[14 15 16 17 18 19] motor=20 units=6 description=SHC09 20-state layout: p_n, v_n, q_bn(wxyz), omega_b, delta(6), Omega
+model_quaternion_tamper=wtr:identity:layout
+model_servo_tamper=wtr:identity:layout
+model_motor_tamper=wtr:identity:layout
+result_motor_tamper=wtr:identity:input
+dir_exists_after_reject=0

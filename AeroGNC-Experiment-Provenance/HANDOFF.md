@@ -11,7 +11,7 @@
 
 - DEV: <https://github.com/tangqingxi/AeroGNC-Sim>
 - DEV branch: `feat/px4-control-fidelity`（未合并 main）
-- DEV tested commit: `4f6f7546e597dce7f22edb213e48b42dd102561f`
+- DEV tested commit: `d2ddff4a944bd454f9cd1f4523965d0f989d44cf`
 - DEV base: `1765ac1cf57a842e75eaaf2d81cbd8252d1687d9`
 - DEV main: `57bbe6893d83808e3b46aa79864701b32b31c775`
 - AUDIT: <https://github.com/tangqingxi/AeroGNC-Sim-Audit>
@@ -36,14 +36,19 @@
 | MAT save/load | PASS | `mat-roundtrip.txt` | 定义/身份保留 |
 | WTR v1 读取 | PASS | `wtr-validation.json` | 15 topics |
 | WindTrace smoke | PASS | `windtrace-smoke.txt` | completed |
-| 40-test regression | PASS | `regression-test.txt` | fresh clone |
+| 跨机器身份 | PASS | `cross-path-identity.txt` | path excluded |
+| fixture 内容身份 | PASS | `fixture-content-identity.txt` | content SHA |
+| 完整状态布局 | PASS | `state-layout-validation.txt` | 20-state indices |
+| 规范化序列化 | PASS | `canonical-json.txt` | field order/dims |
+| 软件来源 | PASS | `software-provenance.txt` | MATLAB/git |
+| 42-test regression | PASS | `regression-test.txt` | fresh clone |
 | Physical validation | **BLOCKED** | REPORT | synthetic fixture |
 
 ## Reproduction
 
 - 环境：Windows + MATLAB R2025b (`25.2.0.2998904`)；WindTrace `.venv`。
-- 检出：`git clone -b feat/px4-control-fidelity`，切到 `4f6f754`。
-- 回归：`matlab -batch "run('tests/run_tests.m')"` → 40/40。
+- 检出：`git clone -b feat/px4-control-fidelity`，切到 `d2ddff4`。
+- 回归：`matlab -batch "run('tests/run_tests.m')"` → 42/42。
 - 场景：`hover_scenario` / `rate_step_scenario`；`wtr_export(result, model, struct('output_root',...))`。
 - Viewer：`python app.py <flight.wtr> --smoke` / `--screenshot`。
 
@@ -57,17 +62,19 @@
 
 ## Next bounded task
 
-- **Objective**：NEXUS 复核 `feat/px4-control-fidelity` @ `4f6f754`，重点检查
-  实验定义/身份/WTR 拒绝机制与 MAT roundtrip；通过后再决定 main 合并。
+- **Objective**：NEXUS 复核 `feat/px4-control-fidelity` @ `d2ddff4`，重点检查
+  跨机器身份、完整状态布局、规范化序列化、软件来源与 WTR 拒绝机制；通过后再决定
+  main 合并。
 - **Files**：`AeroGNC-Experiment-Provenance/*` + `evidence/`。
-- **Preconditions**：DEV main `57bbe68`；分支 `4f6f754`；40/40。
-- **Acceptance criteria**：唯一实验定义、参数同源、WTR 只读结果、篡改拒绝、
-  WTR v1 可读、README/DESIGN 更新、物理限制如实。
+- **Preconditions**：DEV main `57bbe68`；分支 `d2ddff4`；42/42。
+- **Acceptance criteria**：唯一实验定义、参数同源、WTR 只读结果、跨机器稳定
+  身份、完整布局、规范化序列化、软件来源、篡改拒绝、WTR v1 可读、README/DESIGN
+  更新、物理限制如实。
 - **Stop/escalation**：需改冻结内核/算法、声称物理有效或合并 main 时停止。
 
 ## Agent startup instructions
 
 1. 读 `REPORT.md`、`EXPERIMENT-DEFINITION.md`、`DATA-LINEAGE.md`、`WTR-EXPORT-REVIEW.md`。
-2. 核对 DEV `4f6f754`、base `1765ac1`、main `57bbe68`。
+2. 核对 DEV `d2ddff4`、base `1765ac1`、main `57bbe68`。
 3. 复跑 40 项；检查定义/身份 SHA、MAT roundtrip、WTR 拒绝和 WindTrace。
 4. 不合并 main、不创建 Tag、不把 fixture 写成物理验证。

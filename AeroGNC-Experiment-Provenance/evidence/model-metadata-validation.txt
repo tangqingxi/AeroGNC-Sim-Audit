@@ -5,3 +5,9 @@ result_def_equal=1 result_id_equal=1
 model_tamper=wtr:identity:model
 
 Result model_metadata is saved by aero_sim and checked against model.metadata in wtr_experiment_identity; tampered mass is rejected (wtr:identity:model).
+
+source_file_retained=1
+content_sha256_present=1
+file_sha256_present=1
+trust_and_domains_in_metadata=1
+state_layout=full indices

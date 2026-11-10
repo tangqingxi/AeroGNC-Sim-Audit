@@ -1,8 +1,8 @@
 AeroGNC-Sim 回归测试
 MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
-项目根目录：C:\Users\32450\AppData\Local\Temp\aero-provenance-clone
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-integrity-clone
 
 [ 1/ 1] test_experiment_provenance
-        PASS  定义/身份 SHA、运行配置、模型快照、MAT roundtrip 与 WTR 导出通过；modules=6  (6.20s)
+        PASS  定义/身份 SHA、运行配置、模型快照、MAT roundtrip 与 WTR 导出通过；modules=6  (4.89s)
 
-1/1 项测试通过，用时 6.20s
+1/1 项测试通过，用时 4.89s

@@ -1,0 +1,4 @@
+Aero content identity
+
+changed_content_identity_changed=1 content_changed=1
+fixture_content_changed=1 identity_changed=1

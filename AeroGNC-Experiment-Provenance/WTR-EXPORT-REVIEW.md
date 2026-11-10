@@ -34,8 +34,9 @@ scenario, signature, gains, method, seed
 | 分配参数 | `definition.allocation` |
 | 运行配置 | `result.config` |
 | 机型和物理快照 | `result.model_metadata` |
+| 状态布局 | `result.model_metadata.state_layout`（model 布局仅用于一致性校验） |
+| 软件来源 | `result.environment`（单独记录，不进入输入签名） |
 | Topic 历史 | `result.communication.log` |
-| 状态布局 | 已验证的 `model.state_layout`（仅此用途） |
 
 不再读取 `options.gains` 或 `model.parameters` 生成参数/几何。
 
@@ -50,8 +51,10 @@ scenario, signature, gains, method, seed
 7. 组件 `kind/period/priority/offset/delay/latches/topic`。
 8. tspan/x0/initial_command/solver/environment/time_tolerance/seed。
 9. model name/version 与 `result.model_metadata`。
-10. aero source/trust/SHA。
-11. 发布日志完整（`dropped==0`）。
+10. `result.model_metadata.state_layout` 的 nx/position/velocity/quaternion/
+    omega/servo/motor/units/description；传入 model 的布局必须与之一致。
+11. aero source/trust/file SHA/content SHA/有效域。
+12. 发布日志完整（`dropped==0`）。
 
 所有校验在创建结果目录或写文件之前完成。测试证明失败时 `dir_exists=0`。
 
@@ -75,6 +78,17 @@ scenario, signature, gains, method, seed
 同时输出 `experiment.definition_sha256`、`experiment.identity_sha256`、
 `allocation.algorithm/B_tau/delta_limit`、`control.*` 实际参数。
 
+软件来源参数：
+
+```text
+software.matlab_version / matlab_release / computer
+software.git_commit / git_dirty
+software.reproducibility_note（仅 dirty 时）
+```
+
+`manifest.source.software` 保存同样的结构化记录；不包含 `project_root`，也不进入
+输入签名。若 `git_dirty=true`，明确声明 commit SHA 不能单独保证精确复现。
+
 ## 5. MAT/WTR 关联
 
 - `simulation.mat` 是权威结果；`flight.wtr` 从它派生。
@@ -89,4 +103,6 @@ scenario, signature, gains, method, seed
   scenario/method/seed、旧身份字段拒绝、控制器/参考/分配/tspan/x0/model 篡改拒绝、
   无残留目录、容量/覆盖/无日志保护。
 - `test_experiment_provenance`：MAT save/load 后 WTR 导出签名一致。
-- WindTrace `read_flight` 与 `--smoke` 成功；15 topics，81/101 parameters。
+- WindTrace `read_flight` 与 `--smoke` 成功；15 topics，86/106 parameters。
+- 状态布局篡改（model 与 result）在创建目录前拒绝；软件来源字段存在且
+  `project_root` 不泄露。

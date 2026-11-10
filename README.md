@@ -4,7 +4,7 @@
 
 **当前状态入口：[STATUS.md](STATUS.md)**（阶段级详细结论见下）
 
-- 当前阶段：`AeroGNC-Experiment-Provenance`（**in-progress / ready-for-review**，DEV 分支 `feat/px4-control-fidelity` @ `4f6f754`）
+- 当前阶段：`AeroGNC-Experiment-Provenance`（**in-progress / ready-for-review**，DEV 分支 `feat/px4-control-fidelity` @ `d2ddff4`）
   → [AeroGNC-Experiment-Provenance/REPORT.md](AeroGNC-Experiment-Provenance/REPORT.md)
 - 实验定义/数据血缘： [EXPERIMENT-DEFINITION.md](AeroGNC-Experiment-Provenance/EXPERIMENT-DEFINITION.md)、
   [DATA-LINEAGE.md](AeroGNC-Experiment-Provenance/DATA-LINEAGE.md)
@@ -18,7 +18,7 @@
 - 已结案：`Communication-Baseline`（ACCEPTED）、`SHC09-Aircraft`（ACCEPT 限制性）、
   `Simulation-Kernel`、`Architecture-Baseline`
 
-DEV main 仍为 `57bbe68`；GNC 分支未合并。40 项测试通过；真实气动与物理闭环验收 **BLOCKED**，
+DEV main 仍为 `57bbe68`；GNC 分支未合并。42 项测试通过；真实气动与物理闭环验收 **BLOCKED**，
 fixture 结果只证明软件链路。`v1.0.0` 未发布。
 
 本仓库不存放可执行源码、原始数据集或凭据；一切结论以 DEV 的完整 commit SHA 为准。

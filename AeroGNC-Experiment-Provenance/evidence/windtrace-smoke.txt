@@ -2,9 +2,9 @@ WindTrace read_flight and smoke
 
 [
   {
-    "run_id": "rate_step_0019db1c17c4",
+    "run_id": "rate_step_2b2fcd1f515e",
     "topics": 15,
-    "parameters": 81,
+    "parameters": 86,
     "duration_s": 1.5,
     "execution": {
       "status": "completed",
@@ -17,9 +17,9 @@ WindTrace read_flight and smoke
 ]
 [
   {
-    "run_id": "hover_hold_51236eee79ca",
+    "run_id": "hover_hold_5ae2d1f2dba5",
     "topics": 15,
-    "parameters": 101,
+    "parameters": 106,
     "duration_s": 3,
     "execution": {
       "status": "completed",

@@ -4,11 +4,11 @@
 |---|---|
 | 阶段 | `AeroGNC-Experiment-Provenance` |
 | 状态 | `in-progress (ready-for-review)`（未合并 main，未创建 Tag） |
-| DEV 分支 | `feat/px4-control-fidelity` @ `4f6f7546e597dce7f22edb213e48b42dd102561f` |
+| DEV 分支 | `feat/px4-control-fidelity` @ `d2ddff4a944bd454f9cd1f4523965d0f989d44cf` |
 | DEV 基点 | `1765ac1cf57a842e75eaaf2d81cbd8252d1687d9` |
 | DEV main | `57bbe6893d83808e3b46aa79864701b32b31c775`（未变） |
 | AUDIT 分支 | `study/aerognc-experiment-provenance`（自 `77283910a89c234c32631ae3739bb97d8531c3ba`） |
-| 测试 | 40/40 通过（全新 clone，40.99 s） |
+| 测试 | 42/42 通过（全新 clone，42.21 s） |
 | 物理验证 | **BLOCKED**（合成气动 fixture） |
 
 ## 1. 本阶段目标与结果
@@ -47,7 +47,18 @@ flight.wtr
 5. `wtr_export` 不再接受 scenario/signature/gains/method/seed；所有身份与参数从
    `result` 派生，且在写文件前校验。
 6. `parameters.json` 从 definition、`result.config`、`result.model_metadata` 生成。
-7. 新增 `test_experiment_provenance`；原有 39 项测试全部保留，共 40 项。
+7. 新增 `test_experiment_provenance`；在 40 项基础上新增 `test_provenance_integrity`、`test_aero_canonical_json`，共 42 项。
+8. 本轮增加四项完整性整改：跨机器身份、完整状态布局、规范化序列化、软件来源；
+   新增 `test_provenance_integrity`、`test_aero_canonical_json`，共 42 项。
+
+### 1.1 本轮完整性整改
+
+| 项 | 实现 | 验证 |
+|---|---|---|
+| A 跨机器身份 | 原始 `model_metadata` 保留 `aero.source_file`；Identity 哈希只移除本地路径，保留 source/trust/file SHA/content SHA/有效域；fixture 增加样条内容 SHA | 同一文件不同目录身份相同；改文件内容/fixture 系数/trust/有效域均改变 |
+| B 状态布局 | `state_layout` 保存 nx/position/velocity/quaternion/omega/servo/motor/units/description；WTR 从结果快照恢复 | 篡改 quaternion/servo/motor 索引在创建目录前拒绝 |
+| C 规范化序列化 | 递归 canonical JSON：struct 字段排序、数组/cell 顺序保持、数值维度显式、NaN/Inf 显式、句柄拒绝 | 不同字段顺序同 SHA；数值/数组顺序/维度变化不同 SHA |
+| D 软件来源 | WTR `source.software` + `software.*` 参数记录 MATLAB version/release/computer/git commit/git dirty；不进入输入签名 | dirty 明确标记 commit SHA 不等于精确复现；WTR v1 校验和 WindTrace 读取通过 |
 
 ## 2. 唯一来源
 
@@ -73,13 +84,13 @@ flight.wtr
 ## 4. 实验结果
 
 ```text
-全新 clone feat/px4-control-fidelity @ 4f6f754
+全新 clone feat/px4-control-fidelity @ d2ddff4
 matlab -batch "run('tests/run_tests.m')"
-→ 40/40 通过，40.99 s，退出码 0
+→ 42/42 通过，42.21 s，退出码 0
 ```
 
-- 原 39 项测试全部保留（逐项比对 removed=空）；
-- 新增 `test_experiment_provenance`；
+- 原 40 项测试全部保留（逐项比对 removed=空）；
+- 新增 `test_experiment_provenance`、`test_provenance_integrity`、`test_aero_canonical_json`；
 - `test_wtr_export` 改为从结果导出，覆盖身份字段拒绝、定义/配置/模型篡改、
   参考/分配篡改、无残留文件；
 - `test_experiment_provenance` 覆盖定义/身份 SHA、相同配置稳定性、参数变化、
@@ -109,7 +120,12 @@ matlab -batch "run('tests/run_tests.m')"
 | `evidence/mat-roundtrip.txt` | `aero_save_result` → load → WTR 导出 |
 | `evidence/wtr-validation.json` | WTR SHA、read_flight、smoke、参数数量 |
 | `evidence/windtrace-smoke.txt` | WindTrace smoke 报告 |
-| `evidence/regression-test.txt` | 全新 clone 40/40 |
+| `evidence/regression-test.txt` | 全新 clone 42/42 |
+| `evidence/cross-path-identity.txt` | 同一气动文件不同目录身份/内容 SHA 相同 |
+| `evidence/fixture-content-identity.txt` | fixture 系数/文件内容变化改变身份 |
+| `evidence/state-layout-validation.txt` | 完整 20 维索引与布局篡改拒绝 |
+| `evidence/canonical-json.txt` | 字段顺序/数组顺序/维度/特殊值 |
+| `evidence/software-provenance.txt` | MATLAB/git 来源与 WTR 字段 |
 
 ## 7. 未解决/限制
 
@@ -125,7 +141,8 @@ matlab -batch "run('tests/run_tests.m')"
 |---|---|
 | `0e448cd` | 唯一实验定义、身份 SHA、结果派生 WTR、参数快照、测试 |
 | `2a11dec` | README/DESIGN 的实验追溯说明 |
-| `4f6f754` | 增加 Scenario 身份篡改拒绝测试 |
+| `5def16b` | 跨机器身份、状态布局、规范化序列化、软件来源 |
+| `d2ddff4` | 增加 dirty 软件来源测试 |
 
 完整分支审查应覆盖 `main...feat/px4-control-fidelity`，本阶段只描述相对
 `1765ac1` 的增量。

@@ -56,15 +56,21 @@ input_signature_sha256 =
       tspan, x0, initial_command, seed, solver, environment,
       time_tolerance, components, communication
     },
-    model: result.model_metadata
+    model: result.model_metadata（哈希前移除本地 aero.source_file）
   })
 ```
+
+规范化规则：struct 字段按字母排序，struct 数组/cell 顺序保持，数值维度显式编码，
+NaN/Inf 显式编码，函数/对象句柄拒绝。原始 `result.model_metadata` 仍保留
+`aero.source_file`；身份只保留 source type/trust/file SHA/content SHA/有效域。
 
 排除：
 
 - run_id、output_root、目录、wall_time；
 - `step`/`sample` 函数句柄；
+- 本地气动文件绝对路径；
 - 任何调用者事后填写的 gains/signature。
+- 软件版本/`result.environment`（单独记录，不作为实验输入签名）。
 
 因此：
 
@@ -86,6 +92,10 @@ results/<scenario>/<run_id>/
 - 禁止覆盖已有 MAT/WTR；
 - 所有身份校验在创建目录/写文件之前完成；
 - WTR v1 协议未改，WindTrace 继续读取。
+- WTR `manifest.source.software` 与 `software.*` 参数记录 MATLAB version/release/
+  computer/git commit/git dirty；`project_root` 不写入，软件来源不进入输入签名。
+- 若 `git_dirty=true`，manifest 明确带 `reproducibility_note`：仅凭 commit SHA
+  不能保证精确复现。
 
 ## 5. 数据完整性测试
 
@@ -98,5 +108,10 @@ results/<scenario>/<run_id>/
 | 参考/控制器/分配篡改 | `wtr:identity:definition` |
 | tspan/x0 篡改 | `wtr:identity:input` |
 | 模型名称/元数据篡改 | `wtr:identity:model` |
+| 跨路径气动身份 | `cross-path-identity.txt` |
+| fixture 内容身份 | `fixture-content-identity.txt` |
+| 完整状态布局/篡改 | `state-layout-validation.txt` |
+| 规范化序列化 | `canonical-json.txt` |
+| 软件来源 | `software-provenance.txt` |
 | MAT save/load | `mat-roundtrip.txt` |
 | WTR 读取/smoke | `wtr-validation.json`、`windtrace-smoke.txt` |

@@ -1,0 +1,8 @@
+Cross-path identity
+
+cross_path_identity_equal=1
+cross_path_content_equal=1 file_sha_equal=1
+pathA=C:\Users\32450\AppData\Local\Temp\tp1b39b5bc_44e0_49ba_8d3d_e6f6550ca378\a\aero.mat
+pathB=C:\Users\32450\AppData\Local\Temp\tp1b39b5bc_44e0_49ba_8d3d_e6f6550ca378\b\aero.mat
+identityA=5b3b05eb95aa5ff5c25ba4ca1fc15d9275fd15bc45a31134c5d57096e5f4eec8
+identityB=5b3b05eb95aa5ff5c25ba4ca1fc15d9275fd15bc45a31134c5d57096e5f4eec8

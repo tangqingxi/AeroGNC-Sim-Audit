@@ -1,0 +1,8 @@
+Canonical identity JSON
+
+canonical_field_order_equal=1
+canonical_array_order_changed=1
+canonical_dims_changed=1
+field_order_test=struct('b',2,'a',1) vs struct('a',1,'b',2)
+array_order_test=[1 2 3] vs [3 2 1]
+dims_test=row vs column

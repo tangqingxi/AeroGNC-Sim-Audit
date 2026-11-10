@@ -23,7 +23,7 @@
 
 ## 当前任务状态
 
-- 当前阶段：`AeroGNC-Experiment-Provenance` 实现完成（`feat/px4-control-fidelity` @ `4f6f754`），待 NEXUS 复核；未合并 main。
+- 当前阶段：`AeroGNC-Experiment-Provenance` 实现完成（`feat/px4-control-fidelity` @ `d2ddff4`），待 NEXUS 复核；未合并 main。
 
 ## 已批准且仍有效的决策
 
