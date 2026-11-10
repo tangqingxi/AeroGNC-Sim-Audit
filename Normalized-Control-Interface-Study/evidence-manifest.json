@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Normalized-Control-Interface-Study",
-  "created_at": "2026-11-10T12:27:56Z",
+  "created_at": "2026-11-10T13:30:14Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -24,27 +24,27 @@
   "evidence": [
     {
       "path": "Normalized-Control-Interface-Study/REPORT.md",
-      "sha256": "3e5ebfb2b2799c82d65fd5f9a2c3e44e1ceb85565fcb67db0cad33f7d4d9f376",
+      "sha256": "a30b14e55dc0ab365f6db5fba29be211d930789f25359ff7fa6a968e8124f62d",
       "kind": "report"
     },
     {
       "path": "Normalized-Control-Interface-Study/HANDOFF.md",
-      "sha256": "76ea1701aa80f0f06322fe9e64ecb6a064e187709a7189528fa08c12dfdda7b4",
+      "sha256": "bdd8b2464a0dd4c01fa3e83cabe1c7006ac159ce9d22046d4140ac75b4741e3d",
       "kind": "handoff"
     },
     {
       "path": "Normalized-Control-Interface-Study/PX4-SOURCE-MAP.md",
-      "sha256": "39e763cfd1c05fc95f3258b4a67fba2af325d070669476b4bb9c097e77fcf4c4",
+      "sha256": "b08e9bd35f08d334a3fd69b7255e2928d31d830a39c8c17758d4e78f379a48be",
       "kind": "other"
     },
     {
       "path": "Normalized-Control-Interface-Study/MATHEMATICAL-DERIVATION.md",
-      "sha256": "f7b29ce3b5ae4f78a059d62c8979aaaea452babacb21932384bad904bdc93a09",
+      "sha256": "894aa6de4a1600d99b2e29ff7b558cfb2ed9418e3bf25d847f99f8f5c0b883bb",
       "kind": "other"
     },
     {
       "path": "Normalized-Control-Interface-Study/SHC09-NORMALIZATION.md",
-      "sha256": "ba9697ff472f6a568f207aee0250e19fb0b28dad2e061cacfe126352abce6afc",
+      "sha256": "5ebd22f8dec825b2ecbbc82dd2ead358e47dbeee83f4ea06d79a0388bb8052ac",
       "kind": "other"
     },
     {
@@ -54,12 +54,17 @@
     },
     {
       "path": "Normalized-Control-Interface-Study/RECOMMENDATION.md",
-      "sha256": "6660e7b60a32c180911ab8c254a91331cd9eadbcc0a5043ad6727a41ddfa0028",
+      "sha256": "a878872a0592e9bf7aa9f8c41875abf34931b922215668aabdec3287e0eb6877",
       "kind": "other"
     },
     {
       "path": "Normalized-Control-Interface-Study/evidence/normalization-probe.txt",
       "sha256": "992b4a0064f4d42b895f39204320fb63c93c7b7bb209c7f7163785e5b6a3e87a",
+      "kind": "other"
+    },
+    {
+      "path": "Normalized-Control-Interface-Study/evidence/authority-correction.txt",
+      "sha256": "fbab142d769e53f3ad52a03d0b060a1f413fc6b3a4fc9af694a63297585d09e3",
       "kind": "other"
     },
     {
@@ -70,12 +75,12 @@
   ],
   "verification": {
     "commands": [
-      "git show 2eb3366757:src/lib/...; independent MATLAB probe for SHC09 allocation"
+      "source reading + independent SHC09 allocation probe + authority correction"
     ],
     "result": "passed"
   },
   "limitations": [
     "Research only; no production changes. PX4 not built/flown. SHC09 uses synthetic aero fixture; physical validation BLOCKED. Dynamic-S stability not simulated."
   ],
-  "next_action": "NEXUS review of the normalized-control-interface study; no implementation before acceptance"
+  "next_action": "NEXUS review with corrected yaw authority interpretation; no implementation before acceptance"
 }

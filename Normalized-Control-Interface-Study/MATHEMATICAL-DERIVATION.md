@@ -140,6 +140,25 @@ u_trim = 0.182755（六舵）；B_u·u_trim = [0,0,0.094923] N·m
 （物理配平偏航力矩；PX4 的 control_trim 通常为 0，配平属于 actuator_trim 基线）
 ```
 
+绝对/相对配平的权限必须分开：
+
+```text
+绝对 B_tau·δ 范围（绕零力矩）:
+  roll ±1.400806, pitch ±1.213134, yaw ±0.519400 N·m
+相对配平 B_tau·(δ−δ_trim) 范围:
+  roll ±1.400806, pitch ±1.213134 N·m
+  yaw +0.424477 / −0.614323 N·m
+对应 ν = S·τ_rel:
+  roll ±1.633, pitch ±1.414, yaw +0.817 / −1.183
+```
+
+PX4 的 `control_trim = B·linearization_point` 在默认零线性化点时为 0；
+`actuator_trim = trim + linearization_point` 才是执行器基线。`getAllocatedControl`
+计算的是 `B·(u−actuator_trim)`，因此 control setpoint 是**相对执行器配平**的
+增量，不包含 `B·actuator_trim` 的绝对配平力矩。SHC09 的 `δ_trim` 属于同一
+语义：零力矩指令回到 `δ_trim`，但配平偏航力矩 `0.094923 N·m` 仍由对象承担。
+
+
 对 `τ = [0.05,−0.03,0.01]` N·m：物理与归一化分配舵角误差 `1.4e-17 rad`；
 对 `τ=[0.4,0.2,0.05]`：`1.4e-16 rad`；对大扭矩（越限）两者裁剪后的舵角误差
 `1.6e-16 rad`，饱和残差一致。详见 `evidence/normalization-probe.txt`。

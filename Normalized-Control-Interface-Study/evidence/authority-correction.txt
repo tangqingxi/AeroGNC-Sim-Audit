@@ -1,0 +1,33 @@
+Normalized-Control-Interface-Study — yaw authority correction
+(reference values from the same synthetic SHC09 hover fixture)
+
+Absolute torque (about zero torque):
+  B_tau * delta, delta_i in [-delta_max, +delta_max]
+  roll  ±1.400806 N*m
+  pitch ±1.213134 N*m
+  yaw   ±0.519400 N*m
+
+Relative-to-trim torque (the quantity commanded by the SHC09 Rate PID):
+  B_tau * (delta - delta_trim * 1)
+  roll  ±1.400806 N*m
+  pitch ±1.213134 N*m
+  yaw   +0.424477 N*m (all delta_i = +delta_max)
+        -0.614323 N*m (all delta_i = -delta_max)
+  delta_trim = 0.127587337 rad, delta_max = 0.698131701 rad
+
+Normalized control with S = diag(1.165752149, 1.165752149, 1.925297848):
+  roll  ±1.633
+  pitch ±1.414
+  yaw   +0.817245 / -1.182755
+
+Consequences:
+  - nu_yaw = +1 is not reachable within the positive relative yaw authority;
+    nu_yaw = -1 lies inside the negative relative authority.
+  - nu in [-1,1] is neither absolute full deflection nor full relative authority;
+    it is the PX4 pseudo-inverse column-conditioning interval.
+  - PX4 control_trim = B * linearization_point (normally zero); actuator_trim =
+    trim + linearization_point. The allocated control is relative to actuator_trim,
+    so the absolute trim torque is a baseline, not part of the relative setpoint.
+
+Original normalization-probe.txt is retained unchanged; this file is the
+post-review correction requested by the fidelity phase.

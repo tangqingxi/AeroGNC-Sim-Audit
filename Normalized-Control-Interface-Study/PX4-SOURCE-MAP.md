@@ -43,6 +43,10 @@ control_allocator_status.unallocated_torque  →  RateControl 饱和反馈
 | 项目 | 源码位置 | 事实 |
 |---|---|---|
 | 效能矩阵/配平 | `ControlAllocation.cpp:52-65` | `_actuator_trim = trim + linearization_point`；`_control_trim = B·linearization_point` |
+
+补充：默认 `linearization_point=0` 时 `control_trim=0`，`getAllocatedControl`
+计算的是相对 `actuator_trim` 的增量；`B·actuator_trim` 的绝对配平力矩不在
+control setpoint 内。SHC09 的 `δ_trim` 偏航力矩属于同一基线语义。
 | 已分配控制 | `ControlAllocation.hpp:171-172` | `getAllocatedControl = (B·(u−trim)) ⊙ scale` |
 | 执行器限幅 | `ControlAllocation.cpp:78-92` | 按 `actuator_min/max` 逐元素裁剪 |
 | 归一化执行器 | `ControlAllocation.cpp:94-110` | `(u−min)/(max−min)`；仅用于状态/日志，不参与分配 |
