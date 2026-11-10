@@ -3,7 +3,7 @@
 | 项 | 值 |
 |---|---|
 | 阶段 | `PX4-Control-Baseline-Fidelity` + `README-Project-Map` |
-| 状态 | `ready-for-review`（未合并 main，未创建 Tag） |
+| 状态 | `in-progress (ready-for-review)`（未合并 main，未创建 Tag） |
 | DEV 分支 | `feat/px4-control-fidelity` @ `61507b4edd68975c962949a2cd750bb38569abb4` |
 | 分支基点 | `feat/gnc-baseline` @ `59cf917c5f87bfbf767bc9e9de9ead559bd4929b` |
 | DEV main | `57bbe6893d83808e3b46aa79864701b32b31c775` |
