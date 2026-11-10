@@ -1,0 +1,7 @@
+Model metadata validation
+
+has_handle=0
+result_def_equal=1 result_id_equal=1
+model_tamper=wtr:identity:model
+
+Result model_metadata is saved by aero_sim and checked against model.metadata in wtr_experiment_identity; tampered mass is rejected (wtr:identity:model).

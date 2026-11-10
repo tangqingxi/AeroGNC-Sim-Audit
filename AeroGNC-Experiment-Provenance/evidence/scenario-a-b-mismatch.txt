@@ -1,0 +1,9 @@
+Scenario A/B and tamper rejection
+
+result_def_equal=1 result_id_equal=1
+controller_tamper=wtr:identity:definition
+reference_tamper=wtr:identity:definition
+tspan_tamper=wtr:identity:input
+model_tamper=wtr:identity:model
+scenario_tamper=wtr:identity:definition
+actual_scenarios=hover_hold / rate_step

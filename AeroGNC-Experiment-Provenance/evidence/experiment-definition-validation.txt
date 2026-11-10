@@ -1,0 +1,18 @@
+Experiment definition validation
+schema=aero-experiment-definition/1 scenario=hover_hold method=P_PID_P_PID_PINV modules=guidance,position,velocity,attitude,rate,allocation
+definition_sha256=ad1aa4f64d465d1d88ddbce905d29965aaa798cef1ceda380663115088bd5bf6
+identity_sha256=2377264eca984774d99d2052b9648684635db4356877a06232d4071d0a70f778
+same_config_def_equal=1 same_config_id_equal=1
+changed_yaw_def_changed=1
+has_handle=0
+result_def_equal=1 result_id_equal=1
+seed_changed=1
+tspan_changed=1
+x0_changed=1
+solver_changed=1
+environment_changed=1
+component_changed=1
+controller_tamper=wtr:identity:definition
+reference_tamper=wtr:identity:definition
+tspan_tamper=wtr:identity:input
+model_tamper=wtr:identity:model

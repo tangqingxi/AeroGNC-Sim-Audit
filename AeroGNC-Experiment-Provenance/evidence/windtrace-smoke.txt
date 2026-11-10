@@ -1,0 +1,32 @@
+WindTrace read_flight and smoke
+
+[
+  {
+    "run_id": "rate_step_0019db1c17c4",
+    "topics": 15,
+    "parameters": 81,
+    "duration_s": 1.5,
+    "execution": {
+      "status": "completed",
+      "expected_duration_s": 1.5
+    },
+    "audit": {
+      "status": "unknown"
+    }
+  }
+]
+[
+  {
+    "run_id": "hover_hold_51236eee79ca",
+    "topics": 15,
+    "parameters": 101,
+    "duration_s": 3,
+    "execution": {
+      "status": "completed",
+      "expected_duration_s": 3
+    },
+    "audit": {
+      "status": "unknown"
+    }
+  }
+]
