@@ -1,0 +1,23 @@
+{
+  "schema": "wtr-validation/1",
+  "files": [
+    {
+      "file": "rate_step_56a1af51cc83",
+      "sha256": "393edbb8ca812a7d54132e9127853dbb07c39518920d3aabc312518042a7ce15",
+      "bytes": 260230,
+      "reader_run_id": "rate_step_56a1af51cc83",
+      "topics": 15,
+      "duration_s": 1.5,
+      "execution_status": "completed"
+    },
+    {
+      "file": "hover_hold_26e7ef27a08e",
+      "sha256": "8bf5f7a2842b32f8134b865ec1ae94153857c3aebab8e67c7d589433a6ef96d8",
+      "bytes": 598049,
+      "reader_run_id": "hover_hold_26e7ef27a08e",
+      "topics": 15,
+      "duration_s": 3,
+      "execution_status": "completed"
+    }
+  ]
+}

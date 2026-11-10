@@ -1,0 +1,90 @@
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-mod-clone
+
+[ 1/37] test_scalar_integrator
+        PASS  RelTol=1e-09 AbsTol=1e-11 max|y-y_analytic|=2.22e-16 (analytic y(1)=-0.5)  (0.35s)
+[ 2/37] test_first_order
+        PASS  RelTol=1e-09 AbsTol=1e-11 max|x-x_analytic|=1.38e-11 (analytic x(1)=1.197155)  (0.04s)
+[ 3/37] test_state_dimension
+        PASS  3-state max error=1.50e-11, 1-state run ok (state widths 3 and 1)  (0.07s)
+[ 4/37] test_segment_boundaries
+        PASS  153 segments, all events on boundaries, chain continuous  (0.08s)
+[ 5/37] test_multirate
+        PASS  800/200/125 Hz counts 800/200/125 drift=0.0e+00; 73/127 Hz drift=8.9e-16  (0.45s)
+[ 6/37] test_simultaneous_events
+        PASS  sample->publish->nav->guidance->control->latch at every 0.1 s tick; held=3.4560 at t=0.3  (0.13s)
+[ 7/37] test_measurement_delay
+        PASS  delay=0.050 s, 8 measurements, control never used a future sample  (0.03s)
+[ 8/37] test_command_latch
+        PASS  10 control steps, 4 latches, 3 held-command changes, last latch takes t=0.07  (0.02s)
+[ 9/37] test_solver_tolerance
+        PASS  identical event times; max state difference between RelTol 1e-6/1e-10 = 1.20e-11  (0.01s)
+[10/37] test_reproducibility
+        PASS  identical state/time/events/measurements; git=59cf917c5f87 dirty=0; seed=42  (0.08s)
+[11/37] test_results_policy
+[警告: 写入后活跃 Results 约 0.000 GB，已达到 0.000 GB 预警线] 
+[> 位置：aero_save_result (第 73 行)
+位置: test_results_policy (第 49 行)
+位置: run_tests (第 123 行)
+位置: run (第 112 行)] 
+        PASS  默认 10e9/8e9/5000/4000；单次计数、缩放预警、超限拒绝、内存与持久化模式均验证（结果 214 B）  (1.94s)
+[12/37] test_results_safety
+        PASS  覆盖保护/哈希不变、路径穿越、绝对越界、同前缀、Junction 拒绝、失败无残留均通过  (0.18s)
+[13/37] test_invalid_input
+        PASS  15 invalid inputs rejected with aero:* identifiers, no silent repair  (0.02s)
+[14/37] test_adaptive_integration
+        PASS  197 internal points (tight: 813), variable steps, max|error|=7.35e-06  (0.02s)
+[15/37] test_shc09_geometry
+        PASS  六舵几何/冻结 B_M/秩 3/正交/单舵方向/Ve? 缩放均通过（单舵 1° 力矩 0.0015 N·m）  (0.03s)
+[16/37] test_shc09_actuators
+        PASS  KST 行程归属/生效交集、一阶误差 4.4e-12/3.2e-09、限幅、停机语义、model_type 校验均通过  (0.06s)
+[17/37] test_shc09_dynamics
+        PASS  自由落体/推力与反扭矩方向/陀螺/Jacobian/配平(δ=7.310°)/非对称行程/四元数/越界均通过  (0.09s)
+[18/37] test_shc09_operating_states
+        PASS  停机保持 0 rad/s，启动到 200 rad/s，停止收敛到 0.00，自由落体 2 s 与解析一致；垂直下落超出气动表域，使用显式 clip 策略  (0.18s)
+[19/37] test_shc09_outputs
+        PASS  气动力/外力/总力/比力/NED 加速度/力矩语义一致（外力量级 3.74 N）  (0.01s)
+[20/37] test_model_metadata
+        PASS  记录质量 2.2 kg、惯量、KST/MAD 型号、生效行程 ±40°、覆盖值与气动哈希  (0.04s)
+[21/37] test_command_container
+        PASS  两路结构体命令独立锁存、互不覆盖（a: 0.40, b: 10.50），数值命令兼容，运行中非法命令被拒绝  (0.05s)
+[22/37] test_shc09_integration
+        PASS  SHC09 20 状态积分 200 段；配平漂移<1e-6 m；舵/电机独立锁存；末态 δ=9.31°, Ω=859.3  (0.93s)
+[23/37] test_topic_bus
+        PASS  注册/发布/读取/多 Topic 版本/时间与可用性/过期/契约/真值策略通过，premature publish 被拒绝，共 6 条 Topic  (0.05s)
+[24/37] test_communication_integration
+        PASS  Sensor→Nav→Control 传递正常；200/100/125/50 Hz 计数正确；命令/锁存 Topic 独立（18/10）；单一 Bus 模式  (0.09s)
+[25/37] test_communication_validation
+        PASS  快照可保存/加载；日志 147 条与实际发布一致且不改变轨迹；容量/真值/冲突/唯一性检查通过  (0.21s)
+[26/37] test_communication_performance
+        PASS  2899 个事件、0.71 s；日志上限 500 条、丢弃 897 条，轨迹与关闭日志一致  (1.40s)
+[27/37] test_position_p
+        PASS  位置误差→速度参考、前馈透传与限幅通过  (0.02s)
+[28/37] test_velocity_pid
+        PASS  P/I/D 与测量加速度反馈通过；D 使倾角 6.990°→1.171°  (0.05s)
+[29/37] test_attitude_p
+        PASS  四元数误差、omega_ff(rad/s)、alpha=0 与限幅通过  (0.02s)
+[30/37] test_rate_pid
+        PASS  P/D 力矩 -0.0100 N·m，Topic 饱和冻结与限幅通过  (0.03s)
+[31/37] test_pinv_allocator
+        PASS  配平/力矩复现/限幅/残差通过；大扭矩残差 0.680 N·m  (0.02s)
+[32/37] test_control_chain
+        PASS  四级 Topic 链与因果通过；1132 条日志、1350 个事件  (2.29s)
+[33/37] test_control_multirate
+        PASS  50/100/200/400 Hz 独立调度，同刻顺序 position→velocity→attitude→rate→allocation  (0.87s)
+[34/37] test_rate_step
+        PASS  角速度跟踪 0.507 rad/s（目标 0.5），yaw -0.021；WTR 15 topics 校验通过  (5.83s)
+[35/37] test_hover_hold
+        PASS  悬停最终误差 0.0119 m，2 s 后最大 0.0353 m，最大倾角 0.78°  (18.24s)
+[36/37] test_wtr_export
+[警告: 写入后活跃 Results 约 0.000 GB，已达到 0.000 GB 预警线] 
+[> 位置：wtr_export (第 150 行)
+位置: test_wtr_export (第 54 行)
+位置: run_tests (第 123 行)
+位置: run (第 112 行)] 
+        PASS  WTR 15 topics、锁存时间轴、参数追溯与容量/覆盖保护通过  (3.80s)
+[37/37] test_project_layout
+        PASS  7 个入口位置正确，无旧接口/旧名称/重复定义/轮次目录；37 个测试文件均被 run_tests 覆盖  (1.48s)
+
+37/37 项测试通过，用时 39.24s

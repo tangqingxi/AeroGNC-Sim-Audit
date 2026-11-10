@@ -23,7 +23,7 @@
 
 ## 当前任务状态
 
-- 当前无正在执行的 GNC 开发任务；Foundation 已结案；GNC 技术设计讨论中，尚未授权实施。
+- 当前阶段：`GNC-Control-Modularization` 实现完成（`feat/gnc-baseline` @ `59cf917`），待 NEXUS 复核；未合并 main。
 
 ## 已批准且仍有效的决策
 
@@ -46,8 +46,8 @@
 ## 下一步授权状态
 
 - ARCHITECTURE §5/§8 已批准基础 GNC 的接口语义、职责边界与交付范围。
-- 具体 Topic 名称、载荷字段及控制器实现方案尚未确定，不得视为已冻结。
-- 未授权：启动 GNC / Rate-Control 实现、发布 `v1.0.0`。
+- 具体 Topic/载荷与四级控制实现已记录于 DESIGN §15；跨阶段仍不视为冻结。
+- 未授权：合并 main、发布 `v1.0.0`、启动后续阶段。
 - PROPOSED：无正式提交待批设计；讨论意见不得记为已批准决策。
 - HOLD：无（V1.0 Foundation 的 HOLD 已由返工解除）。
 
@@ -57,4 +57,4 @@
 - [DESIGN.md](https://github.com/tangqingxi/AeroGNC-Sim/blob/main/DESIGN.md)
 - [AGENTS.md](https://github.com/tangqingxi/AeroGNC-Sim/blob/main/AGENTS.md)（§10 版本/分支政策）
 - [README.md](https://github.com/tangqingxi/AeroGNC-Sim/blob/main/README.md)
-- 最近交接：[V1.0-Foundation-Cleanup/HANDOFF.md](V1.0-Foundation-Cleanup/HANDOFF.md)
+- 最近交接：[GNC-Control-Modularization/HANDOFF.md](GNC-Control-Modularization/HANDOFF.md)

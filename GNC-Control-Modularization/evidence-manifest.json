@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "phase": "GNC-Control-Modularization",
+  "created_at": "2026-11-10T11:34:05Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/gnc-baseline",
+    "commit": "59cf917c5f87bfbf767bc9e9de9ead559bd4929b"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "windtrace": "bcdb6a8",
+    "dev_branch": "feat/gnc-baseline"
+  },
+  "evidence": [
+    {
+      "path": "GNC-Control-Modularization/REPORT.md",
+      "sha256": "f187aea332be1fc6062638dab6fe42d82e6ecb2d56c432efc72b16d203e652c3",
+      "kind": "report"
+    },
+    {
+      "path": "GNC-Control-Modularization/HANDOFF.md",
+      "sha256": "face673c2c2e7be35dae7ffff05c372069d3c5fe80ba6869ba4d37cde58af161",
+      "kind": "handoff"
+    },
+    {
+      "path": "GNC-Control-Modularization/SOURCE-REVIEW.md",
+      "sha256": "674676ba02ef97c7219c75c52ddf18a41e4dfc313ac45842a46200a57c1a027b",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Control-Modularization/evidence/test-run.txt",
+      "sha256": "99bced2701478fb47f90077cfeca50d52ee365764dd08abf65d10731143ff88b",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Control-Modularization/evidence/controller-comparison.txt",
+      "sha256": "c1517e138f29e453a46cc43d1499f5409566ea886317fc5f2393bbc13e61b419",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Control-Modularization/evidence/multirate-validation.txt",
+      "sha256": "539055221d139a9857cb24170a0b7368ad5c8942efe03a567600fe22d4644857",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Control-Modularization/evidence/wtr-validation.json",
+      "sha256": "90d5ffeb64db08cf6cb46943d99f6ea12efd85e9fbc6ee34d2a1f544b2b808b4",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Control-Modularization/evidence/windtrace-screenshot.png",
+      "sha256": "0923cfdb814e6c8277185c03403f9cee4804745bced3c95ad8a3011aeadd9981",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "fresh clone of branch; matlab -batch run('tests/run_tests.m')"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Physical validation BLOCKED (synthetic aero fixture). Nominal gains, IdealState navigation, no INDI/MPC. Interactive GUI playback not manually verified."
+  ],
+  "next_action": "NEXUS review of four-level modularization; merge decision after acceptance; v1.0.0 not released"
+}

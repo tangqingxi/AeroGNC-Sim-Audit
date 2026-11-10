@@ -1,0 +1,14 @@
+Controller comparison: GNC-Baseline ade4b69 vs GNC-Control-Modularization 59cf917
+
+Condition: SHC09 hover trim, synthetic aero fixture, default gains, Kd=0,
+  tspan [0,2] s, hover offset [0.2,0,0.1] m; rate step 0.5 rad/s, 0.5-1.5 s.
+
+Metric                         old (merged P+Velocity)   new (four-level)
+  hover final position error   0.047605 m                0.047605 m
+  hover max position error     0.223607 m                0.223607 m
+  hover max tilt               0.0181 rad                0.0181 rad
+  rate mean (0.8-1.4 s)        0.505326 rad/s            0.505326 rad/s
+  rate max|yaw|                0.070264 rad/s            0.070264 rad/s
+
+Printed to 6 decimals; the split preserves the default closed-loop behavior.
+D term is zero in this comparison, as required; nonzero Kd is covered by test_velocity_pid.

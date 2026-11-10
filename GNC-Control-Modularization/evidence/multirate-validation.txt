@@ -1,0 +1,10 @@
+Multirate validation (fresh run, 0.2 s, position 50 / velocity 100 / attitude 200 / rate 400 Hz)
+
+position=10  velocity=20  attitude=40  rate=80  allocation=80
+latch_servos=40  latch_motor=10
+
+Order at t=0.02 s:
+sensor_ideal>navigation>guidance_hover>position>velocity>attitude>rate>allocation>latch_servos>latch_motor
+
+Checks: each controller has its own period and state; downstream reads only published upstream output;
+no future sample is available at the same tick; Simulation timing kernel unchanged.
