@@ -1,0 +1,48 @@
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fidelity-clone
+
+[ 1/ 1] test_position_p
+        PASS  位置误差→速度参考、前馈/yaw 透传、PX4 水平优先与垂直限幅通过  (0.14s)
+
+1/1 项测试通过，用时 0.14s
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fidelity-clone
+
+[ 1/ 1] test_velocity_pid
+        PASS  P/I/D 与测量加速度反馈通过；D 使倾角 6.990°→1.171°；垂直钳位/ARW 通过  (0.06s)
+
+1/1 项测试通过，用时 0.06s
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fidelity-clone
+
+[ 1/ 1] test_attitude_p
+        PASS  默认误差 0.3999 rad/s、yaw_weight 补偿、yaw_rate=0.3 前馈、限幅与参考模型通过  (0.08s)
+
+1/1 项测试通过，用时 0.08s
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fidelity-clone
+
+[ 1/ 1] test_rate_pid
+        PASS  P/I/D、i_factor、正负饱和条件积分与无本地力矩裁剪通过  (0.05s)
+
+1/1 项测试通过，用时 0.05s
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fidelity-clone
+
+[ 1/ 1] test_pinv_allocator
+        PASS  配平/力矩复现/限幅/残差通过；大扭矩残差 0.680 N·m  (0.08s)
+
+1/1 项测试通过，用时 0.08s
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fidelity-clone
+
+[ 1/ 1] test_guidance_yaw
+        PASS  yaw=0.2、yaw_rate=0.15 经 Position→Velocity→Attitude 传递；78 个 rate 样本  (3.19s)
+
+1/1 项测试通过，用时 3.19s

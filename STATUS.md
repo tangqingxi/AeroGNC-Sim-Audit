@@ -23,7 +23,7 @@
 
 ## 当前任务状态
 
-- 当前阶段：`GNC-Control-Modularization` 实现完成（`feat/gnc-baseline` @ `59cf917`），待 NEXUS 复核；未合并 main。
+- 当前阶段：`PX4-Control-Baseline-Fidelity` 实现完成（`feat/px4-control-fidelity` @ `61507b4`），待 NEXUS 复核；未合并 main。
 
 ## 已批准且仍有效的决策
 

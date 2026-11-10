@@ -1,0 +1,27 @@
+{
+  "schema": "wtr-validation/1",
+  "files": [
+    {
+      "file": "rate_step_e2f3bb4186ea",
+      "sha256": "75ed31bd1074df57570ed48deed9e18a1e90b04e0cce283bb1880702c8493dad",
+      "bytes": 260622,
+      "reader_run_id": "rate_step_e2f3bb4186ea",
+      "topics": 15,
+      "parameters": 88,
+      "duration_s": 1.5,
+      "execution_status": "completed",
+      "matlab_validator": "passed"
+    },
+    {
+      "file": "hover_hold_b5c961f46861",
+      "sha256": "5e9184463018ec847739cef0badf822835d690d255a16ca231a7da91c04b290a",
+      "bytes": 597625,
+      "reader_run_id": "hover_hold_b5c961f46861",
+      "topics": 15,
+      "parameters": 88,
+      "duration_s": 3,
+      "execution_status": "completed",
+      "matlab_validator": "passed"
+    }
+  ]
+}

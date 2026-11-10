@@ -1,0 +1,22 @@
+Scenario comparison: GNC baseline 59cf917 vs PX4 fidelity 61507b4
+
+Fixture: synthetic SHC09 aero tables; same model, default gains, same tspan.
+
+Metric                         old 59cf917      new 61507b4      delta
+  hover final position error   0.047605 m       0.043276 m       -0.004329
+  hover max position error     0.223607 m       0.223607 m        0.000000
+  hover max tilt               0.0181 rad       0.0185 rad        +0.0004
+  rate mean (0.8-1.4 s)        0.505326 rad/s   0.505292 rad/s    -0.000034
+  rate max|yaw|                0.070264 rad/s   0.070263 rad/s    -0.000001
+
+Cause of the change:
+  - Position now uses PX4 constrainXY priority instead of a single vector clamp;
+  - Velocity uses vertical integral clamp, vertical/tracking anti-windup and
+    SI thrust/tilt limits instead of the previous acceleration-limit freeze;
+  - Attitude uses PX4 default reduced-attitude error, yaw weight and the
+    critically damped reference model;
+  - Rate uses PX4 i_factor and has no controller-local torque clamp. At 0.5 rad/s
+    i_factor is ~0.995, so the rate-step change is small; no hidden retuning was
+    applied.
+
+Physical validation remains BLOCKED: fixture is not real aerodynamic data.
