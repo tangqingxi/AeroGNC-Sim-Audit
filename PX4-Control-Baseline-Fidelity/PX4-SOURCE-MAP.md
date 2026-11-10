@@ -35,14 +35,66 @@ ControlAllocator::Run()
   └── control_allocator_status（unallocated / saturation）
 ```
 
+## 2.1 SHC09 参数来源（22005_SHC09）
+
+主参考 airframe：`ROMFS/px4fmu_common/init.d/airframes/22005_SHC09`。
+“SHC09 覆盖”指该文件 `param set-default`；“全局默认”指模块 YAML / `rc.mc_defaults`
+最终生效值。不能把全局默认写成 SHC09 显式设置。
+
+| 参数 | SHC09 覆盖 | 全局默认 | 最终生效 | 本工程处理 |
+|---|---|---|---|---|
+| `MPC_ACC_DECOUPLE` | 未设置 | `1` | `1` | 实现默认解耦路径 |
+| `MPC_THR_HOVER` | `0.4865` | `0.5` | `0.4865` | 记录 PX4 值；控制用 SHC09 `trim.thrust_n` |
+| `MPC_THR_MIN` | 未设置 | `0.12` | `0.12` | 物理映射 `0.12·T_max` |
+| `MPC_THR_MAX` | 未设置 | `1.0` | `1.0` | 物理 `T_max` |
+| `MPC_THR_XY_MARG` | 未设置 | `0.3` | `0.3` | `min(水平需求, 0.3·T_max)` |
+| `MPC_TILTMAX_AIR` | 未设置 | `45°` | `45°` | `max_tilt_rad` |
+| `MPC_XY_P` | 未设置 | `0.95` | `0.95` | AeroGNC 保留现有 nominal 值 |
+| `MPC_Z_P` | 未设置 | `1.0` | `1.0` | 同上 |
+| `MPC_XY_VEL_P/I/D` | `1.8/0.4/0.0` | 同 | 同 | AeroGNC 保留现有 nominal 值 |
+| `MPC_Z_VEL_P/I/D` | `4.0/2.0/0.0` | 同 | 同 | 同上 |
+| `MC_ROLL_P` | `2` | `4.0` | `2` | AeroGNC 保留现有 nominal 值 |
+| `MC_PITCH_P` | `2` | `4.0` | `2` | 同上 |
+| `MC_YAW_P` | `2` | `2.8` | `2` | 同上 |
+| `MC_YAW_WEIGHT` | 未设置 | `0.4` | `0.4` | 实现 0.4 |
+| `MC_ATT_ERR_MODE` | 未设置 | `0` | `0` | 只实现默认模式 0 |
+| `MC_REF_W_N` | 未设置 | `50` | `50` | 实现 |
+| `MC_REF_FF` | 未设置 | `0` | `0` | 实现 |
+| `MC_REF_FF_MAX` | 未设置 | `100°/s` | `100°/s` | 实现 |
+| `MC_ROLLRATE_P/I` | `0.4/0.2` | `0.15/0.1` | `0.4/0.2` | AeroGNC 保留 nominal |
+| `MC_PITCHRATE_P/I` | `0.4/0.2` | 同 | `0.4/0.2` | 同上 |
+| `MC_YAWRATE_P/I` | `0.2/0.1` | 同 | `0.2/0.1` | 同上 |
+| `MC_*RATE_D` | 未设置 | `0` | `0` | AeroGNC 保留 nominal |
+| `CA_ROTOR0_CT` | `42.3016 N` | — | `42.3016 N` | PX4 物理最大推力 |
+| `MPC_MASS` | `2.1 kg` | — | `2.1 kg` | 与 SHC09 一致 |
+
+推力参考的差异必须显式保留：
+
+```text
+PX4 22005:  MPC_THR_HOVER = 0.4865, CA_ROTOR0_CT = 42.3016 N
+AeroGNC:    model.trim.thrust_n = 20.554800 N
+            T_max = k_T0 * Ω_max^2 = 41.708160 N
+            hover_norm = 20.554800 / 41.708160 = 0.492824
+```
+
+PX4 的 `MPC_THR_HOVER` 是按 `42.3016 N` 与 `mg=20.58 N` 得到的；
+AeroGNC 使用自身 `shc09_parameters` 的 `k_T0` 与 `Ω_max`，因此 `T_max` 和
+`hover_norm` 略有差异。控制模型采用 **SHC09 自身物理量**
+`T_hover=trim.thrust_n`、`T_max=model T_max`，而不是直接复制 PX4 的
+`0.4865`；PX4 参数作为来源对照保留。该选择保证与 Aircraft 的推力模型一致。
+
+`22018`（四舵 SIH）显式 `MC_ATT_ERR_MODE=3`、`YAW_WEIGHT=1`，只作为对照，
+不是 SHC09 六舵基线。`22010/22003` 只用于确认六舵 `CA_SV` 几何/参数的同类性，
+也不能替代 `22005`。
+
 ## 3. PositionControl
 
 | 函数/位置 | 事实 | AeroGNC 对应 |
 |---|---|---|
 | `PositionControl.cpp:129-143` `_positionControl` | `vel_sp_position=(p_sp−p).*Kp`；前馈加到速度；`constrainXY(v0=position, v1=feedforward)`；z 限幅 `-vel_up..vel_down` | `position_p.m` |
 | `ControlMath.cpp:116-178` `constrainXY` | 位置反馈方向优先；若 v0 已超限只保留 v0 方向；否则解二次方程给前馈剩余能力 | `constrain_xy.m` |
-| `PositionControl.cpp:145-222` `_velocityControl` | 垂直积分先钳位 ±g；PID `Kp e + I − Kd a_dot`；垂直/水平推力饱和；垂直积分抗饱和；水平 Tracking AW | `velocity_pid.m` |
-| `PositionControl.cpp:280-311` `_accelerationControl` | `body_z=normalize([−a_x,−a_y,g−a_z])`；`limitTilt`；`thrust_ned_z=m(a_z−g)`；`collective=min(thrust_z/cos,−thr_min)` | `velocity_pid.m` + `attitude_from_thrust_direction.m` |
+| `PositionControl.cpp:145-222` `_velocityControl` | 垂直积分先钳位 ±g；PID `Kp e + I − Kd a_dot`；垂直/水平推力饱和；垂直积分抗饱和；水平 Tracking AW；水平余量 `min(norm(Txy), margin)` | `velocity_pid.m` |
+| `PositionControl.cpp:280-311` `_accelerationControl` | 默认 `MPC_ACC_DECOUPLE=1`：`body_z=normalize([−a_x,−a_y,g])`（不含 a_z）；`limitTilt`；`T_z,norm=a_z·hover/g−hover`；`T_norm=T_z/cos`，`T_phys=T_norm·T_max` | `velocity_pid.m` + `attitude_from_thrust_direction.m` |
 | `PositionControl.cpp:355-359` `getAttitudeSetpoint` | `thrustToAttitude(thr_sp, yaw_sp)`；`yaw_sp_move_rate=yawspeed_sp` | `control/attitude_setpoint.yaw_rate` |
 
 INDI 路径（`_allocated_thrust_acceleration` 有效时）不移植；只保留 PID 分支。
@@ -60,11 +112,12 @@ INDI 路径（`_allocated_thrust_acceleration` 有效时）不移植；只保留
 
 默认路径选择：
 
-- 六舵涵道 airframe（22010/22003）未覆盖 `MC_ATT_ERR_MODE`，使用默认 `0`
+- 主参考是 `22005_SHC09`：`MC_ATT_ERR_MODE` 未覆盖，使用默认 `0`
   （reduced attitude + yaw weighting）；`MC_YAW_WEIGHT` 默认 `0.4`；
   `MC_REF_W_N=50`、`MC_REF_FF=0`、`MC_REF_FF_MAX=100°/s`。
-- 22018（四舵 SIH）显式使用 `MC_ATT_ERR_MODE=3`（DCM log）、`YAW_WEIGHT=1`；
-  这是该 airframe 的覆盖，不作为 SHC09 六舵基线。
+- `22018`（四舵 SIH）显式使用 `MC_ATT_ERR_MODE=3`（DCM log）、`YAW_WEIGHT=1`；
+  不是 SHC09 六舵基线。
+- `22010/22003` 用于交叉核对六舵几何，但不是主参考。
 - 只实现模式 0；模式 1–7 不进入 V1.0。
 
 ## 5. RateControl

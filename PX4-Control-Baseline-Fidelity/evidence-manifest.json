@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "PX4-Control-Baseline-Fidelity",
-  "created_at": "2026-11-10T13:31:07Z",
+  "created_at": "2026-11-10T15:04:02Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/px4-control-fidelity",
-    "commit": "61507b4edd68975c962949a2cd750bb38569abb4"
+    "commit": "1765ac1cf57a842e75eaaf2d81cbd8252d1687d9"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -24,32 +24,32 @@
   "evidence": [
     {
       "path": "PX4-Control-Baseline-Fidelity/REPORT.md",
-      "sha256": "429a1de510b526e7dfb41a4c7ac83c5a0267a9ae0a396e47215b957876f211b3",
+      "sha256": "7e9857fdaf02bdd918f37ef1b5933883895028e40314210d930ab830cd5005e2",
       "kind": "report"
     },
     {
       "path": "PX4-Control-Baseline-Fidelity/PX4-SOURCE-MAP.md",
-      "sha256": "31deafb73c296d3096934df7bd3538649a331c25dfd98793d8fdf799947e437e",
+      "sha256": "955955cf1ca013ce2e4c6552041a64d7fe1c6c8a2f59966f09224f4dac557e9e",
       "kind": "other"
     },
     {
       "path": "PX4-Control-Baseline-Fidelity/CONTROL-DELTA-MATRIX.md",
-      "sha256": "96710286dc29135c56520bdd17628d22b891c08f41f23eea4e9deeb2106cade7",
+      "sha256": "3d7d8fecd31278180891dcbaf41f64366cdc7ad9a3b1cdda38ad304fd6075097",
       "kind": "other"
     },
     {
       "path": "PX4-Control-Baseline-Fidelity/IMPLEMENTATION-DECISIONS.md",
-      "sha256": "d8537b2ae419ec7e108c68f295e0775d158ea4f08adcf6aeef003ef6de8c740d",
+      "sha256": "2f71c71745f02a0b9c09e1e7cb2447570153ee2a2ac18fbf372098486d315c5f",
       "kind": "other"
     },
     {
       "path": "PX4-Control-Baseline-Fidelity/README-REVIEW.md",
-      "sha256": "7c62036303670ddcd563fc1e037cbd9d9beaa76c46ea1974909b9873f2791d81",
+      "sha256": "293c7e6b52ee7489d327083eed2036f462429b41f8a5ca4529457a7475b1cf89",
       "kind": "other"
     },
     {
       "path": "PX4-Control-Baseline-Fidelity/HANDOFF.md",
-      "sha256": "c20a9e3d21bd019e189910605e2252bb756fe4101fcc4bbf5fe9c8150a1c53e6",
+      "sha256": "034691eb3c8702fca25d382687c4a728a67a6805519047466a116594663a6673",
       "kind": "handoff"
     },
     {
@@ -58,23 +58,53 @@
       "kind": "other"
     },
     {
-      "path": "PX4-Control-Baseline-Fidelity/evidence/scenario-comparison.txt",
-      "sha256": "5013a00b59c507307af35c1d508d08edf1e892208ba00e2d85a83c119beb0cd4",
+      "path": "PX4-Control-Baseline-Fidelity/evidence/velocity-px4-reference.txt",
+      "sha256": "5919b4e175b9522ee30f33254f75820956ad73fb11d7b4100b8b5136c1e838fd",
       "kind": "other"
     },
     {
-      "path": "PX4-Control-Baseline-Fidelity/evidence/regression-test.txt",
-      "sha256": "fcd7d61ec493ab49b31a1ad80c056e89991c1b804dff3943ce30eb8002ee1779",
+      "path": "PX4-Control-Baseline-Fidelity/evidence/velocity-fidelity-tests.txt",
+      "sha256": "ec1c4f866fc353146bc9792961a8967bdf0a750a03486ffa8d59779c24dc0717",
       "kind": "other"
     },
     {
-      "path": "PX4-Control-Baseline-Fidelity/evidence/wtr-validation.json",
-      "sha256": "5c681d6ec75f15f52549f31705d726c6f7a85307558f04fbb8826e3fc5002dbe",
+      "path": "PX4-Control-Baseline-Fidelity/evidence/velocity-force-consistency.txt",
+      "sha256": "a4cf93645c644a706dee6ffc74828022cbbdda3bc620267e4a110d41c26ee74c",
+      "kind": "other"
+    },
+    {
+      "path": "PX4-Control-Baseline-Fidelity/evidence/airframe-parameter-provenance.txt",
+      "sha256": "7a2b7b13fd9dc47fa96e0aebeacb98ae39ebe93fd1c3753ade7d49799ada3388",
+      "kind": "other"
+    },
+    {
+      "path": "PX4-Control-Baseline-Fidelity/evidence/wtr-mismatch-rejection.txt",
+      "sha256": "28860fccf81e6c4e6c1a5e7b3a74847674d3436eca67bf1859f1ece8605ecee0",
+      "kind": "other"
+    },
+    {
+      "path": "PX4-Control-Baseline-Fidelity/evidence/readme-architecture-check.txt",
+      "sha256": "bf8197f8354ece988efb2221dd97c98917e03bb4f098b24f00978e25af0a2857",
       "kind": "other"
     },
     {
       "path": "PX4-Control-Baseline-Fidelity/evidence/readme-tree-check.txt",
       "sha256": "97cfb8397e20567514ccc23aa295a12c769656bf1d1974c0459bb7c14fc088a5",
+      "kind": "other"
+    },
+    {
+      "path": "PX4-Control-Baseline-Fidelity/evidence/scenario-comparison.txt",
+      "sha256": "1319d3952bddabacb9845a60502f2bdf7f89b481b8cba326bda94c8f474b2558",
+      "kind": "other"
+    },
+    {
+      "path": "PX4-Control-Baseline-Fidelity/evidence/regression-test.txt",
+      "sha256": "e543c08058c12b7c3a2ee19bf7bbeaaffe46574beb19cd7d9e5bd11a593f10fb",
+      "kind": "other"
+    },
+    {
+      "path": "PX4-Control-Baseline-Fidelity/evidence/wtr-validation.json",
+      "sha256": "27d5448fc940aace780cc637016eb2611a6056b3fba556074d4eea4395355bae",
       "kind": "other"
     },
     {
@@ -92,5 +122,5 @@
   "limitations": [
     "Physical validation BLOCKED (synthetic aero fixture). PX4 not built/flown; no side-by-side SITL. Attitude reference model only regression-tested. IdealState has no sensor noise."
   ],
-  "next_action": "NEXUS review of full main...feat/px4-control-fidelity diff; no merge before acceptance"
+  "next_action": "NEXUS review of Velocity PX4 decoupling/WTR consistency/README fix; full main...feat/px4-control-fidelity diff; no merge before acceptance"
 }

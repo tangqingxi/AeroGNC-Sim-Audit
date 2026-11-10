@@ -18,12 +18,17 @@
 | 项 | PX4 | 旧 AeroGNC | 新 AeroGNC | 原因/说明 |
 |---|---|---|---|---|
 | PID | `Kp e + I − Kd a_dot` | 同，但 Kd 注释单位 `s` | 同，Kd 单位 `1` | 输出/输入均 m/s²，Kd 无量纲 |
+| 垂直/姿态解耦 | `MPC_ACC_DECOUPLE=1`：`z_b=[−a_x,−a_y,g]/norm`，不含 a_z | `z_b=−m(a_cmd−g)/norm`，含 a_z | 默认解耦公式 | 垂直加速度不改变倾角 |
+| Hover thrust | `T_z,norm=a_z·hover/g−hover`；`T_norm=T_z/cos` | 物理 `m(a_z−g)` | `T_hover·(1−a_z/g)/cos`，`T_hover=trim.thrust_n` | PX4 归一化公式的 SI 映射 |
+| 水平余量 | `min(norm(Txy), margin)`，垂直优先 | 无条件预留完整 margin | 只预留实际水平需求，最多 margin | 恢复 PX4 语义 |
+| 姿态/推力一致性 | 最终 `thr_sp` 同时决定 q 与 T | 方向与 T 可能来自不同中间量 | 最终受限力矢量 → q/T | 从 q/T 可重建 F |
 | D 反馈 | 测量加速度 | `navigation/state.acceleration` | 同 | 不读真值 |
 | 垂直积分 | PID 前钳位 ±g | 仅总积分限幅 | 前/后均钳位 ±g | PX4 垂直约束 |
 | 积分抗饱和 | 垂直饱和条件 + 水平 Tracking AW | 加速度上限冻结 | 同 PX4 | 不再使用加速度限幅替代 |
-| 水平 Tracking AW | `2/Kp_x·(a_des−a_produced)` | 无 | 有 | 推力矢量饱和时卸载 |
+| 水平 Tracking AW | `2/Kp_x·(a_des−a_produced)`，`a_produced=F_final,xy·g/T_hover`（=F/m 当 hover=mg） | 限幅前推力估计 | 最终受限推力 `F_final,xy/m` | 与 PX4 归一化形式在 hover=mg 时等价 |
+| 垂直积分抗饱和 | 先垂直推力限制，再判断方向 | 仅在加速度限幅冻结 | 同 PX4 顺序 | 正/负方向分别测试 |
 | 推力上限/下限 | `MPC_THR_MIN/MAX` 归一化 | 仅最大倾角 | 物理 `T_min/T_max` | 适配 SHC09 SI 推力 |
-| 水平推力余量 | `MPC_THR_XY_MARG` 归一化 | 无 | `0.3·T_max` 物理余量 | 适配 SHC09；参数可配置 |
+| 水平推力余量 | `min(norm(Txy,sp), MPC_THR_XY_MARG)`，垂直优先 | 无条件完整 margin（错误） | `min(实际水平需求, 0.3·T_max)` | 恢复 PX4 条件余量语义 |
 | 倾角 | `MPC_TILTMAX_AIR` | `max_tilt_rad` | 同 | 无变化 |
 | 加速度上限 | 无 | `acceleration_limit` 冻结 | 移除 | PX4 用推力/倾角约束，不另设加速度限幅 |
 
@@ -75,8 +80,12 @@
 3. `T_min = 0.12·T_max`、`margin = 0.3·T_max` 是把 PX4 的归一化参数映射到
    SHC09 物理推力；不是 PX4 原始数值。
 4. 六舵同行程 `±40°`；配平偏航力矩由 `δ_trim` 承担。
-5. 参考模型参数取六舵涵道 airframe 默认（mode 0 / yaw 0.4 / 50 / 0），
+5. 参考模型参数取 `22005_SHC09` 默认（mode 0 / yaw 0.4 / 50 / 0），
    不采用 22018 四舵 SIH 的 mode 3 覆盖。
+6. `MPC_ACC_DECOUPLE=1`（22005 未覆盖，全局默认 1）：`z_b` 不含 `a_z`。
+7. 推力参考：AeroGNC 用 `trim.thrust_n=20.5548 N`、`T_max=41.70816 N`；
+   PX4 22005 的 `MPC_THR_HOVER=0.4865`、`CA_ROTOR0_CT=42.3016 N` 是来源对照，
+   差异见 `evidence/airframe-parameter-provenance.txt`。
 
 ## 8. 未纳入
 

@@ -1,0 +1,40 @@
+Velocity PX4 SHC09 reference (df-main @ 2eb33667575619b02a2d9b52032df2fac7fb5291)
+
+Default path: MPC_ACC_DECOUPLE = 1 (22005_SHC09 has no override; global default 1)
+
+1) Attitude direction (decoupled):
+   z_b = [-a_x, -a_y, g]^T / ||[-a_x, -a_y, g]^T||
+   Vertical acceleration a_z does not enter z_b.
+
+2) Vertical thrust (PX4 normalized):
+   T_z,norm = a_z * (T_hover_norm / g) - T_hover_norm
+   T_norm   = T_z,norm / cos(theta)
+   T_phys   = T_norm * T_max
+            = T_hover_phys * (1 - a_z/g) / cos(theta)
+
+   AeroGNC SI values:
+     T_hover_phys = model.trim.thrust_n = 20.554800 N
+     T_max        = k_T0 * Omega_max^2 = 41.708160 N
+     hover_norm   = 0.492824
+   PX4 22005 values (provenance):
+     MPC_THR_HOVER = 0.4865
+     CA_ROTOR0_CT  = 42.3016 N
+   The control model uses the Aircraft physical values, not the raw PX4
+   normalized parameter.
+
+3) Thrust priority:
+   T_xy,reserve = min(||T_xy,sp||, T_margin)
+   T_z,max      = sqrt(T_max^2 - T_xy,reserve^2)
+   T_z          = max(T_z, -T_z,max)        (vertical first)
+   T_xy,max     = sqrt(T_max^2 - T_z^2)
+   T_xy         = min(||T_xy||, T_xy,max)   (remaining authority)
+
+4) Force/attitude consistency:
+   F_NED = -T * z_b(q), with T = ||F_final||
+   q and thrust_n are both derived from the same final limited vector.
+   A final tilt recheck recomputes F and q together if needed.
+
+5) Tracking Anti-Windup:
+   K_AW = 2 / Kp_x
+   a_xy,produced = F_final,xy / m
+   (PX4 uses T_xy * g / T_hover; equal when T_hover = m*g.)

@@ -11,7 +11,7 @@
 
 - DEV: <https://github.com/tangqingxi/AeroGNC-Sim>
 - DEV branch: `feat/px4-control-fidelity`（**未合并 main**）
-- DEV tested commit: `61507b4edd68975c962949a2cd750bb38569abb4`
+- DEV tested commit: `1765ac1cf57a842e75eaaf2d81cbd8252d1687d9`
 - DEV base: `feat/gnc-baseline` @ `59cf917c5f87bfbf767bc9e9de9ead559bd4929b`
 - DEV main: `57bbe6893d83808e3b46aa79864701b32b31c775`
 - DEV worktree: clean；分支已推送
@@ -36,7 +36,12 @@
 | PINV trim/limits/residual | PASS | `test_pinv_allocator` | SI |
 | WTR full signature/params | PASS | `test_wtr_export` | validated cfg |
 | Motor latch timing | PASS | `test_wtr_export` | <1e-9 s |
-| 38-test regression | PASS | `evidence/regression-test.txt` | fresh clone |
+| PX4 decoupled Velocity | PASS | `test_velocity_px4` | z_b excludes a_z |
+| Hover thrust SI | PASS | `test_velocity_px4` | trim.thrust_n mapping |
+| Force/attitude consistency | PASS | `test_velocity_px4` | <1e-12 |
+| WTR mismatch rejection | PASS | `test_wtr_export` | no residual files |
+| README architecture | PASS | `evidence/readme-architecture-check.txt` | parallel sources |
+| 39-test regression | PASS | `evidence/regression-test.txt` | fresh clone |
 | WindTrace read/smoke/render | PASS | `evidence/wtr-validation.json` | 15 topics/88 params |
 | README map | PASS | `evidence/readme-tree-check.txt` | 28/0 |
 | Physical validation | **BLOCKED** | REPORT §7 | synthetic fixture |
@@ -44,8 +49,8 @@
 ## Reproduction
 
 - 环境：Windows + MATLAB R2025b (`25.2.0.2998904`)；WindTrace 本地 `.venv`。
-- 检出：`git clone -b feat/px4-control-fidelity`，切到 `61507b4`。
-- 回归：`matlab -batch "run('tests/run_tests.m')"` → 38/38。
+- 检出：`git clone -b feat/px4-control-fidelity`，切到 `1765ac1`。
+- 回归：`matlab -batch "run('tests/run_tests.m')"` → 39/39。
 - 场景：`hover_scenario` / `rate_step_scenario`；WTR 要求 `dropped==0`。
 - Viewer：`python app.py <flight.wtr> --smoke`；`--screenshot --time ...`。
 
@@ -60,10 +65,10 @@
 
 ## Next bounded task
 
-- **Objective**：NEXUS 复核 `feat/px4-control-fidelity` @ `61507b4`，并同时审查
+- **Objective**：NEXUS 复核 `feat/px4-control-fidelity` @ `1765ac1`，并同时审查
   `main...feat/px4-control-fidelity` 的完整变更；通过后再决定 fast-forward 合并。
 - **Files**：本目录报告/差异矩阵/决策/README 审查 + `evidence/`。
-- **Preconditions**：DEV main `57bbe68`；分支 `61507b4`；38/38；AUDIT 分支已推送。
+- **Preconditions**：DEV main `57bbe68`；分支 `1765ac1`；39/39；AUDIT 分支已推送。
 - **Acceptance criteria**：四级独立、SI 接口、唯一 Topic Bus、PX4 纯 PID 对齐、
   WTR 完整、README 路径 28/28、物理限制如实。
 - **Stop/escalation**：需改冻结架构、声称物理有效或合并 main 时停止并取得授权。
@@ -71,6 +76,6 @@
 ## Agent startup instructions
 
 1. 读 `REPORT.md`、`CONTROL-DELTA-MATRIX.md`、`IMPLEMENTATION-DECISIONS.md`。
-2. 核对 DEV `61507b4`、base `59cf917`、main `57bbe68`。
-3. 复跑 38 项；检查 WTR 证据与 README 路径。
+2. 核对 DEV `1765ac1`、base `59cf917`、main `57bbe68`。
+3. 复跑 39 项；检查 WTR 证据与 README 路径。
 4. 不合并 main、不创建 Tag、不把 fixture 写成物理验证。

@@ -3,22 +3,22 @@
   "files": [
     {
       "file": "rate_step_e2f3bb4186ea",
-      "sha256": "75ed31bd1074df57570ed48deed9e18a1e90b04e0cce283bb1880702c8493dad",
-      "bytes": 260622,
+      "sha256": "d16d9759b6cb9d71b04622d1aadba2963d57116d31d38f26512ac2992f3f5cca",
+      "bytes": 260693,
       "reader_run_id": "rate_step_e2f3bb4186ea",
       "topics": 15,
-      "parameters": 88,
+      "parameters": 93,
       "duration_s": 1.5,
       "execution_status": "completed",
       "matlab_validator": "passed"
     },
     {
       "file": "hover_hold_b5c961f46861",
-      "sha256": "5e9184463018ec847739cef0badf822835d690d255a16ca231a7da91c04b290a",
-      "bytes": 597625,
+      "sha256": "f42119df5892fd6279cefe9545501c7d01ca0ea187ea38d04587768a4a99fb89",
+      "bytes": 597716,
       "reader_run_id": "hover_hold_b5c961f46861",
       "topics": 15,
-      "parameters": 88,
+      "parameters": 94,
       "duration_s": 3,
       "execution_status": "completed",
       "matlab_validator": "passed"

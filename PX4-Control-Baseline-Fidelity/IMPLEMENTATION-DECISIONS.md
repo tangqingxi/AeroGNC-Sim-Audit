@@ -31,24 +31,34 @@
    `RateControl`/`PositionControl` 的顺序一致。不能把“本拍新积分”提前加进
    本拍输出，否则会改变相位。
 3. **垂直积分**：`I_z` 在 PID 前钳位到 `±g`；积分更新后再钳位一次。
-4. **垂直饱和**：推力到下限且速度误差要求继续上升，或到上限且误差要求下降时，
-   该拍垂直误差置零。
-5. **水平 Tracking AW**：`arwGain=2/Kp_x`；只在
-   `‖a_des,xy‖>‖a_produced,xy‖` 时修正 `e_xy`。`a_produced` 由实际受限推力
-   除以质量得到，不读 Aircraft 真值。
-6. **物理推力约束**：
-   - `F_des=m(a_cmd−g_ned)`；
-   - `z_b=−F_des/‖F_des‖`，再按 `max_tilt_rad` 限倾角；
-   - 垂直推力优先，限制到 `[T_min, sqrt(T_max²−T_margin²)]`；
-   - 水平力限制到 `sqrt(T_max²−F_z²)`；
-   - 用受限力方向构造姿态；`T=‖F_limited‖`。
-7. **移除加速度限幅**：旧 `acceleration_limit` 不是 PX4 机制，且与推力/倾角
-   约束重复；删除，避免“双重限幅”改变抗饱和语义。
-8. **参数映射**：
-   - `T_max = k_T0·Ω_max²`（SHC09）；
-   - `T_min = 0.12·T_max`（MPC_THR_MIN 的物理映射）；
-   - `T_margin = 0.3·T_max`（MPC_THR_XY_MARG 的物理映射）。
-   这些是 SHC09 适配，不是 PX4 原始归一化数值。
+4. **默认解耦姿态**：`MPC_ACC_DECOUPLE` 在 `22005_SHC09` 未覆盖，全局默认 1。
+   因此 `z_b=[−a_x,−a_y,g]/‖·‖`，**不含 a_z**；垂直加速度只改变推力大小。
+5. **Hover thrust 的 SI 映射**：
+   - PX4 归一化：`T_z,norm=a_z·(hover/g)−hover`，`T_norm=T_z,norm/cos`；
+   - SI：`T = T_hover·(1−a_z/g)/cos`；
+   - `T_hover=model.trim.thrust_n=20.554800 N`（不是直接假定 mg 后另取）；
+   - `T_max=model 41.708160 N`，`hover_norm=0.492824`；
+   - PX4 `22005` 的 `MPC_THR_HOVER=0.4865`、`CA_ROTOR0_CT=42.3016 N`
+     作为来源对照，不直接复制到 AeroGNC 物理接口。
+6. **物理推力约束与顺序**：
+   1. 初始 `z_b`、最大倾角；
+   2. `T_z`/`T` 垂直推力；
+   3. 垂直积分抗饱和（用垂直推力上下限与误差方向）；
+   4. `reserve=min(‖T_xy‖, margin)`，`T_z,max=sqrt(T_max²−reserve²)`；
+   5. 水平剩余 `sqrt(T_max²−T_z²)`；
+   6. 最终受限推力矢量；
+   7. 从最终矢量导出 `z_b`、q 与 `T`；
+   8. 最终倾角复核；若需重限，力和 q 同步重算；
+   9. Tracking AW 使用最终受限推力。
+7. **水平 Tracking AW**：`arwGain=2/Kp_x`；`a_produced=F_final,xy/m`。
+   与 PX4 的 `T_xy·g/T_hover` 在 `T_hover=mg` 时等价；不使用限幅前推力。
+8. **移除加速度限幅**：旧 `acceleration_limit` 不是 PX4 机制，且与推力/倾角
+   约束重复；删除。
+9. **参数映射**：
+   - `T_max = k_T0·Ω_max²`（SHC09 物理模型）；
+   - `T_min = 0.12·T_max`（`MPC_THR_MIN` 的物理映射）；
+   - `T_margin = 0.3·T_max`（`MPC_THR_XY_MARG` 的物理映射）；
+   - 仅在实际水平需求小于 margin 时才预留对应量，不无条件预留完整 margin。
 
 ## 4. Attitude
 
@@ -91,11 +101,15 @@
 1. **签名权威**：scenario 先 `aero_validate_config`，再用实际 cfg 生成签名；
    组件含 `kind/period/priority/offset/delay/latches/topic`，含
    `environment/time_tolerance/solver.InitialStep/x0/initial_command`。
-2. **seed/method/scenario 一致**：`wtr_export` 在写文件前比较签名与 manifest
-   参数，不一致直接拒绝。
+2. **实验输入一致**：`wtr_export` 在创建目录/写文件之前检查
+   `options.gains` 与签名、`result.config`（seed/tspan/solver/environment/
+   time_tolerance/components/initial_state/initial_command）与签名、
+   model/aero 身份；不一致直接拒绝，不留下结果目录或半成品。
 3. **参数追溯**：增加 `rates.guidance_hz`、`allocation.ve_min_m_s`、
    `control.rate.saturation_tolerance`、`solver.InitialStep`、涵道 `k_cpx`、
-   固定片/阻尼/扩散器、舵机/电机装配频率与四级实际限幅。
+   `control.velocity.hover_thrust_n`、固定片/阻尼/扩散器参数、执行器装配频率、
+   实验参考（HoverHold 的 position/yaw/yaw_rate；BodyRate 的 axis/amplitude/
+   start/end）等字段。
 4. **电机锁存时间轴**：测试逐项比较 `latch_motor` 事件时间，阈值 `1e-9 s`，
    与舵面测试一致。
 5. **不改 v1 协议**；新增字段只来自现有 Topic/参数，WindTrace 读取通过。

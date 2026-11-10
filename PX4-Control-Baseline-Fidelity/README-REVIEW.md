@@ -14,6 +14,22 @@
 | 当前能力/限制 | PASS | 已实现、未实现、物理 BLOCKED 分表 |
 | 文档入口 | PASS | ARCHITECTURE/DESIGN/AGENTS/AUDIT |
 
+## 1.1 架构图专项
+
+| 检查 | 结果 |
+|---|---|
+| Simulation Kernel 为外层运行环境（Clock/Scheduler/Integrator/Bus） | PASS |
+| Guidance 与 Navigation 为并列数据源 | PASS |
+| Control 同时订阅 Reference 与 StateEstimate | PASS |
+| 不存在 Guidance→Navigation 串行箭头 | PASS |
+| Aircraft+Components→State Evolution→Feedback/Sensors 闭环 | PASS |
+| Results→WTR→WindTrace 交付 | PASS |
+
+`evidence/readme-architecture-check.txt` 记录脚本检查：`simulation_kernel=True`、
+`parallel_sources=True`、`reference_state=True`、`old_serial_absence=True`、
+`control_after_sources=True`、`feedback_loop=True`、`wtr=True`、`checked=28`、
+`missing=0`。
+
 ## 2. 不应出现的内容
 
 | 禁止项 | 结果 |

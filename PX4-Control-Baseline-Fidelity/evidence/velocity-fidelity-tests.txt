@@ -1,0 +1,22 @@
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fix-clone
+
+[ 1/ 2] test_velocity_pid
+        PASS  P/I/D 与测量加速度反馈通过；D 使倾角 6.990°→1.171°；垂直钳位/ARW 通过  (0.14s)
+[ 2/ 2] test_velocity_px4
+        PASS  PX4 解耦/映射/余量/限幅/力一致性通过：hover=20.555 N, Tmax=41.708 N  (0.08s)
+
+2/2 项测试通过，用时 0.21s
+AeroGNC-Sim 回归测试
+MATLAB 25.2.0.2998904 (R2025b) (2025b) on PCWIN64
+项目根目录：C:\Users\32450\AppData\Local\Temp\aero-fix-clone
+
+[ 1/ 1] test_wtr_export
+[警告: 写入后活跃 Results 约 0.000 GB，已达到 0.000 GB 预警线] 
+[> 位置：wtr_export (第 172 行)
+位置: test_wtr_export (第 78 行)
+位置: run_tests (第 125 行)] 
+        PASS  WTR 15 topics、锁存时间轴、参数追溯与容量/覆盖保护通过  (7.29s)
+
+1/1 项测试通过，用时 7.29s

@@ -1,0 +1,5 @@
+WTR mismatch rejection probe
+good_export=1
+bad_gains_id=wtr:export:gains dir_exists=0
+bad_tspan_id=wtr:export:tspan dir_exists=0
+bad_x0_id=wtr:export:x0 dir_exists=0
