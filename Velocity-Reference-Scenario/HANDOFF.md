@@ -11,7 +11,7 @@
 
 - DEV: <https://github.com/tangqingxi/AeroGNC-Sim>
 - DEV branch: `feat/velocity-reference-scenario`
-- DEV tested commit: `f5fab46079a197432408d653d3c32093dc3b6f61`
+- DEV tested commit: `f0890c2434d9734693a08b488998481e26554486`
 - DEV base: `main` @ `31159589f743b205f68b5777a70a24377dc57723`
 - AUDIT: <https://github.com/tangqingxi/AeroGNC-Sim-Audit>
 - AUDIT branch: `study/velocity-reference-scenario`
@@ -40,7 +40,7 @@
 ## Reproduction
 
 - 环境：Windows + MATLAB R2025b (`25.2.0.2998904`)；WindTrace `.venv`。
-- 检出：`git clone -b feat/velocity-reference-scenario`，切到 `f5fab46`。
+- 检出：`git clone -b feat/velocity-reference-scenario`，切到 `f0890c2`。
 - 回归：`matlab -batch "run('tests/run_tests.m')"` → 48/48。
 - 场景：`velocity_step_scenario`；默认 `[0.8;0;0]`、0.5–2.5 s、`[0,5]`。
 - Viewer：`python app.py <flight.wtr> --smoke` / `--screenshot`。
@@ -55,11 +55,11 @@
 
 ## Next bounded task
 
-- **Objective**：NEXUS 复核 `feat/velocity-reference-scenario` @ `f5fab46`，
+- **Objective**：NEXUS 复核 `feat/velocity-reference-scenario` @ `f0890c2`，
   重点检查 Position 绕过、Guidance→Velocity Topic、WTR trajectory_setpoint 与
   闭环指标；通过后再决定 main 合并。
 - **Files**：`Velocity-Reference-Scenario/*` + `evidence/`。
-- **Preconditions**：DEV main `3115958`；分支 `f5fab46`；48/48。
+- **Preconditions**：DEV main `3115958`；分支 `f0890c2`；48/48。
 - **Acceptance criteria**：无 Position、速度参考独立闭环、下游复用、WTR v1 可读、
   README/DESIGN 更新、物理限制如实。
 - **Stop/escalation**：需改冻结内核/算法、改 WTR/WindTrace、声称物理有效或合并
@@ -68,6 +68,6 @@
 ## Agent startup instructions
 
 1. 读 `REPORT.md`、`SCENARIO-DESIGN.md`、`CONTROL-CHAIN.md`。
-2. 核对 DEV `f5fab46`、base `3115958`、main `3115958`。
+2. 核对 DEV `f0890c2`、base `3115958`、main `3115958`。
 3. 复跑 48 项；检查无 position 组件/setpoint、WTR 参考参数与 WindTrace。
 4. 不合并 main、不创建 Tag、不把 fixture 写成物理验证。

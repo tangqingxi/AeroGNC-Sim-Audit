@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "phase": "Velocity-Reference-Scenario",
-  "created_at": "2026-11-11T11:00:21Z",
+  "created_at": "2026-11-11T11:04:21Z",
   "agent": {
     "name": "DeepSeek Harness",
     "model": "deepseek-flash"
@@ -9,7 +9,7 @@
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/velocity-reference-scenario",
-    "commit": "f5fab46079a197432408d653d3c32093dc3b6f61"
+    "commit": "f0890c2434d9734693a08b488998481e26554486"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
@@ -23,7 +23,7 @@
   "evidence": [
     {
       "path": "Velocity-Reference-Scenario/REPORT.md",
-      "sha256": "5532590bc434c138ab7ca9bef8b6e8ce61c892ec9582b5c315400e9eeefc3671",
+      "sha256": "958065607587a17804eb560b11f063341ba441843879bd353c12e3424690e10d",
       "kind": "report"
     },
     {
@@ -38,7 +38,7 @@
     },
     {
       "path": "Velocity-Reference-Scenario/HANDOFF.md",
-      "sha256": "21710737bd92bc660a4530d8bfa3f5e37b5a70fd1f6a46b76c4785410fe9b4ea",
+      "sha256": "28d8476cee9d5ddb3f9b4bdab2d3461c41c651bdfdedcc9a1651f2e8dacda175",
       "kind": "handoff"
     },
     {
@@ -48,7 +48,7 @@
     },
     {
       "path": "Velocity-Reference-Scenario/evidence/control-chain.txt",
-      "sha256": "81e214a4c66b58378676ad0c6fb6acaf4386bb7a12c8d999ec8d0516bc143fd2",
+      "sha256": "3f6babd6ea1fcf4b4de38cc065d96ebf4d0499ef0cc509de9ec241f66df04c55",
       "kind": "other"
     },
     {
@@ -63,12 +63,12 @@
     },
     {
       "path": "Velocity-Reference-Scenario/evidence/wtr-validation.json",
-      "sha256": "f69759d564a487fada04158dd368d40b6f6cfa77e7edcf46796737a541c06b4e",
+      "sha256": "91cb01fac68c7c70d2b08aace55d0b837c7b85aa1a57eca978ad7b9dd9f2a175",
       "kind": "other"
     },
     {
       "path": "Velocity-Reference-Scenario/evidence/regression-test.txt",
-      "sha256": "52e35bf07475c75dce0f83b15c8a4efae5b61f2426fb4361a043bb904f6d8ed5",
+      "sha256": "cbdb0cfd935593c56c2da2f63c1e348f2720c80f1ceee386e0812f2f255931ee",
       "kind": "other"
     },
     {

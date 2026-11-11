@@ -4,7 +4,7 @@
 
 **当前状态入口：[STATUS.md](STATUS.md)**（阶段级详细结论见下）
 
-- 当前阶段：`Velocity-Reference-Scenario`（**in-progress / ready-for-review**，DEV 分支 `feat/velocity-reference-scenario` @ `f5fab46`）
+- 当前阶段：`Velocity-Reference-Scenario`（**in-progress / ready-for-review**，DEV 分支 `feat/velocity-reference-scenario` @ `f0890c2`）
   → [Velocity-Reference-Scenario/REPORT.md](Velocity-Reference-Scenario/REPORT.md)
 - 场景设计/控制链：[SCENARIO-DESIGN.md](Velocity-Reference-Scenario/SCENARIO-DESIGN.md)、
   [CONTROL-CHAIN.md](Velocity-Reference-Scenario/CONTROL-CHAIN.md)

@@ -4,10 +4,10 @@
 |---|---|
 | 阶段 | `Velocity-Reference-Scenario` |
 | 状态 | `in-progress (ready-for-review)`（未合并 main，未创建 Tag） |
-| DEV 分支 | `feat/velocity-reference-scenario` @ `f5fab46079a197432408d653d3c32093dc3b6f61` |
+| DEV 分支 | `feat/velocity-reference-scenario` @ `f0890c2434d9734693a08b488998481e26554486` |
 | DEV 起点 | `main` @ `31159589f743b205f68b5777a70a24377dc57723` |
 | AUDIT 分支 | `study/velocity-reference-scenario`（自 `9e3f220dd3f90402a120a772fa2f2bcaa56aed81`） |
-| 测试 | 48/48 通过（全新 clone，89.83 s） |
+| 测试 | 48/48 通过（全新 clone，86.80 s） |
 | 物理验证 | **BLOCKED**（合成气动 fixture） |
 
 ## 1. 完成内容
@@ -95,9 +95,9 @@ Guidance velocity_step
 ## 5. 测试
 
 ```text
-全新 clone feat/velocity-reference-scenario @ f5fab46
+全新 clone feat/velocity-reference-scenario @ f0890c2
 matlab -batch "run('tests/run_tests.m')"
-→ 48/48 通过，89.83 s，退出码 0
+→ 48/48 通过，86.80 s，退出码 0
 ```
 
 原有 45 项测试全部保留（逐项比对 removed=空）；新增：
@@ -134,6 +134,7 @@ matlab -batch "run('tests/run_tests.m')"
 | 提交 | 内容 |
 |---|---|
 | `f5fab46` | 独立速度参考场景、Guidance、Topic、Experiment Definition、WTR 与测试 |
+| `f0890c2` | 增加 MAT roundtrip 身份/签名测试 |
 
 完整分支审查应覆盖 `main...feat/velocity-reference-scenario`；本阶段只描述相对
 `3115958` 的增量。

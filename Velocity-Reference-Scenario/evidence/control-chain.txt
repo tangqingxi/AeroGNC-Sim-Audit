@@ -10,4 +10,4 @@ control/velocity_setpoint_records=0
 guidance/velocity_reference_records=250
 dropped=0
 periods: guidance=0.020 s, velocity=0.010 s, attitude=0.005 s, rate=0.0025 s
-causality: all records available_time_s >= sample_time_s
+causality: all records available_time_s >= sample_time_smat_roundtrip=passed (identity and WTR signature preserved)
