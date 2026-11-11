@@ -1,0 +1,10 @@
+{
+  "baseline_count": 42,
+  "current_count": 45,
+  "removed": [],
+  "added": [
+    "test_canonical_json_nd",
+    "test_environment_refresh",
+    "test_wtr_aero_provenance"
+  ]
+}

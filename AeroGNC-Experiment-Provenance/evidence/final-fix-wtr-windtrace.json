@@ -1,0 +1,210 @@
+[
+  {
+    "wtr_path": "E:\\tmp\\AeroGNC-Sim-final-fix-lf\\results\\final-fix-export\\rate_step\\rate_step_69bc10d2eb1e\\flight.wtr",
+    "sha256": "b0b01b1e06dc8f04d6d7f86171fa4e400ffd7c66d37b19ea2789563745660976",
+    "matlab_validation": {
+      "passed": true,
+      "run_id": "rate_step_69bc10d2eb1e",
+      "topic_count": 15,
+      "duration_s": 1.5,
+      "sha256": "b0b01b1e06dc8f04d6d7f86171fa4e400ffd7c66d37b19ea2789563745660976",
+      "wtr_path": "E:\\tmp\\AeroGNC-Sim-final-fix-lf\\results\\final-fix-export\\rate_step\\rate_step_69bc10d2eb1e\\flight.wtr",
+      "mat_roundtrip": true,
+      "software": {
+        "matlab_version": "25.2.0.2998904 (R2025b)",
+        "matlab_release": "2025b",
+        "computer": "PCWIN64",
+        "project_root": "E:\\tmp\\AeroGNC-Sim-final-fix-lf",
+        "git_commit": "31159589f743b205f68b5777a70a24377dc57723",
+        "git_dirty": false
+      }
+    },
+    "read_flight": "PASS",
+    "topics": 15,
+    "parameters": 89,
+    "aero_parameters": {
+      "aero.source_type": {
+        "path": "aero.source_type",
+        "value": "fixture",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.trust": {
+        "path": "aero.trust",
+        "value": "synthetic",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.file_sha256": {
+        "path": "aero.file_sha256",
+        "value": "",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.content_sha256": {
+        "path": "aero.content_sha256",
+        "value": "57f0be159f8abcf568e01bf5bc588f7deb91cd24c4fa00efab99ef3061be1f6f",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.duct_domain_rad": {
+        "path": "aero.duct_domain_rad",
+        "value": [
+          0,
+          2.2689
+        ],
+        "type": "array",
+        "unit": "rad",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.wing_domain_rad": {
+        "path": "aero.wing_domain_rad",
+        "value": [
+          -0.3491,
+          2.2689
+        ],
+        "type": "array",
+        "unit": "rad",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.physical_validation_allowed": {
+        "path": "aero.physical_validation_allowed",
+        "value": 0,
+        "type": "float",
+        "unit": "1",
+        "source": "model_metadata.aero",
+        "overridden": false
+      }
+    },
+    "smoke_exit": 0,
+    "smoke": [
+      {
+        "run_id": "rate_step_69bc10d2eb1e",
+        "topics": 15,
+        "parameters": 89,
+        "duration_s": 1.5,
+        "execution": {
+          "status": "completed",
+          "expected_duration_s": 1.5
+        },
+        "audit": {
+          "status": "unknown"
+        }
+      }
+    ]
+  },
+  {
+    "wtr_path": "E:\\tmp\\AeroGNC-Sim-final-fix-lf\\results\\final-fix-export\\hover_hold\\hover_hold_e03433465a1c\\flight.wtr",
+    "sha256": "759962048b15ca30bbbb33fcb333b14a26e827b969eec57f5f99e072e5014f38",
+    "matlab_validation": {
+      "passed": true,
+      "run_id": "hover_hold_e03433465a1c",
+      "topic_count": 15,
+      "duration_s": 3,
+      "sha256": "759962048b15ca30bbbb33fcb333b14a26e827b969eec57f5f99e072e5014f38",
+      "wtr_path": "E:\\tmp\\AeroGNC-Sim-final-fix-lf\\results\\final-fix-export\\hover_hold\\hover_hold_e03433465a1c\\flight.wtr",
+      "mat_roundtrip": true,
+      "software": {
+        "matlab_version": "25.2.0.2998904 (R2025b)",
+        "matlab_release": "2025b",
+        "computer": "PCWIN64",
+        "project_root": "E:\\tmp\\AeroGNC-Sim-final-fix-lf",
+        "git_commit": "31159589f743b205f68b5777a70a24377dc57723",
+        "git_dirty": false
+      }
+    },
+    "read_flight": "PASS",
+    "topics": 15,
+    "parameters": 109,
+    "aero_parameters": {
+      "aero.source_type": {
+        "path": "aero.source_type",
+        "value": "fixture",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.trust": {
+        "path": "aero.trust",
+        "value": "synthetic",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.file_sha256": {
+        "path": "aero.file_sha256",
+        "value": "",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.content_sha256": {
+        "path": "aero.content_sha256",
+        "value": "57f0be159f8abcf568e01bf5bc588f7deb91cd24c4fa00efab99ef3061be1f6f",
+        "type": "string",
+        "unit": "-",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.duct_domain_rad": {
+        "path": "aero.duct_domain_rad",
+        "value": [
+          0,
+          2.2689
+        ],
+        "type": "array",
+        "unit": "rad",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.wing_domain_rad": {
+        "path": "aero.wing_domain_rad",
+        "value": [
+          -0.3491,
+          2.2689
+        ],
+        "type": "array",
+        "unit": "rad",
+        "source": "model_metadata.aero",
+        "overridden": false
+      },
+      "aero.physical_validation_allowed": {
+        "path": "aero.physical_validation_allowed",
+        "value": 0,
+        "type": "float",
+        "unit": "1",
+        "source": "model_metadata.aero",
+        "overridden": false
+      }
+    },
+    "smoke_exit": 0,
+    "smoke": [
+      {
+        "run_id": "hover_hold_e03433465a1c",
+        "topics": 15,
+        "parameters": 109,
+        "duration_s": 3,
+        "execution": {
+          "status": "completed",
+          "expected_duration_s": 3
+        },
+        "audit": {
+          "status": "unknown"
+        }
+      }
+    ]
+  }
+]

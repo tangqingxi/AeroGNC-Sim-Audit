@@ -1,154 +1,65 @@
-# AeroGNC-Experiment-Provenance — 阶段报告
+# Experiment-Provenance-Final-Fix — 最终整改报告
 
-| 项 | 值 |
-|---|---|
-| 阶段 | `AeroGNC-Experiment-Provenance` |
-| 状态 | `in-progress (ready-for-review)`（未合并 main，未创建 Tag） |
-| DEV 分支 | `feat/px4-control-fidelity` @ `d2ddff4a944bd454f9cd1f4523965d0f989d44cf` |
-| DEV 基点 | `1765ac1cf57a842e75eaaf2d81cbd8252d1687d9` |
-| DEV main | `57bbe6893d83808e3b46aa79864701b32b31c775`（未变） |
-| AUDIT 分支 | `study/aerognc-experiment-provenance`（自 `77283910a89c234c32631ae3739bb97d8531c3ba`） |
-| 测试 | 42/42 通过（全新 clone，42.21 s） |
-| 物理验证 | **BLOCKED**（合成气动 fixture） |
+## 阶段名称与状态
 
-## 1. 本阶段目标与结果
+`Experiment-Provenance-Final-Fix`；整改完成，等待 NEXUS 最终验收，尚未验收。
+沿用审计目录 `AeroGNC-Experiment-Provenance/`，不新增阶段目录。
+DEV `feat/px4-control-fidelity` @ `31159589f743b205f68b5777a70a24377dc57723`，已推送；AUDIT 沿用
+`study/aerognc-experiment-provenance`。未合并 main、未创建 Tag。
+开工远端 SHA 与指定基线完全一致：DEV `d2ddff4a944bd454f9cd1f4523965d0f989d44cf`，
+AUDIT `a26f349fc903edb1ba20170f675ffb832b003efe`；两工作区当时均干净。
 
-本阶段消除 Scenario 构造、运行回调、签名与 WTR 导出的多源参数管理，建立单一实验定义：
+## 完成内容
 
-```text
-Scenario Options
-      ↓
-Experiment Definition（cfg.experiment）
-      ↓
-Controller Parameters（同一 definition）
-      ↓
-Component Callbacks
-      ↓
-Simulation
-      ↓
-result.config.experiment + result.config + result.model_metadata
-      ↓
-simulation.mat
-      ↓
-WTR（只读结果）
-      ↓
-flight.wtr
-```
-
-完成内容：
-
-1. `cfg.experiment` 由 `experiment_definition.m` 构造，包含 schema、scenario、
-   method、active_modules、guidance、navigation、controllers、allocation、
-   rates、最终 components。
-2. Position/Velocity/Attitude/Rate/Allocation 的运行时参数全部从同一
-   `definition` 派生；不再存在 `s.gains`/`s.signature`。
-3. `definition_sha256` 保护定义；`identity_sha256` 保护定义+运行配置+模型快照。
-4. `result.config.experiment` 原样保存；`result.model_metadata` 增加 trim 快照。
-5. `wtr_export` 不再接受 scenario/signature/gains/method/seed；所有身份与参数从
-   `result` 派生，且在写文件前校验。
-6. `parameters.json` 从 definition、`result.config`、`result.model_metadata` 生成。
-7. 新增 `test_experiment_provenance`；在 40 项基础上新增 `test_provenance_integrity`、`test_aero_canonical_json`，共 42 项。
-8. 本轮增加四项完整性整改：跨机器身份、完整状态布局、规范化序列化、软件来源；
-   新增 `test_provenance_integrity`、`test_aero_canonical_json`，共 42 项。
-
-### 1.1 本轮完整性整改
-
-| 项 | 实现 | 验证 |
+| 整改 | 结果 | 实现与证据 |
 |---|---|---|
-| A 跨机器身份 | 原始 `model_metadata` 保留 `aero.source_file`；Identity 哈希只移除本地路径，保留 source/trust/file SHA/content SHA/有效域；fixture 增加样条内容 SHA | 同一文件不同目录身份相同；改文件内容/fixture 系数/trust/有效域均改变 |
-| B 状态布局 | `state_layout` 保存 nx/position/velocity/quaternion/omega/servo/motor/units/description；WTR 从结果快照恢复 | 篡改 quaternion/servo/motor 索引在创建目录前拒绝 |
-| C 规范化序列化 | 递归 canonical JSON：struct 字段排序、数组/cell 顺序保持、数值维度显式、NaN/Inf 显式、句柄拒绝 | 不同字段顺序同 SHA；数值/数组顺序/维度变化不同 SHA |
-| D 软件来源 | WTR `source.software` + `software.*` 参数记录 MATLAB version/release/computer/git commit/git dirty；不进入输入签名 | dirty 明确标记 commit SHA 不等于精确复现；WTR v1 校验和 WindTrace 读取通过 |
+| A 软件来源动态刷新 | PASS | 每次 aero_sim 入口重新查询 HEAD/dirty；只缓存 MATLAB/platform；入口快照写 result.environment |
+| B WTR 气动追溯 | PASS | 从 result.model_metadata.aero 导出 content_sha256、duct_domain_rad、wing_domain_rad；synthetic/external 均覆盖 |
+| C 完整 N 维尺寸 | PASS | size 的全部维度按顺序编码；2D 编码规则、字段排序、数据顺序和特殊值规则保留 |
 
-## 2. 唯一来源
+输入签名的定义不变，软件来源继续排除；N 维修复使此前发生尺寸碰撞的输入可以区分。
+未修改 GNC/PINV/动力学/执行器/Topic Bus/积分与调度/Experiment Definition 架构/WTR v1/WindTrace。
+所有新增 MATLAB 注释为简体中文，新增测试均在现有测试目录注册。
 
-| 数据层 | 权威位置 | 内容 |
-|---|---|---|
-| 实验定义 | `result.config.experiment.definition` | 控制器、参考、分配、模块、组件调度 |
-| 定义哈希 | `result.config.experiment.definition_sha256` | schema+definition |
-| 完整身份 | `result.config.experiment.identity_sha256` | 定义+运行配置+模型快照 |
-| 运行配置 | `result.config` | tspan、x0、command、seed、solver、environment、通信、调度 |
-| 模型快照 | `result.model_metadata` | 机型、质量/惯量、trim、执行器、气动来源/trust/SHA |
+## 验证结果
 
-没有新增 `result.experiment` 副本；没有两套可独立编辑的 gains/signature。
+- 原有 42 项全部保留，removed=[]；新增 3 项，总计 45 项。
+- 本地完整回归 45/45，55.40 s；远端全新 LF clone 完整回归 45/45，55.35 s；0 失败、0 跳过。
+- 命令：`git -c core.autocrlf=false clone --branch feat/px4-control-fidelity --single-branch https://github.com/tangqingxi/AeroGNC-Sim <fresh>`；
+  在 clone 执行 `matlab -batch "run('tests/run_tests.m')"`。实际证据批次还启用 diary 并运行附加双场景验证。
+- `test_environment_refresh`：隔离 Git 仓库，同一 MATLAB 会话 clean→dirty→重复 dirty→提交后 clean/新 HEAD；
+  运行回调改源码时仍保存入口 clean，下一次运行识别 dirty。
+- `test_canonical_json_nd`：3D/4D、相同内容不同尺寸、字段排序、空数组尺寸、逻辑数组、列主序。
+- `test_wtr_aero_provenance`：fixture 系数改变 WTR content SHA；双有效域改变 WTR 参数；external 换路径身份与参数不变；调用者参数修改无影响。
+- 两场景（rate 1.5 s / hover 3 s）结果 save/load 后数值日志、环境、模型快照、通信快照及实验定义 `isequaln` 一致，运行身份重算通过，再从加载结果导出；MATLAB 独立 wtr_validate 均通过。
+- WindTrace `bcdb6a8eca9334b395759c604d5c3978feb1bd8f` 未修改；read_flight 与 app.py --smoke 均通过，
+  每份 15 topics，参数分别 89/109 项；软件来源为本 DEV SHA、dirty=false。
+- 测试登记、目录治理、which -all 唯一性由 test_project_layout 通过；git diff --check 通过。
+- 初次新增 WTR 测试因 0.02 s 未覆盖必要锁存事件失败；仅将测试时长改为 0.05 s 后完整重跑，未放宽任何阈值或校验。
+- 首次 clone 因默认 CRLF 转换产生 dirty，已中止该批次；重新以 clone 时 core.autocrlf=false 检出，正式证据来自干净 LF clone。
 
-## 3. Active modules
+附加 MAT 检查初次直接比较含回调句柄的整个结果不适用（load 后句柄实例变化）；改为逐项比较数值日志与追溯快照，并以生产 WTR 身份重算验证运行配置，复测通过。
 
-| 场景 | active_modules | method |
-|---|---|---|
-| HoverHold | guidance, position, velocity, attitude, rate, allocation | `P_PID_P_PID_PINV` |
-| BodyRate Step | guidance, rate, allocation | `RATE_PID_PINV` |
+证据 SHA256 校验：9/9 PASS；交接检查：READY，0 warning。
 
-控制器参数结构中即使包含全部增益，也不会把未启用级加入 `active_modules`。
+## 未解决问题
 
-## 4. 实验结果
+**物理验证 BLOCKED**：气动为 synthetic fixture；IdealState 不代表传感器误差导航验证。
+未执行 PX4/SITL 对照或真实气动/实机验证。NEXUS 尚未给出最终验收结论。
+容量测试主动触发的 warning 属既有保护行为；“0 warning”专指交接一致性检查。
 
-```text
-全新 clone feat/px4-control-fidelity @ d2ddff4
-matlab -batch "run('tests/run_tests.m')"
-→ 42/42 通过，42.21 s，退出码 0
-```
+## 相关提交、文件与证据
 
-- 原 40 项测试全部保留（逐项比对 removed=空）；
-- 新增 `test_experiment_provenance`、`test_provenance_integrity`、`test_aero_canonical_json`；
-- `test_wtr_export` 改为从结果导出，覆盖身份字段拒绝、定义/配置/模型篡改、
-  参考/分配篡改、无残留文件；
-- `test_experiment_provenance` 覆盖定义/身份 SHA、相同配置稳定性、参数变化、
-  active modules、运行配置变化、模型变化、MAT save/load 和 WTR 导出。
+所有 DEV 路径均引用完整提交 `31159589f743b205f68b5777a70a24377dc57723`：
+`src/Simulation/Internal/aero_env_info.m`、`src/Simulation/aero_sim.m`、
+`src/Simulation/Internal/aero_canonical_json.m`、`tools/wtr/wtr_build_parameters.m`、
+`tests/run_tests.m`、`tests/Simulation/Core/test_environment_refresh.m`、
+`tests/Simulation/Core/test_canonical_json_nd.m`、`tests/Export/WTR/test_wtr_aero_provenance.m`。
 
-## 5. WTR
+本次证据为 `evidence/final-fix-*` 与 evidence-manifest.json 列明的文档。
+目录内其它旧证据仅对应 d2ddff4 及更早历史，不作为本次新提交的执行证明。
+原始 MAT/WTR 仅在 DEV clone 的 ignored `results/final-fix-*` 下，未复制到 AUDIT。
 
-- WTR v1 schema 未改变；WindTrace 读取和 smoke 通过。
-- `wtr_export` 选项仅保留 output_root/run_id/save_simulation/policy；
-  传入 scenario/signature/gains/method/seed 直接报错。
-- manifest 的 scenario/method/seed 从 definition/result 派生；
-  `source.input_signature` 使用 `identity_sha256`；
-  `source.log_sha256` 对应 MAT 文件。
-- 导出前校验 definition schema/hash、identity hash、active modules、组件、
-  seed/tspan/solver/environment/x0/command、模型身份/元数据、气动 trust/SHA、
-  日志完整性。
-- 所有校验在创建目录/写文件之前完成。
+## 下一阶段建议
 
-## 6. 证据
-
-| 文件 | 内容 |
-|---|---|
-| `evidence/experiment-definition-validation.txt` | schema、模块、定义/身份 SHA、重复构造稳定性、句柄检查 |
-| `evidence/scenario-a-b-mismatch.txt` | 定义/参考/控制器/运行配置篡改拒绝 |
-| `evidence/model-metadata-validation.txt` | 模型快照/模型替换/元数据篡改 |
-| `evidence/runtime-config-validation.txt` | seed/tspan/x0/solver/environment/component 变化改变签名 |
-| `evidence/mat-roundtrip.txt` | `aero_save_result` → load → WTR 导出 |
-| `evidence/wtr-validation.json` | WTR SHA、read_flight、smoke、参数数量 |
-| `evidence/windtrace-smoke.txt` | WindTrace smoke 报告 |
-| `evidence/regression-test.txt` | 全新 clone 42/42 |
-| `evidence/cross-path-identity.txt` | 同一气动文件不同目录身份/内容 SHA 相同 |
-| `evidence/fixture-content-identity.txt` | fixture 系数/文件内容变化改变身份 |
-| `evidence/state-layout-validation.txt` | 完整 20 维索引与布局篡改拒绝 |
-| `evidence/canonical-json.txt` | 字段顺序/数组顺序/维度/特殊值 |
-| `evidence/software-provenance.txt` | MATLAB/git 来源与 WTR 字段 |
-
-## 7. 未解决/限制
-
-1. **物理验证 BLOCKED**：合成气动 fixture，不是真实气动或实机验证。
-2. 未做 PX4 编译/SITL 并排对照。
-3. `IdealState` 无传感器噪声/偏置；不能描述为 EKF。
-4. 未实现 INDI/MPC/EKF/归一化虚拟控制接口；本轮不改变控制算法。
-5. WTR 仍依赖完整发布日志（`dropped==0`）。
-
-## 8. 提交
-
-| 提交 | 内容 |
-|---|---|
-| `0e448cd` | 唯一实验定义、身份 SHA、结果派生 WTR、参数快照、测试 |
-| `2a11dec` | README/DESIGN 的实验追溯说明 |
-| `5def16b` | 跨机器身份、状态布局、规范化序列化、软件来源 |
-| `d2ddff4` | 增加 dirty 软件来源测试 |
-
-完整分支审查应覆盖 `main...feat/px4-control-fidelity`，本阶段只描述相对
-`1765ac1` 的增量。
-
-## 9. 结论
-
-任何一份仿真结果现在都能从自身恢复实验定义、控制器参数、参考条件、运行配置、
-求解器、模型身份和物理快照；WTR 不再信任调用者事后提供的身份。可以提交
-NEXUS 复核。
+由 NEXUS 对本 DEV SHA 及本次 manifest 证据执行最终验收；本 Agent 停止开发等待结论。

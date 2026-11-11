@@ -1,0 +1,7 @@
+[39/45] test_canonical_json_nd
+        PASS  3D/4D、字段排序、列主序、空数组和逻辑数组尺寸通过  (0.01s)
+[40/45] test_environment_refresh
+来源刷新：clean=0 dirty=1 repeat=1 committed=0 entry=0 next=1
+        PASS  同一会话 clean/dirty/重复/HEAD/运行入口快照通过  (2.19s)
+[41/45] test_wtr_aero_provenance
+        PASS  synthetic/external、系数 SHA、双有效域、跨路径、结果唯一来源通过  (2.84s)

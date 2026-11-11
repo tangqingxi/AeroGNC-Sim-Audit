@@ -1,3 +1,15 @@
+# 最终整改：运行入口来源与完整维度
+
+当前语义阶段：Experiment-Provenance-Final-Fix；DEV `31159589f743b205f68b5777a70a24377dc57723`，已推送。
+
+每次仿真入口采集最新 HEAD/dirty，MATLAB/version/release/platform 可缓存；result.environment 固定入口快照。软件来源仍不进入输入签名。数值及逻辑数组现在编码完整 size，包含空数组；MATLAB 本身不可区分的尾随单例维度遵循 size 语义。气动 content SHA 与双有效域从结果模型快照直达 WTR，不读取调用者重新提供的参数。
+
+证据：evidence/final-fix-*；完整结果见 REPORT.md。物理验证 BLOCKED。
+
+---
+
+以下为前一基线的设计说明与历史验证，旧执行数值不作为当前 SHA 的证据。
+
 # Data Lineage
 
 ## 1. 数据流

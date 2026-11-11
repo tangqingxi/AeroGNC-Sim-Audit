@@ -1,3 +1,15 @@
+# 最终整改：气动参数与兼容性
+
+当前语义阶段：Experiment-Provenance-Final-Fix；DEV `31159589f743b205f68b5777a70a24377dc57723`，已推送。
+
+新增 aero.content_sha256（单位 -）、aero.duct_domain_rad 与 aero.wing_domain_rad（单位 rad），source 均为 model_metadata.aero。synthetic 的内容 SHA 非空；系数变化改变 SHA，双有效域变化反映到参数，external 相同内容换路径身份不变。WTR v1 schema 未改；MAT 往返后两场景 WTR 独立校验、WindTrace read_flight 和 smoke 均 PASS。
+
+证据：evidence/final-fix-*；完整结果见 REPORT.md。物理验证 BLOCKED。
+
+---
+
+以下为前一基线的设计说明与历史验证，旧执行数值不作为当前 SHA 的证据。
+
 # WTR Export Review
 
 ## 1. 接口

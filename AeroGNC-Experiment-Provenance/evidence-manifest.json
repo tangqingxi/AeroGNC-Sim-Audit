@@ -1,131 +1,77 @@
 {
   "schema_version": 2,
   "phase": "AeroGNC-Experiment-Provenance",
-  "created_at": "2026-11-10T16:40:20Z",
+  "created_at": "2026-11-11T08:33:19Z",
   "agent": {
-    "name": "DeepSeek Harness",
-    "model": "deepseek-flash"
+    "name": "Codex",
+    "model": "GPT-6"
   },
   "development": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
     "branch": "feat/px4-control-fidelity",
-    "commit": "d2ddff4a944bd454f9cd1f4523965d0f989d44cf"
+    "commit": "31159589f743b205f68b5777a70a24377dc57723"
   },
   "audit": {
     "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
   },
   "status": "in-progress",
-  "environment": {
-    "os": "Windows",
-    "matlab": "R2025b 25.2.0.2998904",
-    "px4": "2eb3366757",
-    "dev_branch": "feat/px4-control-fidelity"
-  },
   "evidence": [
     {
       "path": "AeroGNC-Experiment-Provenance/REPORT.md",
-      "sha256": "84683f15004636309162f39f929de64e7a633121182c828487dada570dbf75eb",
+      "sha256": "506d43fb0db1ac2661ae243eb3bf132149bb2d5edc344259c8e6e7eef30b9d0f",
       "kind": "report"
     },
     {
-      "path": "AeroGNC-Experiment-Provenance/EXPERIMENT-DEFINITION.md",
-      "sha256": "2a02517d01cda9325b572c3a19d992c680b75b1bd011c7f9f2211b60494befe8",
-      "kind": "other"
-    },
-    {
       "path": "AeroGNC-Experiment-Provenance/DATA-LINEAGE.md",
-      "sha256": "2805d4dc0f0e395e32fe58195f4a5306b30db3c3b9d0d517457304976de535f6",
+      "sha256": "d83e2ffe8f63fd8e512e547067bd6ce3c142cbbc38c946544b6e2b81b86070fd",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/WTR-EXPORT-REVIEW.md",
-      "sha256": "8401d768fc2ed3727872bf9d900179faff6aed179dc540ff27608c8e8c6c6700",
+      "sha256": "fb7d135ddec9f970f27d0ffdc4bcc59a21f002fd1fcec794344c78ce9627d873",
       "kind": "other"
     },
     {
       "path": "AeroGNC-Experiment-Provenance/HANDOFF.md",
-      "sha256": "94ad268e5f80b0dfdae16fed3cb5afc6d17afa1d1c637f70b3b0bf58f5df663d",
+      "sha256": "f85b53b5712b1db4fe677987b0b02b8713e8df2a3ba566eb25822a2a1dc23304",
       "kind": "handoff"
     },
     {
-      "path": "AeroGNC-Experiment-Provenance/evidence/experiment-definition-validation.txt",
-      "sha256": "6159abff303fbc29fe2a4cdd6e1d3c82249f020a26720327d57f6967df11d3fa",
+      "path": "AeroGNC-Experiment-Provenance/evidence/final-fix-focused.txt",
+      "sha256": "fd4658154fe56fa3d2cc950b1bc7801294230d46d3b372951cfc10cd17abfe85",
       "kind": "other"
     },
     {
-      "path": "AeroGNC-Experiment-Provenance/evidence/scenario-a-b-mismatch.txt",
-      "sha256": "46fe5929c00b80ee9648b68eb080d5c749d612c19b9bca96282a0793080d288f",
+      "path": "AeroGNC-Experiment-Provenance/evidence/final-fix-mat-wtr.txt",
+      "sha256": "9b747d4665847448d3f972d4e2bda5d107b7bbf97d5bb357d2af4e50c843cb47",
       "kind": "other"
     },
     {
-      "path": "AeroGNC-Experiment-Provenance/evidence/model-metadata-validation.txt",
-      "sha256": "e8cb479b4e01dc38582c794a8b73fb52aab4bae33d2c787f43f44e30c749b6a0",
+      "path": "AeroGNC-Experiment-Provenance/evidence/final-fix-regression.txt",
+      "sha256": "36925273a4dfb8a1c1c0289f0e81eb8ecf88e2236679fa7ce8736c1501c6bdaa",
       "kind": "other"
     },
     {
-      "path": "AeroGNC-Experiment-Provenance/evidence/runtime-config-validation.txt",
-      "sha256": "09cf6be0a3d0cce260f2772dfa33d163e05d31f36bd3f4b1027fa09ecc303505",
+      "path": "AeroGNC-Experiment-Provenance/evidence/final-fix-test-inventory.json",
+      "sha256": "e5a1a799ece273120867006ca890fa04536280375ae3c972762e2a4a1dc5809c",
       "kind": "other"
     },
     {
-      "path": "AeroGNC-Experiment-Provenance/evidence/mat-roundtrip.txt",
-      "sha256": "90b6433de541f61dbd28a6b769afc2a4bf9141e39eb4b58c1a46a388ae1bc49b",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/wtr-validation.json",
-      "sha256": "125930d66ce86297b456991a7f114eb76242a710d34d58a73a6e65f36050897e",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/regression-test.txt",
-      "sha256": "f333fb9ffda01c6a70743a9ab343c5ddf92e76671c14084606d16627a11a25e6",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/windtrace-smoke.txt",
-      "sha256": "d07de133bdd3de4a88286d912a69c90f7be7a044441bf105c36e27c64ed83992",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/cross-path-identity.txt",
-      "sha256": "031081529f5595de2c2583a15328fe0b9a5708b783b78592df3f6555e21dfb91",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/fixture-content-identity.txt",
-      "sha256": "b9f062466ecff10a8228a04d70a868a26425505b754eb3eb6ec8d18de41e24c3",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/state-layout-validation.txt",
-      "sha256": "f9536f40854d50c648e9da6faa6209f845b05583b5d665d8473ab0f5413f6855",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/canonical-json.txt",
-      "sha256": "0ffb7e62a2aa96943064ade97b346a3993722dfc7fa16ad8237dbf77d17675e0",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/software-provenance.txt",
-      "sha256": "b9946770d6783b91823689dbfa8c6a292c306b94cfc81679df2962e003ccb583",
-      "kind": "other"
-    },
-    {
-      "path": "AeroGNC-Experiment-Provenance/evidence/windtrace-screenshot.png",
-      "sha256": "919d2aa40139403b354cd5d93c7064f42331c9b68237922dd813f51d68612051",
+      "path": "AeroGNC-Experiment-Provenance/evidence/final-fix-wtr-windtrace.json",
+      "sha256": "6903c4e4e20cbb0043b3c421415bf2bbc23cf870f1f4dfa60c4a632c4eb3bcb7",
       "kind": "other"
     }
   ],
   "verification": {
     "commands": [
-      "fresh clone; matlab -batch run('tests/run_tests.m')"
+      "matlab -batch \"run('tests/run_tests.m')\"",
+      "MAT save/load snapshot comparison and wtr_validate on rate 1.5s / hover 3s exports",
+      "WindTrace core.flight.read_flight and python app.py <flight.wtr> --smoke"
     ],
     "result": "passed"
   },
   "limitations": [
-    "Physical validation BLOCKED (synthetic aero fixture). PX4 not built/flown. IdealState has no sensor noise/bias. No WTR v1 change or WindTrace modification. Git dirty is recorded as non-reproducible; final evidence clone is clean."
+    "Physical validation BLOCKED: synthetic fixture; NEXUS acceptance pending"
   ],
-  "next_action": "NEXUS review of cross-machine identity, full state layout, canonical serialization and software provenance; then main merge decision"
+  "next_action": "NEXUS reviews DEV 31159589f743b205f68b5777a70a24377dc57723 and final-fix evidence and records accept or reject; keep main and tags unchanged"
 }
