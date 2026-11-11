@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "phase": "Velocity-Reference-Scenario",
+  "created_at": "2026-11-11T11:00:21Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/velocity-reference-scenario",
+    "commit": "f5fab46079a197432408d653d3c32093dc3b6f61"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "dev_branch": "feat/velocity-reference-scenario"
+  },
+  "evidence": [
+    {
+      "path": "Velocity-Reference-Scenario/REPORT.md",
+      "sha256": "5532590bc434c138ab7ca9bef8b6e8ce61c892ec9582b5c315400e9eeefc3671",
+      "kind": "report"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/SCENARIO-DESIGN.md",
+      "sha256": "1bc601435cec47fcb37ca8b74717ad54d72b46917eb0bbbd0f9901d6f7eb0c6f",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/CONTROL-CHAIN.md",
+      "sha256": "056e4d25dd7bdc8689bddddd264376fa0b3fd8eedfde610ab96535441be15970",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/HANDOFF.md",
+      "sha256": "21710737bd92bc660a4530d8bfa3f5e37b5a70fd1f6a46b76c4785410fe9b4ea",
+      "kind": "handoff"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/guidance-reference.txt",
+      "sha256": "a333ef520ad9b73236d106bf43ded8b004696d48f5182cbdf4e63c4f4882c32d",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/control-chain.txt",
+      "sha256": "81e214a4c66b58378676ad0c6fb6acaf4386bb7a12c8d999ec8d0516bc143fd2",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/closed-loop.txt",
+      "sha256": "be1554cf04ff29a8339a0908a6aa19b6795ab8a42ca0c0f80f2aa265b7fa7cbd",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/velocity-response.csv",
+      "sha256": "06b55be2207acf73c187ac20c6e880408f539370f7b7a2b50d23e659c2d01be8",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/wtr-validation.json",
+      "sha256": "f69759d564a487fada04158dd368d40b6f6cfa77e7edcf46796737a541c06b4e",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/regression-test.txt",
+      "sha256": "52e35bf07475c75dce0f83b15c8a4efae5b61f2426fb4361a043bb904f6d8ed5",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/windtrace-smoke.txt",
+      "sha256": "7898b1353cf8fa3e6b5499f4d2470360088a46c08cb7b2c95224a87bcc84e8ce",
+      "kind": "other"
+    },
+    {
+      "path": "Velocity-Reference-Scenario/evidence/windtrace-screenshot.png",
+      "sha256": "37e81888c9cef20a452e15e7aa002ad460fac21d62d3d88263833eb4ba2bbc21",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "fresh clone; matlab -batch run('tests/run_tests.m')"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Physical validation BLOCKED (synthetic aero fixture). PX4 not built/flown. No position controller in this scenario; position drift is expected. IdealState has no sensor noise."
+  ],
+  "next_action": "NEXUS review of Position bypass, Guidance-to-Velocity topic, WTR velocity reference and closed-loop metrics"
+}

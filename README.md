@@ -4,13 +4,13 @@
 
 **当前状态入口：[STATUS.md](STATUS.md)**（阶段级详细结论见下）
 
-- 当前阶段：`AeroGNC-Experiment-Provenance`（**in-progress / ready-for-review**，DEV 分支 `feat/px4-control-fidelity` @ `d2ddff4`）
-  → [AeroGNC-Experiment-Provenance/REPORT.md](AeroGNC-Experiment-Provenance/REPORT.md)
-- 实验定义/数据血缘： [EXPERIMENT-DEFINITION.md](AeroGNC-Experiment-Provenance/EXPERIMENT-DEFINITION.md)、
-  [DATA-LINEAGE.md](AeroGNC-Experiment-Provenance/DATA-LINEAGE.md)
-- WTR 审查：[WTR-EXPORT-REVIEW.md](AeroGNC-Experiment-Provenance/WTR-EXPORT-REVIEW.md)
-- 交接单：[AeroGNC-Experiment-Provenance/HANDOFF.md](AeroGNC-Experiment-Provenance/HANDOFF.md)
-- 证据清单：[AeroGNC-Experiment-Provenance/evidence-manifest.json](AeroGNC-Experiment-Provenance/evidence-manifest.json)
+- 当前阶段：`Velocity-Reference-Scenario`（**in-progress / ready-for-review**，DEV 分支 `feat/velocity-reference-scenario` @ `f5fab46`）
+  → [Velocity-Reference-Scenario/REPORT.md](Velocity-Reference-Scenario/REPORT.md)
+- 场景设计/控制链：[SCENARIO-DESIGN.md](Velocity-Reference-Scenario/SCENARIO-DESIGN.md)、
+  [CONTROL-CHAIN.md](Velocity-Reference-Scenario/CONTROL-CHAIN.md)
+- 交接单：[Velocity-Reference-Scenario/HANDOFF.md](Velocity-Reference-Scenario/HANDOFF.md)
+- 证据清单：[Velocity-Reference-Scenario/evidence-manifest.json](Velocity-Reference-Scenario/evidence-manifest.json)
+- 上一阶段：`AeroGNC-Experiment-Provenance` → [AeroGNC-Experiment-Provenance/REPORT.md](AeroGNC-Experiment-Provenance/REPORT.md)
 - 上一阶段：`PX4-Control-Baseline-Fidelity`（in-progress/ready-for-review）→ [PX4-Control-Baseline-Fidelity/REPORT.md](PX4-Control-Baseline-Fidelity/REPORT.md)
 - 上一阶段：`GNC-Control-Modularization`（ready-for-review）→ [GNC-Control-Modularization/REPORT.md](GNC-Control-Modularization/REPORT.md)
 - 归一化研究（含偏航权限修正）→ [Normalized-Control-Interface-Study/REPORT.md](Normalized-Control-Interface-Study/REPORT.md)

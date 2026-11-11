@@ -1,0 +1,17 @@
+WindTrace read_flight and smoke
+
+[
+  {
+    "run_id": "velocity_step_96f70c1cafa7",
+    "topics": 15,
+    "parameters": 106,
+    "duration_s": 5,
+    "execution": {
+      "status": "completed",
+      "expected_duration_s": 5
+    },
+    "audit": {
+      "status": "unknown"
+    }
+  }
+]

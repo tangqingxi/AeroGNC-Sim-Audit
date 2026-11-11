@@ -1,0 +1,9 @@
+Velocity step Guidance
+t=0.49: velocity=[0;0;0]
+t=0.50: velocity=[0.8;0;0] m/s, acceleration_ff=[0.1;-0.2;0.05] m/s^2, yaw=0.3 rad, yaw_rate=0.1 rad/s
+t=2.40: velocity=[0.8;0;0]
+t=2.50: velocity=[0;0;0]
+topic=guidance/velocity_reference
+fields=velocity, acceleration_ff, yaw, yaw_rate
+dimensions=[3 1],[3 1],[1 1],[1 1]
+units=m/s,m/s^2,rad,rad/s

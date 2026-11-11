@@ -1,0 +1,81 @@
+{
+  "schema": "wtr-validation/1",
+  "file": "flight.wtr",
+  "sha256": "e8e0124b73f95ab202aa9dc9eac93140abd2269710563f1414a6cac78154d6ba",
+  "bytes": 971655,
+  "run_id": "velocity_step_96f70c1cafa7",
+  "scenario": "velocity_step",
+  "method": "VEL_PID_P_PID_PINV",
+  "topics": 15,
+  "parameters": 106,
+  "duration_s": 5,
+  "execution_status": "completed",
+  "input_signature": "96f70c1cafa782cf4e2a9aec2626bfeee8ef8a34983aa5ec0f6171eac3ce95a0",
+  "trajectory_setpoint_velocity_source": "guidance/velocity_reference",
+  "trajectory_setpoint_position_source": "not_applicable (velocity-only scenario; no position reference)",
+  "reference_parameters": {
+    "experiment.reference.velocity_reference_ned_m_s": {
+      "path": "experiment.reference.velocity_reference_ned_m_s",
+      "value": [
+        0.8,
+        0,
+        0
+      ],
+      "type": "array",
+      "unit": "m/s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.acceleration_ff_ned_m_s2": {
+      "path": "experiment.reference.acceleration_ff_ned_m_s2",
+      "value": [
+        0,
+        0,
+        0
+      ],
+      "type": "array",
+      "unit": "m/s^2",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.yaw_rad": {
+      "path": "experiment.reference.yaw_rad",
+      "value": 0,
+      "type": "float",
+      "unit": "rad",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.yaw_rate_rad_s": {
+      "path": "experiment.reference.yaw_rate_rad_s",
+      "value": 0,
+      "type": "float",
+      "unit": "rad/s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.start_s": {
+      "path": "experiment.reference.start_s",
+      "value": 0.5,
+      "type": "float",
+      "unit": "s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.end_s": {
+      "path": "experiment.reference.end_s",
+      "value": 2.5,
+      "type": "float",
+      "unit": "s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    }
+  },
+  "software": {
+    "matlab_version": "25.2.0.2998904 (R2025b)",
+    "matlab_release": "2025b",
+    "computer": "PCWIN64",
+    "git_commit": "f5fab46079a197432408d653d3c32093dc3b6f61",
+    "git_dirty": false
+  }
+}

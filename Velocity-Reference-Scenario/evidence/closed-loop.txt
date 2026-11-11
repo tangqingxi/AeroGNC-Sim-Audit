@@ -1,0 +1,16 @@
+max_speed_m_s=0.722858
+rmse_step_north_m_s=0.443423
+residual_speed_m_s=0.016233
+max_abs_east_m_s=0.016718
+max_abs_down_m_s=0.044851
+position_displacement_m=1.472493
+max_tilt_deg=5.394005
+max_thrust_n=20.837082
+max_motor_rad_s=848.182251
+max_servo_rad=0.184307
+saturated_count=0
+dropped=0
+velocity_reference_records=250
+position_records=0
+velocity_setpoint_records=0
+finite_state=1
