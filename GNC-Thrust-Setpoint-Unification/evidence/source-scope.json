@@ -1,0 +1,15 @@
+{
+  "src/GNC/Control/Attitude/attitude_p.m": true,
+  "src/GNC/Control/Rate/rate_pid.m": true,
+  "src/GNC/Control/Allocation/pinv_allocator.m": true,
+  "protected_paths_unchanged": [
+    "ARCHITECTURE.md",
+    "src/Simulation",
+    "src/Aircraft",
+    "src/Components",
+    "src/GNC/Control/Internal/control_defaults.m",
+    "src/GNC/Control/Velocity",
+    "src/GNC/Control/Position",
+    "src/GNC/Guidance/attitude_step.m"
+  ]
+}

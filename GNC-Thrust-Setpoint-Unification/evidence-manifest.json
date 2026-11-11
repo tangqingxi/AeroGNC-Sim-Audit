@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "phase": "GNC-Thrust-Setpoint-Unification",
+  "created_at": "2026-11-11T13:55:52Z",
+  "agent": {
+    "name": "Codex",
+    "model": "GPT-6"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/thrust-setpoint-unification",
+    "commit": "3acba790adcaad8215eccb69f495b5f89d8a435b"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "evidence": [
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/ARCHITECTURE-REVIEW.md",
+      "sha256": "5cf9d5ecf5abc58d50341f5be86d8d92bbd8537b11a36071b3268db25fce27f3",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/CONTROL-CHAIN.md",
+      "sha256": "fc8a1e2187506d3f6569eede1d98daf3c417b724f655e3ea38a6f4a00accf1cb",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/attitude_step-thrust.png",
+      "sha256": "4c9777cf75ad3722fc7b5e1274fcd3a2ba71d88c7280a59a5babd15243ccb414",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/closed-loop-comparison.json",
+      "sha256": "60a57681cacbe99f69fad38427425c455184139155624c9751360751cd05377d",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/fresh-clone-regression.txt",
+      "sha256": "9f95debbe72de3e22fd6dae57648ce9cc69d02a7f40229894f4e4e22f3bec772",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/hover_hold-thrust.png",
+      "sha256": "970eb6993e0dcf4a27126018947dc4528468fb0d691399a94e29a8210c3f9fbd",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/local-regression.txt",
+      "sha256": "679309dd95388eb3b8f15bdce0a63a9b3cf4ebd8a33d29de36d62c835fe05411",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/px4-reference.json",
+      "sha256": "60e9dd33390f42d84cdc59351d166aa9202e896b93140516b75a86895f7f7be4",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/rate_step-thrust.png",
+      "sha256": "3558005a1fa5f8c18caad82937c1c6f97fa6958dfa537244bfe4427244e2be15",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/source-scope.json",
+      "sha256": "1100ca8293b7fbf0df2fcc5d709b5400a6cb160ef3163b14faca3230a61b2a06",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/test-inventory.json",
+      "sha256": "6b7de2e6309e9c70dfeac5c52035e3adf3d4a2c70962bc0e75bedec9e8189114",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/velocity_step-thrust.png",
+      "sha256": "952ffb730c910a145f31d1c2ba61d5d25c1f9fa866324d790486601a8a634323",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/evidence/wtr-windtrace.json",
+      "sha256": "6e0c616d5f078a45da00b8fc3093c8f9f41daa55e91173d79aeb2d3eea182079",
+      "kind": "other"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/HANDOFF.md",
+      "sha256": "e66199d7bdef80724b5d351ee28f679151ac51a442cd40207b4aaa513539ee5d",
+      "kind": "handoff"
+    },
+    {
+      "path": "GNC-Thrust-Setpoint-Unification/REPORT.md",
+      "sha256": "04f87297e32b904a046ae06b1d4ad30b37bd8084c48fc1a1c4b510ddff85521b",
+      "kind": "report"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "matlab -batch \"run('tests/run_tests.m')\"",
+      "Four-scenario state/torque/held baseline comparison; wtr_validate; WindTrace read_flight, app.py --smoke, MainWindow thrust curve data comparison"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Physical Validation BLOCKED: synthetic fixture and IdealState; no PX4 SITL validation"
+  ],
+  "next_action": "NEXUS reviews DEV 3acba790adcaad8215eccb69f495b5f89d8a435b and records accept or reject for thrust flow, 55 tests, four-scenario numerical comparison and WindTrace evidence; keep main and tags unchanged"
+}

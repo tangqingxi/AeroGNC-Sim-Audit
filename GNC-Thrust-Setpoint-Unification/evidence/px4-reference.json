@@ -1,0 +1,42 @@
+{
+  "reference_commit": "2eb33667575619b02a2d9b52032df2fac7fb5291",
+  "repository": "https://github.com/mengchaoheng/DuctedFanUAV-Autopilot",
+  "files": [
+    {
+      "name": "mc_att_control_main.cpp",
+      "sha256": "a4b8769106fc16afe128ebb9ac1e735fa980dfa871f7de3545a091f3fdf4f3a2",
+      "locations": {
+        "_thrust_setpoint_body.copyTo(rates_setpoint.thrust_body)": [
+          374
+        ]
+      }
+    },
+    {
+      "name": "MulticopterRateControl.cpp",
+      "sha256": "b6e692e2cb554dacf90379e62bdcb18677d4bfa255c5f505cc44e072d0a77cb8",
+      "locations": {
+        "_thrust_setpoint = Vector3f(vehicle_rates_setpoint.thrust_body)": [
+          383
+        ],
+        "_vehicle_thrust_setpoint_pub.publish(vehicle_thrust_setpoint)": [
+          479
+        ],
+        "vehicle_torque_setpoint.timestamp_sample = angular_velocity.timestamp_sample": [
+          481
+        ]
+      }
+    },
+    {
+      "name": "ControlAllocator.cpp",
+      "sha256": "527f5dfdd3b78d7b33ced4e7b3dc9c27f7cceabd8000cb1d51b1c1a91048db83",
+      "locations": {
+        "_vehicle_thrust_setpoint_sub.update": [
+          648
+        ],
+        "_vehicle_torque_setpoint_sub.update": [
+          638
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "baseline_count": 51,
+  "current_count": 55,
+  "removed": [],
+  "added": [
+    "test_allocator_thrust_input",
+    "test_attitude_thrust_passthrough",
+    "test_rate_thrust_passthrough",
+    "test_thrust_setpoint_chain"
+  ]
+}
