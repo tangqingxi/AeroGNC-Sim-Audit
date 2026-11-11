@@ -1,0 +1,96 @@
+{
+  "schema": "wtr-validation/1",
+  "file": "flight.wtr",
+  "sha256": "5fa8ffa451a6f6b410764798583c7284801d4e54bf1779653f323372b66a45be",
+  "bytes": 563396,
+  "run_id": "attitude_step_3e85fc4222ce",
+  "scenario": "attitude_step",
+  "method": "ATT_P_RATE_PID_PINV",
+  "topics": 15,
+  "parameters": 99,
+  "duration_s": 3,
+  "execution_status": "completed",
+  "input_signature": "3e85fc4222cecb65893703f03ad2d4a08ca43a8c06abbe1384c7a0d2f178882c",
+  "attitude_reference_source": "guidance/attitude_reference (attitude-only scenario)",
+  "attitude_setpoint_source": "guidance/attitude_reference (attitude-only scenario)",
+  "rate_setpoint_source": "control/rate_setpoint",
+  "trajectory_velocity_source": "not_applicable (attitude-only scenario; no position/velocity reference)",
+  "reference_parameters": {
+    "experiment.reference.roll_rad": {
+      "path": "experiment.reference.roll_rad",
+      "value": 0.08726646259971647,
+      "type": "float",
+      "unit": "rad",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.pitch_rad": {
+      "path": "experiment.reference.pitch_rad",
+      "value": 0,
+      "type": "float",
+      "unit": "rad",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.yaw_rad": {
+      "path": "experiment.reference.yaw_rad",
+      "value": 0,
+      "type": "float",
+      "unit": "rad",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.quaternion_bn": {
+      "path": "experiment.reference.quaternion_bn",
+      "value": [
+        0.9990482215818578,
+        0.04361938736533599,
+        0,
+        0
+      ],
+      "type": "array",
+      "unit": "1",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.thrust_reference_n": {
+      "path": "experiment.reference.thrust_reference_n",
+      "value": 20.5548,
+      "type": "float",
+      "unit": "N",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.yaw_rate_rad_s": {
+      "path": "experiment.reference.yaw_rate_rad_s",
+      "value": 0,
+      "type": "float",
+      "unit": "rad/s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.start_s": {
+      "path": "experiment.reference.start_s",
+      "value": 0.5,
+      "type": "float",
+      "unit": "s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    },
+    "experiment.reference.end_s": {
+      "path": "experiment.reference.end_s",
+      "value": 1.5,
+      "type": "float",
+      "unit": "s",
+      "source": "experiment.definition.guidance",
+      "overridden": false
+    }
+  },
+  "software": {
+    "matlab_version": "25.2.0.2998904 (R2025b)",
+    "matlab_release": "2025b",
+    "computer": "PCWIN64",
+    "git_commit": "abcc57b20eac3194fea520e6db5b1199ee0cd183",
+    "git_dirty": false
+  }
+}

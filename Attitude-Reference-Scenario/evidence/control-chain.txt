@@ -1,0 +1,21 @@
+Attitude reference control chain
+components=sensor_ideal,navigation,guidance_attitude,attitude,rate,allocation,latch_servos,latch_motor
+position_component=absent
+velocity_component=absent
+active_modules=guidance,attitude,rate,allocation
+method=ATT_P_RATE_PID_PINV
+guidance_topic=guidance/attitude_reference
+attitude_setpoint_topic=guidance/attitude_reference (direct)
+allocation_thrust_source=guidance/attitude_reference
+position_records=0
+velocity_records=0
+control/velocity_setpoint_records=0
+control/attitude_setpoint_records=0
+guidance/attitude_reference_records=150
+control/rate_setpoint_records=599
+fixed_thrust_n=20.554800 (trim)
+allocation motor=sqrt(T/k_T0)
+dropped=0
+periods: guidance=0.020 s, attitude=0.005 s, rate=0.0025 s
+causality: all records available_time_s >= sample_time_s
+mat_roundtrip=passed

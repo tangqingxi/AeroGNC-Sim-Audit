@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "phase": "Attitude-Reference-Scenario",
+  "created_at": "2026-11-11T11:54:43Z",
+  "agent": {
+    "name": "DeepSeek Harness",
+    "model": "deepseek-flash"
+  },
+  "development": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim",
+    "branch": "feat/attitude-reference-scenario",
+    "commit": "abcc57b20eac3194fea520e6db5b1199ee0cd183"
+  },
+  "audit": {
+    "repository": "https://github.com/tangqingxi/AeroGNC-Sim-Audit"
+  },
+  "status": "in-progress",
+  "environment": {
+    "os": "Windows",
+    "matlab": "R2025b 25.2.0.2998904",
+    "dev_branch": "feat/attitude-reference-scenario"
+  },
+  "evidence": [
+    {
+      "path": "Attitude-Reference-Scenario/REPORT.md",
+      "sha256": "612908d8b4bf65af55172f4b1d58289fdfc4e3172b24fb4fb93f3bb7f78ee8b4",
+      "kind": "report"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/SCENARIO-DESIGN.md",
+      "sha256": "3c9d9c068e5f6738bad0c6f782513a93609520032baf0ee10cb25fe8d29e9fc8",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/CONTROL-CHAIN.md",
+      "sha256": "96b9819bae9f7885251588ead6306ae239aab43751053631d387c96768ee010c",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/HANDOFF.md",
+      "sha256": "10b0a974d642af593de4e6e80dd1474ba5e8737c4e8b77f9c0c26dc2c702717b",
+      "kind": "handoff"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/guidance-reference.txt",
+      "sha256": "e864cb09db08bbcde7da0ef8b4dfd7f242aa2078103e57921fafd2bfcb335dd6",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/control-chain.txt",
+      "sha256": "0b7eaac8c9767f7562d1b9ce65b71b102fab40de880722ebb2d940c7d64e097d",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/closed-loop.txt",
+      "sha256": "79e478d4b6befff170e8d889320997a170855c1ab02e27942f80dbb40b7d0cb0",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/attitude-response.csv",
+      "sha256": "dae9c941aab57b370a681ffeeb4c5a06e2c5a45e6cc8ce937b1a1f138472e4f3",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/wtr-validation.json",
+      "sha256": "352d04e87493b71adf9645667bcf3b8058bd9c3717563ea9999bb742e36245a6",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/regression-test.txt",
+      "sha256": "d58ef807a69250e6d894d24235c2cda6baf67649e19d54fb294244b0cec04649",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/windtrace-smoke.txt",
+      "sha256": "83572d56f33d26519c7cbb777f203c48b638143e0e07bb5b5aaacdb6d010549b",
+      "kind": "other"
+    },
+    {
+      "path": "Attitude-Reference-Scenario/evidence/windtrace-screenshot.png",
+      "sha256": "4640a47db0ffda2039a97d902a2260c1bc443212774e6c46d78a5b84136aa699",
+      "kind": "other"
+    }
+  ],
+  "verification": {
+    "commands": [
+      "fresh clone; matlab -batch run('tests/run_tests.m')"
+    ],
+    "result": "passed"
+  },
+  "limitations": [
+    "Physical validation BLOCKED (synthetic aero fixture). Fixed thrust is not thrust control; no position/velocity loop, so drift is expected. Yaw drift about 2 deg is recorded. IdealState has no sensor noise."
+  ],
+  "next_action": "NEXUS review of Position/Velocity bypass, Guidance-to-Attitude topic, fixed thrust and WTR attitude reference"
+}

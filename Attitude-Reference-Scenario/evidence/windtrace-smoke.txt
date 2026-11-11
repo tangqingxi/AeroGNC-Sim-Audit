@@ -1,0 +1,17 @@
+WindTrace read_flight and smoke
+
+[
+  {
+    "run_id": "attitude_step_3e85fc4222ce",
+    "topics": 15,
+    "parameters": 99,
+    "duration_s": 3,
+    "execution": {
+      "status": "completed",
+      "expected_duration_s": 3
+    },
+    "audit": {
+      "status": "unknown"
+    }
+  }
+]

@@ -23,7 +23,7 @@
 
 ## 当前任务状态
 
-- 当前阶段：`Velocity-Reference-Scenario` 实现完成（`feat/velocity-reference-scenario` @ `f0890c2`），待 NEXUS 复核；未合并 main。
+- 当前阶段：`Attitude-Reference-Scenario` 实现完成（`feat/attitude-reference-scenario` @ `abcc57b`），待 NEXUS 复核；未合并 main。
 
 ## 已批准且仍有效的决策
 
